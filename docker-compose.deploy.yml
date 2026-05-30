@@ -1,12 +1,12 @@
 # Production deploy: API image from GHCR, DB and Redis on server.
 # Use: docker compose -f docker-compose.deploy.yml pull && docker compose -f docker-compose.deploy.yml up -d
-# Env: set DEPLOY_IMAGE in .env or export (e.g. ghcr.io/OWNER/myshopuz-api:latest)
+# Env: set DEPLOY_IMAGE in .env or export (e.g. ghcr.io/OWNER/jomboy-api:latest)
 
 version: '3.8'
 
 services:
   api:
-    image: ${DEPLOY_IMAGE:-ghcr.io/placeholder/myshopuz-api:latest}
+    image: ${DEPLOY_IMAGE:-ghcr.io/placeholder/jomboy-api:latest}
     ports:
       - "4000:4000"
     environment:

@@ -8,7 +8,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: myshopuz-api
+  # Repo-scoped name so GITHUB_TOKEN can push (myshopuz-api may be linked to another repo).
+  IMAGE_NAME: ${{ github.event.repository.name }}-api
 
 jobs:
   docker-api:
@@ -33,7 +34,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Image meta
         id: meta
@@ -58,7 +59,7 @@ jobs:
     # Run only when deploy is enabled (set repository variable DEPLOY_ENABLED = true and add secrets)
     if: success() && vars.DEPLOY_ENABLED == 'true'
     env:
-      DEPLOY_IMAGE: ghcr.io/${{ github.repository_owner }}/myshopuz-api:latest
+      DEPLOY_IMAGE: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}-api:latest
       DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/myshopuz' }}
     steps:
       - name: Deploy via SSH

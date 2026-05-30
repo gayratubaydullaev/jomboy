@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @myshopuz/web run build
+      - run: pnpm turbo run build --filter=@myshopuz/web
         env:
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:4000' }}
           JWT_SECRET: ${{ secrets.JWT_SECRET || 'ci-web-jwt-secret-min-32-chars-long!!' }}
@@ -51,5 +51,5 @@ jobs:
             [ -f apps/web/.env ] && . ./apps/web/.env
             set +a
             pnpm install --frozen-lockfile
-            pnpm --filter @myshopuz/web run build
+            pnpm turbo run build --filter=@myshopuz/web
             pm2 restart myshopuz-web || pm2 start pnpm --name myshopuz-web -- start

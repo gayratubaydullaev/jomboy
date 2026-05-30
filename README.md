@@ -190,7 +190,7 @@ Deploy ishlashi uchun GitHub repo **Variables** va **Secrets** ni to‘ldiring, 
 | `SERVER_USERNAME`  | SSH foydalanuvchi (masalan root)                    |
 | `SSH_PRIVATE_KEY`  | SSH kalit (private key to‘liq matni)               |
 | `DEPLOY_PORT`      | SSH port (ixtiyoriy, sukutda 22)                   |
-| `GHCR_TOKEN`       | GitHub PAT (read:packages) — image pull uchun      |
+| `GHCR_TOKEN`       | GitHub PAT (`read:packages`) — serverda image pull uchun |
 | `DATABASE_URL`     | PostgreSQL URL (serverni .env uchun)               |
 | `JWT_SECRET`       | JWT kalit (serverni .env uchun)                   |
 | `CORS_ORIGIN`, `REDIS_URL`, `TELEGRAM_BOT_TOKEN` va boshqalar | API sozlamalari (serverni .env uchun) |
@@ -207,6 +207,14 @@ Deploy ishlashi uchun GitHub repo **Variables** va **Secrets** ni to‘ldiring, 
 Keyingi `main` ga push lardan so‘ng workflow avtomatik: reponi yangilaydi, image ni pull qiladi va `docker compose up -d` bajaradi.
 
 **Eslatma:** Web (Next.js) ni Vercel yoki boshqa platformaga ulaganingizda ular o‘zlari repodan build qiladi; API ni GHCR image dan yoki Railway/Render orqali deploy qilishingiz mumkin.
+
+### GHCR push xatosi (`permission_denied: write_package`)
+
+Docker image yig‘iladi, lekin `ghcr.io` ga push qilishda xato bo‘lsa, quyidagilarni tekshiring:
+
+1. **Workflow permissions** — repo **Settings → Actions → General → Workflow permissions** da **Read and write permissions** tanlangan bo‘lsin (faqat read bo‘lsa, push rad etiladi).
+2. **Package ↔ repo bog‘lanishi** — `myshopuz-api` paketi boshqa repoga ulangan bo‘lishi mumkin. [Packages](https://github.com/users/gayratubaydullaev/packages) → `myshopuz-api` → **Package settings** → **Connect repository** → `jomboy` reponi ulang.
+3. **PAT (ixtiyoriy)** — yuqoridagilar yetmasa, **Settings → Developer settings → Personal access tokens** da `write:packages` va `read:packages` scope li token yarating va `GHCR_TOKEN` secret sifatida qo‘shing.
 
 ## Produktivlik va masshtab
 

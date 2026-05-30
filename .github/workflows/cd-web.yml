@@ -26,6 +26,7 @@ jobs:
       - run: pnpm --filter @myshopuz/web run build
         env:
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:4000' }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET || 'ci-web-jwt-secret-min-32-chars-long!!' }}
           SESSION_COOKIE_SECRET: ${{ secrets.SESSION_COOKIE_SECRET || 'ci-web-session-secret-min-32-chars' }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' }}
 
@@ -45,6 +46,10 @@ jobs:
             set -e
             cd ${{ vars.DEPLOY_PATH || '/opt/myshopuz' }}
             git fetch origin main && git reset --hard origin/main
+            set -a
+            [ -f .env ] && . ./.env
+            [ -f apps/web/.env ] && . ./apps/web/.env
+            set +a
             pnpm install --frozen-lockfile
             pnpm --filter @myshopuz/web run build
             pm2 restart myshopuz-web || pm2 start pnpm --name myshopuz-web -- start

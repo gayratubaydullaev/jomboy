@@ -1,0 +1,245 @@
+'use client';
+
+import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogClose, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { ProductPageClient } from './product-page-client';
+import { ProductVariants } from '@/components/product/product-variants';
+import { useProductSelectionOptional } from './product-selection-context';
+import { API_URL, formatPrice } from '@/lib/utils';
+import { getCartHeaders, saveCartSessionFromResponse } from '@/lib/cart-session';
+import { apiFetch } from '@/lib/api';
+import { useTelegramBackHandler } from '@/contexts/telegram-back-handler-context';
+import { useTranslation } from '@/contexts/i18n-context';
+import { reviewPhrase } from './product-rating-label';
+import { ShoppingCart, Loader2, X, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+
+export function ProductActionsSection({ isMobile = false }: { isMobile?: boolean }) {
+  const router = useRouter();
+  const { t } = useTranslation();
+  const cur = t('checkout.currency');
+  const ctx = useProductSelectionOptional();
+  const [variantModalOpen, setVariantModalOpen] = useState(false);
+  const [adding, setAdding] = useState(false);
+  const [done, setDone] = useState(false);
+  const [buying, setBuying] = useState(false);
+
+  const hasVariants = (ctx?.variantGroups.length ?? 0) > 0;
+
+  const addToCart = useCallback(async () => {
+    if (!ctx) return;
+    if ((ctx.stock ?? 0) <= 0) return;
+    setAdding(true);
+    try {
+      const res = await apiFetch(`${API_URL}/cart/items`, {
+        method: 'POST',
+        headers: getCartHeaders(),
+        body: JSON.stringify({
+          productId: ctx.product.id,
+          quantity: 1,
+          ...(ctx.variantId ? { variantId: ctx.variantId } : {}),
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      saveCartSessionFromResponse(data);
+      if (res.ok) {
+        setDone(true);
+        setTimeout(() => setDone(false), 3000);
+        toast.success(t('product.toastAdded'));
+        if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('cart-updated'));
+        setVariantModalOpen(false);
+      } else {
+        toast.error(t('product.toastAddError'));
+      }
+    } catch {
+      toast.error(t('product.toastAddFailed'));
+    } finally {
+      setAdding(false);
+    }
+  }, [ctx, t]);
+
+  const buyNow = useCallback(async () => {
+    if (!ctx) return;
+    if ((ctx.stock ?? 0) <= 0) return;
+    setBuying(true);
+    try {
+      const res = await apiFetch(`${API_URL}/cart/items`, {
+        method: 'POST',
+        headers: getCartHeaders(),
+        body: JSON.stringify({
+          productId: ctx.product.id,
+          quantity: 1,
+          ...(ctx.variantId ? { variantId: ctx.variantId } : {}),
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      saveCartSessionFromResponse(data);
+      if (res.ok) {
+        toast.success(t('product.toastAdded'));
+        if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('cart-updated'));
+        setVariantModalOpen(false);
+        router.push('/checkout');
+      } else {
+        toast.error(t('product.toastAddError'));
+      }
+    } catch {
+      toast.error(t('product.toastAddFailed'));
+    } finally {
+      setBuying(false);
+    }
+  }, [ctx, router, t]);
+
+  const openVariantModal = useCallback((_action: 'cart' | 'buy') => {
+    ctx?.resetSelected?.();
+    setVariantModalOpen(true);
+  }, [ctx]);
+
+  useTelegramBackHandler(variantModalOpen, () => {
+    setVariantModalOpen(false);
+  });
+
+  if (!ctx) return null;
+
+  const buttons = (
+    <ProductPageClient
+      productId={ctx.product.id}
+      stock={ctx.stock}
+      variantId={ctx.variantId}
+      hasVariants={hasVariants}
+      isMobile={isMobile}
+      onAddToCart={addToCart}
+      onBuyNow={buyNow}
+      onOpenVariantModal={hasVariants ? openVariantModal : undefined}
+      adding={adding}
+      done={done}
+      buying={buying}
+    />
+  );
+
+  const rc = ctx.product.reviewsCount ?? 0;
+
+  return (
+    <>
+      {isMobile ? (
+        <div
+          className="fixed left-0 right-0 z-40 p-3 sm:p-3 bg-card/95 backdrop-blur-xl border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
+          style={{ bottom: 'calc(3.5rem + env(safe-area-inset-bottom, 0px))' }}
+        >
+          <div className="max-w-lg mx-auto w-full px-1">{buttons}</div>
+        </div>
+      ) : (
+        buttons
+      )}
+
+      <Dialog open={variantModalOpen} onOpenChange={(open) => { if (open) ctx?.resetSelected?.(); setVariantModalOpen(open); }}>
+        <DialogContent
+          showClose={false}
+          className="max-w-4xl w-full p-0 gap-0 overflow-hidden md:rounded-2xl rounded-t-2xl rounded-b-none md:h-[600px] h-[90vh] flex flex-col [&>button:last-child]:hidden"
+          aria-describedby={undefined}
+        >
+          <DialogTitle className="sr-only">{t('product.modalTitle')}</DialogTitle>
+          <DialogDescription className="sr-only">{t('product.modalDesc')}</DialogDescription>
+          <DialogClose
+            aria-label={t('product.close')}
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 z-[60] rounded-full bg-card/80 p-2 hover:bg-card transition-colors h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center border border-border shadow-sm backdrop-blur-sm outline-none focus:ring-0"
+          >
+            <X className="h-5 w-5" />
+          </DialogClose>
+
+          <div className="flex flex-col md:flex-row h-full overflow-y-auto md:overflow-hidden">
+            <div className="w-full md:w-1/2 bg-muted/50 p-3 sm:p-4 md:p-6 md:h-full md:overflow-y-auto shrink-0">
+              <div className="relative aspect-square md:aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-muted">
+                {(ctx.currentVariant?.imageUrl ?? ctx.product.images?.[0]?.url) ? (
+                  <Image
+                    src={ctx.currentVariant?.imageUrl ?? ctx.product.images?.[0]?.url ?? ''}
+                    alt={ctx.product.title ?? ''}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">{t('product.noImage')}</div>
+                )}
+              </div>
+            </div>
+
+            <div className="w-full md:w-1/2 flex flex-col md:h-full md:overflow-y-auto bg-card">
+              <div className="flex-1 flex flex-col p-3 sm:p-4 md:p-6">
+                <div className="space-y-1 order-1">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground leading-tight">{ctx.product.title ?? ''}</h2>
+                  <div className="flex items-center gap-2 mt-1 sm:mt-2 text-sm">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-medium text-foreground">{ctx.product.avgRating ?? '—'}</span>
+                    <span className="text-muted-foreground">·</span>
+                    <span className="text-muted-foreground">{reviewPhrase(rc, t)}</span>
+                  </div>
+                </div>
+
+                <div className="order-2 mt-4 md:mt-0 md:order-3">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-1.5 sm:mb-2">{t('product.pickVariant')}</h3>
+                  <ProductVariants variants={ctx.variantGroups} selected={ctx.selected} onChange={ctx.handleVariantChange} />
+                </div>
+
+                {(() => {
+                  const basePrice = ctx.product.price != null ? Number(ctx.product.price) : 0;
+                  const variantPrice = ctx.currentVariant?.priceOverride != null ? Number(ctx.currentVariant.priceOverride) : null;
+                  const price = variantPrice ?? basePrice;
+                  const comparePriceRaw = ctx.product.comparePrice != null ? Number(ctx.product.comparePrice) : null;
+                  const comparePrice = variantPrice != null ? comparePriceRaw : comparePriceRaw;
+                  const discountPercent =
+                    comparePrice != null && comparePrice > price ? Math.round((1 - price / comparePrice) * 100) : null;
+                  return (
+                    <div className="order-3 mt-4 md:order-2 md:mt-0 flex items-end gap-2 flex-wrap">
+                      <span className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+                        {formatPrice(price)} {cur}
+                      </span>
+                      {discountPercent != null && discountPercent > 0 && (
+                        <div className="mb-1 flex items-center gap-2">
+                          <span className="text-base text-muted-foreground line-through decoration-red-400 decoration-2">
+                            {formatPrice(comparePrice ?? price)} {cur}
+                          </span>
+                          <Badge variant="destructive" className="bg-red-100 text-red-600 hover:bg-red-200 border-red-200 text-[10px] px-1.5 h-4">
+                            -{discountPercent}%
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                {ctx.product.shop && (
+                  <p className="order-4 mt-3 text-sm text-muted-foreground">
+                    {t('product.shopLine')}{' '}
+                    <span className="font-medium text-foreground">{ctx.product.shop.name ?? ctx.product.shop.slug}</span>
+                  </p>
+                )}
+              </div>
+
+              <div className="pt-3 sm:pt-4 bg-card sticky bottom-0 z-10 border-t border-border mt-auto p-3 sm:p-4 md:p-6 md:pt-0 pb-safe space-y-2 sm:space-y-3">
+                <Button
+                  onClick={addToCart}
+                  disabled={!ctx.variantId || (ctx.stock ?? 0) <= 0 || adding}
+                  className="h-11 w-full text-base font-semibold gap-1.5 shadow-sm hover:shadow-md transition-all"
+                >
+                  {adding ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+                  {t('product.addToCart')}
+                </Button>
+                <Button
+                  onClick={buyNow}
+                  disabled={!ctx.variantId || (ctx.stock ?? 0) <= 0 || buying}
+                  className="h-11 w-full text-base font-semibold gap-1.5 bg-blue-600 hover:bg-blue-700"
+                >
+                  {buying ? <Loader2 className="h-4 w-4 animate-spin" /> : t('product.buyNow')}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

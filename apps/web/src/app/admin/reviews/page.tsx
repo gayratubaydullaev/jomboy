@@ -1,0 +1,192 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { toast } from 'sonner';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { API_URL } from '@/lib/utils';
+import { apiFetch } from '@/lib/api';
+import { MessageSquare, Star, Trash2, Check, X } from 'lucide-react';
+import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
+import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
+import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
+import { useTranslation } from '@/contexts/i18n-context';
+
+const PAGE_SIZE = 20;
+
+type Review = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  sellerReply: string | null;
+  isModerated: boolean;
+  createdAt: string;
+  user: { id: string; firstName: string; lastName: string };
+  product: { id: string; title: string };
+};
+
+export default function AdminReviewsPage() {
+  const { t, intlLocale } = useTranslation();
+  const searchParams = useSearchParams();
+  const [data, setData] = useState<{ data: Review[]; total: number; page: number; totalPages: number } | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<'false' | 'true' | ''>('');
+  const [page, setPage] = useState(1);
+  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+
+  useEffect(() => {
+    if (searchParams.get('filter') === 'pending') setFilter('false');
+  }, [searchParams]);
+
+  const load = useCallback(() => {
+    if (!token) return;
+    const params = new URLSearchParams({ page: String(page), limit: String(PAGE_SIZE) });
+    if (filter) params.set('isModerated', filter);
+    apiFetch(`${API_URL}/admin/reviews?${params}`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData({ data: [], total: 0, page: 1, totalPages: 0 }));
+  }, [token, filter, page]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const handleModerate = (id: string, approve: boolean) => {
+    if (!token) return;
+    setLoading(true);
+    apiFetch(`${API_URL}/reviews/${id}/moderate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ approve }),
+    })
+      .then(() => {
+        toast.success(approve ? t('admin.ui.reviewApproved') : t('admin.ui.reviewRejected'));
+        load();
+      })
+      .catch(() => toast.error(t('admin.common.actionFailed')))
+      .finally(() => setLoading(false));
+  };
+
+  const handleDelete = (id: string) => {
+    if (!token) return;
+    setDeletingId(id);
+    apiFetch(`${API_URL}/reviews/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(() => {
+        toast.success(t('admin.ui.reviewDeleted'));
+        load();
+      })
+      .catch(() => toast.error(t('admin.ui.deleteFailed')))
+      .finally(() => setDeletingId(null));
+  };
+
+  if (!token) return <DashboardAuthGate />;
+  if (data === null) return <Skeleton className="h-64 w-full" />;
+
+  const reviews = data.data ?? [];
+
+  return (
+    <div className="min-w-0 max-w-full space-y-6">
+      <DashboardPageHeader eyebrow={t('admin.common.platform')} title={t('admin.reviews.title')} description={t('admin.reviews.description')}>
+        <div className="flex max-w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="flex flex-wrap gap-2">
+            <Button variant={filter === '' ? 'default' : 'outline'} size="sm" className="min-h-[40px] touch-manipulation" onClick={() => { setFilter(''); setPage(1); }}>
+              {t('admin.ui.all')}
+            </Button>
+            <Button variant={filter === 'false' ? 'default' : 'outline'} size="sm" className="min-h-[40px] touch-manipulation" onClick={() => { setFilter('false'); setPage(1); }}>
+              {t('admin.ui.pending')}
+            </Button>
+            <Button variant={filter === 'true' ? 'default' : 'outline'} size="sm" className="min-h-[40px] touch-manipulation" onClick={() => { setFilter('true'); setPage(1); }}>
+              {t('admin.ui.approved')}
+            </Button>
+          </div>
+          {data && data.totalPages > 1 && (
+            <div className="flex flex-wrap items-center gap-2 sm:ml-2">
+              <Button variant="outline" size="sm" className="min-h-[40px] touch-manipulation" disabled={data.page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>
+                {t('admin.common.prev')}
+              </Button>
+              <span className="text-sm text-muted-foreground">{t('admin.common.pageOf', { current: data.page, total: data.totalPages })}</span>
+              <Button variant="outline" size="sm" className="min-h-[40px] touch-manipulation" disabled={data.page >= data.totalPages} onClick={() => setPage((p) => Math.min(data.totalPages, p + 1))}>
+                {t('admin.common.next')}
+              </Button>
+            </div>
+          )}
+        </div>
+      </DashboardPageHeader>
+
+      <Card>
+        <CardHeader className="border-b border-border/60 pb-3">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <MessageSquare className="h-5 w-5 shrink-0 text-primary" aria-hidden />
+            {t('admin.reviews.listTitle', { total: data.total })}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-5">
+          {reviews.length === 0 ? (
+            <DashboardEmptyState icon={MessageSquare} title={t('admin.reviews.emptyTitle')} description={t('admin.reviews.emptyDescription')} />
+          ) : (
+            <ul className="space-y-4">
+              {reviews.map((r) => (
+                <li key={r.id} className="p-4 sm:p-5 rounded-xl border bg-card space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                    <div className="flex items-center gap-2 flex-wrap min-w-0">
+                      <span className="font-medium">
+                        {r.user.firstName} {r.user.lastName}
+                      </span>
+                      <span className="flex items-center gap-0.5 text-yellow-500 shrink-0">
+                        {[1, 2, 3, 4, 5].map((i) => (
+                          <Star key={i} className={`w-4 h-4 ${i <= r.rating ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground/40'}`} />
+                        ))}
+                      </span>
+                      <span className="text-sm text-muted-foreground">{new Date(r.createdAt).toLocaleDateString(intlLocale)}</span>
+                      {r.isModerated ? (
+                        <span className="text-xs text-green-600 font-medium">{t('admin.reviews.badgeApproved')}</span>
+                      ) : (
+                        <span className="text-xs text-amber-600 font-medium">{t('admin.reviews.badgePending')}</span>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
+                      {!r.isModerated && (
+                        <>
+                          <Button size="sm" className="min-h-[40px] touch-manipulation text-green-600" onClick={() => handleModerate(r.id, true)} disabled={loading}>
+                            <Check className="h-4 w-4 mr-1" /> {t('admin.ui.approve')}
+                          </Button>
+                          <Button size="sm" variant="outline" className="min-h-[40px] touch-manipulation" onClick={() => handleModerate(r.id, false)} disabled={loading}>
+                            <X className="h-4 w-4 mr-1" /> {t('admin.ui.reject')}
+                          </Button>
+                        </>
+                      )}
+                      <Button variant="destructive" size="sm" className="min-h-[40px] touch-manipulation" onClick={() => handleDelete(r.id)} disabled={loading || deletingId === r.id}>
+                        <Trash2 className="h-4 w-4" />
+                        {t('admin.ui.delete')}
+                      </Button>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {t('admin.reviews.product')}{' '}
+                    <Link href={`/product/${r.product.id}`} className="text-primary underline">
+                      {r.product.title}
+                    </Link>
+                  </p>
+                  {r.comment && <p className="text-sm">{r.comment}</p>}
+                  {r.sellerReply && (
+                    <p className="text-sm pl-3 border-l-2 border-primary/30 text-muted-foreground">
+                      <span className="font-medium text-foreground">{t('admin.reviews.sellerReply')}</span> {r.sellerReply}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

@@ -1,0 +1,542 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  BUYER
+  SELLER
+  ADMIN
+  ADMIN_MODERATOR
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CLICK
+  PAYME
+  CASH
+  CARD_ON_DELIVERY
+}
+
+enum DeliveryType {
+  DELIVERY
+  PICKUP
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentProvider {
+  CLICK
+  PAYME
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String?   @map("password_hash")
+  phone         String?   @unique
+  telegramId    String?   @unique @map("telegram_id")
+  firstName     String    @map("first_name")
+  lastName      String    @map("last_name")
+  role          UserRole  @default(BUYER)
+  moderatorPermissions Json?   @map("moderator_permissions")
+  avatarUrl     String?   @map("avatar_url")
+  isBlocked     Boolean   @default(false) @map("is_blocked")
+  emailVerified Boolean   @default(false) @map("email_verified")
+  isGuest       Boolean   @default(false) @map("is_guest")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  refreshTokens RefreshToken[]
+  otpCodes      OtpCode[]
+
+  orders        Order[]         @relation("OrderBuyer")
+  cart          Cart?
+  reviews       Review[]
+  favorites     Favorite[]
+  buyerChatSessions  ChatSession[] @relation("ChatBuyer")
+
+  sellerOrders       Order[]         @relation("OrderSeller")
+  shop               Shop?
+  sellerChatSessions ChatSession[]   @relation("ChatSeller")
+  payoutRecords      PayoutRecord[]
+
+  chatMessagesSent   ChatMessage[]   @relation("ChatMessageSender")
+
+  sellerApplication       SellerApplication?
+  reviewedSellerApplications SellerApplication[] @relation("ApplicationReviewer")
+  reviewedPendingShopUpdates PendingShopUpdate[]  @relation("PendingUpdateReviewer")
+
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model OtpCode {
+  id        String   @id @default(uuid())
+  email     String
+  code      String
+  expiresAt DateTime @map("expires_at")
+  userId    String?  @map("user_id")
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([email])
+  @@index([expiresAt])
+  @@map("otp_codes")
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?   @map("image_url")
+  parentId    String?   @map("parent_id")
+  parent      Category? @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryToCategory")
+  products    Product[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+model Shop {
+  id              String   @id @default(uuid())
+  name            String
+  slug            String   @unique
+  description     String?
+  logoUrl         String?  @map("logo_url")
+  userId          String   @unique @map("user_id")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pickupAddress   Json?    @map("pickup_address")
+  isActive        Boolean  @default(true) @map("is_active")
+  chatEnabled     Boolean  @default(true) @map("chat_enabled")
+  commissionRate  Decimal? @map("commission_rate") @db.Decimal(5, 2)
+  telegramChatId  String?  @map("telegram_chat_id")
+  telegramType    String?  @map("telegram_type")
+  legalType       String?  @map("legal_type")
+  legalName       String?  @map("legal_name")
+  ogrn            String?  @map("ogrn")
+  inn             String?  @map("inn")
+  documentUrls    Json?    @map("document_urls")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  products         Product[]
+  pendingUpdates   PendingShopUpdate[]
+
+  @@map("shops")
+}
+
+model SellerApplication {
+  id            String    @id @default(uuid())
+  userId        String    @unique @map("user_id")
+  shopName      String    @map("shop_name")
+  description   String?   @map("description")
+  message       String?   @map("message")
+  legalType     String?   @map("legal_type")
+  legalName     String?   @map("legal_name")
+  ogrn          String?   @map("ogrn")
+  inn           String?   @map("inn")
+  documentUrls  Json?     @map("document_urls")
+  status        String    @default("PENDING") @map("status")
+  rejectReason  String?   @map("reject_reason")
+  reviewedAt    DateTime? @map("reviewed_at")
+  reviewedById  String?   @map("reviewed_by_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviewedBy User? @relation("ApplicationReviewer", fields: [reviewedById], references: [id])
+
+  @@map("seller_applications")
+}
+
+model PendingShopUpdate {
+  id                String    @id @default(uuid())
+  shopId            String    @map("shop_id")
+  requestedName     String    @map("requested_name")
+  requestedSlug     String    @map("requested_slug")
+  requestedDescription String? @map("requested_description")
+  requestedLegalType  String?  @map("requested_legal_type")
+  requestedLegalName  String?  @map("requested_legal_name")
+  requestedOgrn       String?  @map("requested_ogrn")
+  requestedInn        String?  @map("requested_inn")
+  requestedDocumentUrls Json?  @map("requested_document_urls")
+  status            String    @default("PENDING") @map("status")
+  rejectReason      String?   @map("reject_reason")
+  reviewedAt        DateTime? @map("reviewed_at")
+  reviewedById      String?   @map("reviewed_by_id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+
+  shop        Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  reviewedBy  User?  @relation("PendingUpdateReviewer", fields: [reviewedById], references: [id])
+
+  @@unique([shopId])
+  @@map("pending_shop_updates")
+}
+
+model TelegramLinkCode {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  chatId    String   @map("chat_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("telegram_link_codes")
+}
+
+model TelegramLoginToken {
+  id              String    @id @default(uuid())
+  token           String    @unique
+  telegramChatId  String?   @map("telegram_chat_id")
+  linkUserId      String?   @map("link_user_id")
+  expiresAt       DateTime  @map("expires_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@map("telegram_login_tokens")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String
+  description String
+  price       Decimal  @db.Decimal(12, 2)
+  comparePrice Decimal? @map("compare_price") @db.Decimal(12, 2)
+  stock       Int      @default(0)
+  sku         String?  @unique
+  categoryId  String   @map("category_id")
+  category    Category @relation(fields: [categoryId], references: [id])
+  shopId      String   @map("shop_id")
+  shop        Shop     @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  isActive    Boolean  @default(true) @map("is_active")
+  isModerated Boolean  @default(false) @map("is_moderated")
+  options     Json?    @map("options")
+  specs       Json?    @map("specs")
+  unit        String?  @map("unit")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  images        ProductImage[]
+  variants      ProductVariant[]
+  orderItems    OrderItem[]
+  reviews       Review[]
+  cartItems     CartItem[]
+  favorites     Favorite[]
+  chatSessions  ChatSession[]
+
+  @@unique([slug, shopId])
+  @@index([shopId])
+  @@index([categoryId])
+  @@index([isActive, isModerated])
+  @@map("products")
+}
+
+model ProductVariant {
+  id          String    @id @default(uuid())
+  productId   String    @map("product_id")
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  options     Json      @map("options")
+  stock       Int       @default(0)
+  imageUrl    String?   @map("image_url")
+  sku         String?   @unique
+  priceOverride Decimal? @map("price_override") @db.Decimal(12, 2)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+
+  @@map("product_variants")
+}
+
+model ProductImage {
+  id        String  @id @default(uuid())
+  url       String
+  alt       String?
+  sortOrder Int     @default(0) @map("sort_order")
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  orderNumber     String        @unique @map("order_number")
+  buyerId         String?       @map("buyer_id")
+  buyer           User?         @relation("OrderBuyer", fields: [buyerId], references: [id])
+  guestEmail     String?        @map("guest_email")
+  guestPhone     String?        @map("guest_phone")
+  guestViewToken String?        @unique @map("guest_view_token")
+  sellerId        String        @map("seller_id")
+  seller          User          @relation("OrderSeller", fields: [sellerId], references: [id])
+  status          OrderStatus   @default(PENDING)
+  paymentMethod   PaymentMethod @map("payment_method")
+  paymentStatus   PaymentStatus @default(PENDING) @map("payment_status")
+  deliveryType    DeliveryType  @default(DELIVERY) @map("delivery_type")
+  totalAmount     Decimal       @map("total_amount") @db.Decimal(12, 2)
+  shippingAddress Json          @map("shipping_address")
+  notes           String?
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  items    OrderItem[]
+  payments Payment[]
+
+  @@index([buyerId])
+  @@index([sellerId])
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@index([orderNumber, guestPhone])
+  @@map("orders")
+}
+
+model CheckoutSession {
+  id              String   @id @default(uuid())
+  buyerId         String?  @map("buyer_id")
+  guestEmail      String?  @map("guest_email")
+  guestPhone      String?  @map("guest_phone")
+  guestFirstName  String?  @map("guest_first_name")
+  guestLastName   String?  @map("guest_last_name")
+  cartSnapshot    Json     @map("cart_snapshot")
+  shippingAddress Json     @map("shipping_address")
+  deliveryType    String   @map("delivery_type")
+  paymentMethod   String   @map("payment_method")
+  totalAmount     Decimal  @map("total_amount")   @db.Decimal(12, 2)
+  notes           String?
+  orderId         String?  @map("order_id")
+  pollToken       String   @unique @map("poll_token")
+  cartSessionId   String?  @map("cart_session_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@index([buyerId])
+  @@index([cartSessionId])
+  @@map("checkout_sessions")
+}
+
+model Payment {
+  id         String          @id @default(uuid())
+  orderId    String          @map("order_id")
+  order      Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  provider   PaymentProvider
+  externalId String?         @map("external_id")
+  amount     Decimal         @db.Decimal(12, 2)
+  status     String          @default("PENDING")
+  createdAt  DateTime        @default(now()) @map("created_at")
+
+  @@index([orderId])
+  @@index([orderId, provider])
+  @@map("payments")
+}
+
+model PaymeTransaction {
+  id             String  @id @default(uuid())
+  paymeId        String  @unique @map("payme_id")
+  state          Int
+  amount         Int
+  accountOrderId String  @map("account_order_id")
+  createTime     BigInt  @map("create_time")
+  performTime    BigInt? @map("perform_time")
+  cancelTime     BigInt? @map("cancel_time")
+  reason         Int?
+
+  @@index([accountOrderId])
+  @@index([createTime])
+  @@map("payme_transactions")
+}
+
+model OrderItem {
+  id         String         @id @default(uuid())
+  orderId    String         @map("order_id")
+  order      Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String         @map("product_id")
+  product    Product        @relation(fields: [productId], references: [id])
+  variantId  String?        @map("variant_id")
+  variant    ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  quantity   Int
+  price      Decimal        @db.Decimal(12, 2)
+
+  @@map("order_items")
+}
+
+model Cart {
+  id        String    @id @default(uuid())
+  userId    String?   @unique @map("user_id")
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId String?   @unique @map("session_id")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  items CartItem[]
+  @@map("carts")
+}
+
+model CartItem {
+  id        String         @id @default(uuid())
+  cartId    String         @map("cart_id")
+  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String         @map("product_id")
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId String?        @map("variant_id")
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  quantity  Int            @default(1)
+
+  @@unique([cartId, productId, variantId])
+  @@map("cart_items")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  productId   String   @map("product_id")
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId      String   @map("user_id")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating      Int      
+  comment     String?
+  sellerReply String?  @map("seller_reply")
+  isModerated Boolean  @default(false) @map("is_moderated")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("reviews")
+}
+
+model Favorite {
+  id        String  @id @default(uuid())
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, productId])
+  @@map("favorites")
+}
+
+model ChatSession {
+  id        String   @id @default(uuid())
+  buyerId   String   @map("buyer_id")
+  buyer     User     @relation("ChatBuyer", fields: [buyerId], references: [id], onDelete: Cascade)
+  sellerId  String   @map("seller_id")
+  seller    User     @relation("ChatSeller", fields: [sellerId], references: [id], onDelete: Cascade)
+  productId String?  @map("product_id")
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  messages ChatMessage[]
+
+  @@unique([buyerId, sellerId, productId])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id        String      @id @default(uuid())
+  sessionId String      @map("session_id")
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  senderId  String      @map("sender_id")
+  sender    User        @relation("ChatMessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  content   String
+  readAt    DateTime?   @map("read_at")
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@index([sessionId])
+  @@index([sessionId, createdAt(sort: Desc)])
+  @@map("chat_messages")
+}
+
+model PlatformSettings {
+  id              String   @id @default(uuid())
+  siteName        String?  @map("site_name") // название маркетплейса (в шапке, футере, title)
+  commissionRate  Decimal  @map("commission_rate") @db.Decimal(5, 2) // e.g. 5.00 = 5%
+  minPayoutAmount Decimal  @map("min_payout_amount") @db.Decimal(12, 2)
+  paymentClickEnabled       Boolean @default(true) @map("payment_click_enabled")
+  paymentPaymeEnabled       Boolean @default(true) @map("payment_payme_enabled")
+  paymentCashEnabled        Boolean @default(true) @map("payment_cash_enabled")
+  paymentCardOnDeliveryEnabled Boolean @default(true) @map("payment_card_on_delivery_enabled")
+  deliveryEnabled Boolean @default(true) @map("delivery_enabled")
+  pickupEnabled   Boolean @default(true) @map("pickup_enabled")
+  chatWithSellerEnabled Boolean @default(true) @map("chat_with_seller_enabled")
+  adminTelegramChatId String? @map("admin_telegram_chat_id")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("platform_settings")
+}
+
+model Banner {
+  id             String    @id @default(uuid())
+  image          String    
+  href           String    
+  external       Boolean   @default(false)
+  title          String?
+  sortOrder      Int       @default(0) @map("sort_order")
+  isActive       Boolean   @default(true) @map("is_active")
+  displaySeconds Int?      @map("display_seconds")
+  startsAt       DateTime? @map("starts_at")
+  endsAt         DateTime? @map("ends_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@map("banners")
+}
+
+model PayoutRecord {
+  id        String   @id @default(uuid())
+  sellerId  String   @map("seller_id")
+  seller    User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  amount    Decimal  @db.Decimal(12, 2)
+  method    String   
+  paidAt    DateTime @map("paid_at")
+  note      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("payout_records")
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String    @map("type")
+  title     String    @map("title")
+  body      String?   @map("body")
+  link      String?   @map("link")
+  entityId  String?  @map("entity_id")
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("notifications")
+}

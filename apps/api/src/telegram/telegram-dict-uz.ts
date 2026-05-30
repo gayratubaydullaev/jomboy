@@ -1,0 +1,217 @@
+/** Uzbek (Latin) — default Telegram bot copy. Keys must match `telegram-dict-ru.ts`. */
+export const TELEGRAM_DICT_UZ: Record<string, string> = {
+  'currency.som': 'soʻm',
+  'common.guest': 'Mehmon',
+  'common.dash': '—',
+  'common.moreItems': '... va yana {{count}} ta',
+
+  'orderStatus.PENDING': 'Kutilmoqda',
+  'orderStatus.CONFIRMED': 'Zakazingiz qabul qilindi',
+  'orderStatus.PROCESSING': 'Tayyorlanmoqda',
+  'orderStatus.SHIPPED': 'Yuborildi',
+  'orderStatus.DELIVERED': 'Yetkazildi',
+  'orderStatus.CANCELLED': 'Bekor qilindi',
+  'orderStatus.PICKUP_SHIPPED': 'Olib ketishga tayyor',
+  'orderStatus.PICKUP_DELIVERED': 'Berildi (Olib ketildi)',
+
+  'paymentStatus.PENDING': 'Kutilmoqda',
+  'paymentStatus.PAID': "To'langan",
+  'paymentStatus.FAILED': 'Muvaffaqiyatsiz',
+  'paymentStatus.REFUNDED': 'Qaytarilgan',
+
+  'paymentMethod.CLICK': 'Click',
+  'paymentMethod.PAYME': 'Payme',
+  'paymentMethod.CASH': 'Naqd',
+  'paymentMethod.CARD_ON_DELIVERY': 'Karta (yetkazishda)',
+
+  'deliveryType.DELIVERY': 'Yetkazib berish',
+  'deliveryType.PICKUP': 'Olib ketish',
+
+  'kb.confirm': '✓ Tasdiqlash',
+  'kb.cancelOrder': '✕ Bekor qilish',
+  'kb.processing': 'Qayta ishlash',
+  'kb.shipped': 'Yuborildi',
+  'kb.delivered': '✓ Yetkazildi',
+  'kb.detail': '📄 Batafsil',
+  'kb.orders': '📋 Buyurtmalar',
+  'kb.markPaid': "💳 To'lov qabul qilindi",
+  'kb.myOrders': '📋 Mening buyurtmalarim',
+
+  'menu.backMain': '◀️ Asosiy menyu',
+  'menu.orders': '📋 Buyurtmalar',
+  'menu.stats': '📊 Statistika',
+  'menu.today': '📅 Bugun',
+  'menu.pending': '⏳ Kutilmoqda',
+  'menu.help': '❓ Yordam',
+  'menu.shopWeb': "🛒 Do'kon (veb-ilova)",
+  'menu.shopWebShort': "Do'kon (veb)",
+  'menu.adminPanel': '🌐 Admin panel',
+  'menu.sellerPanel': '🌐 Sotuvchi panel',
+  'menu.buyerCatalog': "🛒 Do'kon (katalog, savatcha)",
+  'menu.buyerMyOrders': '📋 Mening buyurtmalarim',
+  'menu.modProducts': '📦 Moderatsiya (tovarlar)',
+  'menu.modReviews': '💬 Sharhlar',
+
+  'cmd.start': 'Botni ishga tushirish',
+  'cmd.code': 'Ulash kodi olish (Admin / Sotuvchi)',
+  'cmd.shop': "Do'konni ochish (veb-ilova)",
+  'cmd.orders': 'Mening buyurtmalarim / Sotuvchi: buyurtmalar',
+  'cmd.help': 'Yordam',
+  'cmd.lang': 'Tilni tanlash',
+
+  'lang.prompt': '🌐 <b>Bot tili</b>\n\nHozirgi til: <b>{{current}}</b>\n\nQuyidagi tugmadan tanlang:',
+  'lang.nameUz': 'Oʻzbekcha',
+  'lang.nameRu': 'Русский',
+  'lang.saved': 'Til: {{lang}}',
+
+  'menuIntro.title': '<b>Oline Bozor bot</b>',
+  'menuIntro.body':
+    'Quyidagi tugmalardan foydalaning. Buyurtma xabarida "Batafsil" — toʻliq maʼlumot.',
+
+  'link.expired': '⏱ Link muddati tugagan. Saytda "Telegram ulash" tugmasini qayta bosing.',
+  'link.loginOnly': 'Bu link kirish uchun. Saytda "Telegram orqali kirish" tugmasidan foydalaning.',
+  'link.accountLinked':
+    '✅ Telegram hisobingiz saytdagi hisobingizga ulandi. Endi sayt oynasiga qayting — buyurtmalar haqida xabar olasiz.',
+  'link.loginExpired': '⏱ Link muddati tugagan. Saytda "Telegram orqali kirish" tugmasini qayta bosing.',
+  'link.loginError': 'Xatolik yuz berdi. Qayta urinib koʻring.',
+  'link.loginOk':
+    '✅ Siz tizimga kirdingiz. Endi sayt oynasiga qayting — avtomatik kirish amalga oshadi.',
+
+  'code.reply':
+    '🔑 <b>Ulash kodi:</b> <code>{{code}}</code>\n\nSaytda <b>Sozlamalar → Telegram</b> da kiriting. 15 daqiqa amal qiladi.',
+  'code.error': 'Kod yaratishda xatolik. Keyinroq /code yuboring.',
+
+  'welcome.admin':
+    'Assalomu alaykum! <b>Oline Bozor</b> — <b>Admin</b>.\n\nQuyidagi tugmalar: buyurtmalar, statistika, moderatsiya, veb panel. Ulash kodi kerak boʻlsa — <b>/code</b> yuboring.',
+  'welcome.seller':
+    'Assalomu alaykum! <b>Oline Bozor</b> — <b>Sotuvchi</b>.\n\nQuyidagi tugmalar: buyurtmalar, statistika, veb panel. Ulash kodi kerak boʻlsa — <b>/code</b> yuboring.',
+  'welcome.buyerNamed': "Salom, {{name}}! <b>Oline Bozor</b> — xaridor.\n\nKatalog, savatcha va buyurtmalar — quyidagi tugma orqali.",
+  'welcome.buyerAnon':
+    "Assalomu alaykum! <b>Oline Bozor</b> doʻkoni.\n\nQuyidagi tugma orqali katalogni oching, xarid qiling. Birinchi ochishda avtomatik roʻyxatdan oʻtasiz.",
+  'welcome.useButtons': 'Quyidagi tugmalardan yoki buyruqlardan foydalaning:',
+  'shop.hint': "🛒 Do'kon — katalog, savatcha va buyurtmalar. Quyidagi tugmani bosing:",
+  'unknown.useMenu': 'Quyidagi tugmalardan yoki buyruqlardan foydalaning:',
+
+  'orders.admin.empty': '📋 <b>Admin: Buyurtmalar</b>\n\nHali buyurtmalar yoʻq.',
+  'orders.admin.list': '📋 <b>Admin: Soʻnggi buyurtmalar</b>\n\nQuyidagi tugmalardan batafsil oling:\n\n',
+  'orders.seller.unlink': 'Avval doʻkoningizni ulang: Sozlamalar → Telegram da kodni kiriting.',
+  'orders.seller.empty': 'Aktiv buyurtmalar yoʻq.',
+  'orders.seller.list': '<b>Aktiv buyurtmalar</b>\n\nBatafsil uchun tugmani bosing:\n\n',
+  'orders.line': '• {{number}} — {{status}} — {{amount}} {{currency}}',
+  'orders.lineEmoji': '📋 {{number}} — {{status}} — {{amount}} {{currency}}',
+
+  'stats.unlinkShop': 'Avval doʻkoningizni ulang: Sozlamalar → Telegram da kodni kiriting.',
+  'stats.unlinkAccount': 'Avval hisobingizni ulang: Sozlamalar da kodni kiriting.',
+  'stats.admin.title': '📊 <b>Platforma statistikasi</b>',
+  'stats.admin.users': '👥 Foydalanuvchilar',
+  'stats.admin.products': '📦 Tovarlar',
+  'stats.admin.orders': '📋 Buyurtmalar',
+  'stats.admin.revenue': '💰 Daromad (toʻlangan)',
+  'stats.admin.moderation': '⏳ Moderatsiya kutilmoqda',
+  'stats.admin.modProducts': '  • Tovarlar',
+  'stats.admin.modReviews': '  • Sharhlar',
+  'stats.seller.title': '📊 <b>Doʻkoningiz statistikasi</b>',
+  'stats.seller.totalOrders': '📋 Barcha buyurtmalar',
+  'stats.seller.pending': '⏳ Kutilmoqda',
+  'stats.seller.products': '📦 Tovarlar',
+  'stats.seller.revenue': '💰 Daromad (toʻlangan)',
+
+  'pending.admin.title': '⏳ <b>Moderatsiya kutilmoqda</b>',
+  'pending.admin.products': '📦 Tovarlar',
+  'pending.admin.reviews': '💬 Sharhlar',
+  'pending.admin.webHint': '\n\nTugmalar orqali veb panelda oching.',
+  'pending.seller.count': '⏳ Kutilmoqda buyurtmalar: <b>{{count}}</b> ta',
+  'pending.seller.none': '⏳ Kutilmoqda buyurtmalar yoʻq.',
+
+  'today.admin.title': '📅 <b>Bugun (platforma)</b>',
+  'today.seller.title': '📅 <b>Bugun (doʻkoningiz)</b>',
+  'today.orders': '📋 Buyurtmalar',
+  'today.paidSum': '💰 Toʻlangan summa',
+
+  'buyer.orders.needOpen':
+    "Mening buyurtmalarim ko'rish uchun avval do'konni oching (quyidagi tugma) va bir marta kiriting — keyin buyurtmalar shu yerdan ko'rinadi.",
+  'buyer.orders.empty':
+    '📋 <b>Mening buyurtmalarim</b>\n\nHali buyurtmalar yoʻq. Doʻkonda xarid qilish uchun quyidagi tugmani bosing.',
+  'buyer.orders.list': '📋 <b>Mening buyurtmalarim</b>\n\nBatafsil uchun tugmani bosing:\n\n',
+
+  'help.seller':
+    '<b>Oline Bozor bot</b>\n\nSotuvchilar va admin uchun. Avval Sozlamalarda kodni kiriting.\n\n<b>Buyruqlar:</b>\n• /code — Ulash kodi olish (Admin yoki Sotuvchi sozlamalarida kiriting)\n• /start, /link — Bosh menyu / ulash kodi (agar allaqachon ulangan boʻlsa)\n• /orders — Aktiv buyurtmalar\n• /stats — Statistika\n• /pending — Kutilmoqda\n• /today — Bugungi buyurtmalar\n• /lang — Til (oʻzbek / rus)\n• /help — Yordam\n\nBuyurtma xabarida tugmalar orqali holatni oʻzgartiring.',
+  'help.buyer':
+    "<b>Oline Bozor — xaridorlar uchun</b>\n\n• <b>/start</b> — Bosh menyu\n• <b>/shop</b> — Do'konni ochish (veb-ilova)\n• <b>/orders</b> — Mening buyurtmalarim\n• <b>/lang</b> — Til (oʻzbek / rus)\n• <b>/help</b> — Yordam\n\nDo'kon tugmasi orqali katalog, savatcha va buyurtma berish. Birinchi ochishda avtomatik ro'yxatdan o'tasiz.",
+
+  'cb.openShopFirst': "Avval do'konni oching va kiriting.",
+  'cb.loading': 'Yuklanmoqda…',
+  'cb.orderNotFound': 'Buyurtma topilmadi.',
+  'cb.denied': 'Ruxsat yoʻq.',
+  'cb.shopNotLinked': 'Doʻkon ulanmagan.',
+  'cb.prepaidBlock': "Click/Payme to'lovi qilinmaguncha yetkazish belgilab bo'lmaydi.",
+  'cb.cashOnlyMark': "Faqat naqd yoki karta (yetkazishda) uchun belgilash mumkin.",
+  'cb.alreadyPaid': "To'lov allaqachon belgilangan.",
+  'cb.markedPaid': "To'lov belgilandi.",
+  'cb.badStatus': 'Bunday holat mavjud emas.',
+  'cb.statusPrefix': 'Holat: ',
+  'cb.updated': '✅ Yangilandi: ',
+  'cb.orderFallback': 'Buyurtma',
+
+  'detail.title': '📄 <b>Buyurtma batafsil</b>',
+  'detail.adminTitle': '📄 <b>ADMIN: Buyurtma batafsil</b>',
+  'detail.number': '📋 Raqam',
+  'detail.status': '📌 Holat',
+  'detail.payment': "💳 To'lov",
+  'detail.delivery': '🚚 Yetkazish',
+  'detail.total': '💰 Jami',
+  'detail.date': '📅 Sana',
+  'detail.buyer': '👤 Xaridor',
+  'detail.contact': '📞 Aloqa',
+  'detail.seller': '🏪 Sotuvchi',
+  'detail.address': '📍 Manzil',
+  'detail.notes': '📝 Izoh',
+  'detail.products': '<b>Mahsulotlar:</b>',
+  'detail.itemLine': '  • {{title}}{{variant}} × {{qty}} = {{price}} {{currency}}',
+
+  'seller.notify.new': '🆕 <b>Yangi buyurtma</b>',
+  'seller.notify.updated': '📢 <b>Buyurtma yangilandi</b>',
+  'seller.notify.buyer': '👤 Xaridor',
+  'seller.notify.total': '💰 Jami',
+  'seller.notify.date': '📅 Sana',
+  'seller.notify.products': '<b>Mahsulotlar:</b>',
+  'seller.notify.item': '  • {{title}} × {{qty}} — {{price}} {{currency}}',
+
+  'buyer.notify.new': '✅ <b>Buyurtmangiz qabul qilindi</b>',
+  'buyer.notify.updated': '📢 <b>Buyurtmangiz yangilandi</b>',
+  'buyer.notify.seller': '🏪 Sotuvchi',
+  'buyer.notify.newStatus': '📌 Yangi holat',
+
+  'admin.notify.new': '📦 <b>ADMIN: Yangi buyurtma</b>',
+  'admin.notify.updated': '📢 <b>ADMIN: Buyurtma yangilandi</b>',
+  'admin.notify.arrow': ' → ',
+  'admin.notify.state': '📌 Holat',
+
+  'review.seller.new': '💬 <b>Yangi sharh</b>',
+  'review.seller.link': '📋 Sharhlar',
+
+  'admin.product.new': '📦 <b>ADMIN: Yangi mahsulot (moderatsiya kutilmoqda)</b>',
+  'admin.product.id': 'ID',
+  'admin.product.name': 'Nomi',
+  'admin.product.shop': 'Doʻkon',
+  'admin.product.open': '📦 Moderatsiya',
+
+  'admin.application.new': "📝 <b>Yangi ariza: Sotuvchi bo'lish</b>",
+  'admin.application.shopName': '🏪 Doʻkon nomi',
+  'admin.application.user': '👤 Ariza',
+  'admin.application.msg': '\n💬 Xabar',
+  'admin.application.approve': '✅ Tasdiqlash',
+  'admin.application.reject': '❌ Rad etish',
+  'admin.application.list': '📋 Arizalar roʻyxati',
+
+  'admin.review.new': '💬 <b>ADMIN: Yangi sharh (moderatsiya kutilmoqda)</b>',
+  'admin.review.open': '💬 Sharhlar',
+
+  'seller.app.approvedCb': '✅ Ariza tasdiqlandi.',
+  'seller.app.rejectedCb': '❌ Ariza rad etildi.',
+  'seller.app.approvedEdit': '\n\n✅ <b>Tasdiqlandi</b>',
+  'seller.app.rejectedEdit': '\n\n❌ <b>Rad etildi</b>',
+  'seller.app.adminMissing': 'Admin topilmadi.',
+  'seller.app.notFound': 'Ariza topilmadi.',
+  'seller.app.already': 'Ariza allaqachon koʻrib chiqilgan.',
+};

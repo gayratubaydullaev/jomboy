@@ -13,6 +13,11 @@ jobs:
   build-web:
     name: Build web
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:4000' }}
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' }}
+      JWT_SECRET: ci-web-jwt-secret-min-32-chars-long!!
+      SESSION_COOKIE_SECRET: ci-web-session-secret-min-32-chars
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -24,11 +29,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run build --filter=@myshopuz/web
-        env:
-          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:4000' }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET || 'ci-web-jwt-secret-min-32-chars-long!!' }}
-          SESSION_COOKIE_SECRET: ${{ secrets.SESSION_COOKIE_SECRET || 'ci-web-session-secret-min-32-chars' }}
-          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' }}
 
   deploy-web:
     name: Deploy web to server

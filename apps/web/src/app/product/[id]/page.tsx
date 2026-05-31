@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { LOCALE_COOKIE, parseLocale } from '@/i18n/config';
+import { DEFAULT_LOCALE } from '@/i18n/config';
+import { getMessagesForLocale } from '@/i18n/server-locale';
 import { getMessageString } from '@/i18n/resolve';
-import uz from '../../../../messages/uz.json';
-import ru from '../../../../messages/ru.json';
 import { ProductBreadcrumbs } from './product-breadcrumbs';
 import { ProductGalleryWithVariant } from './product-gallery-with-variant';
 import { MobileProductGalleryWithVariant } from './product-gallery-with-variant';
@@ -18,25 +17,46 @@ import { ProductActionsSection } from './product-actions-section';
 import { ProductSpecsSectionMobile } from './product-specs-section-mobile';
 import { ProductRatingLabel } from './product-rating-label';
 import { ProductStockLabel } from './product-stock-label';
-import { ReviewsSection } from './reviews-section';
-import { RelatedProducts } from '@/components/product/related-products';
 import { FavoriteButton } from '@/app/product/[id]/favorite-button';
 import { ProductShareBtn } from '@/components/product/product-share-btn';
 import { Separator } from '@/components/ui/separator';
 import { API_URL, formatPrice } from '@/lib/utils';
+import { generateTopProductIds } from '@/lib/server-fetch';
 import { ChevronLeft, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
+const ReviewsSection = dynamic(
+  () => import('./reviews-section').then((m) => ({ default: m.ReviewsSection })),
+  { loading: () => <div className="h-32 animate-pulse rounded-xl bg-muted/50" aria-hidden /> },
+);
+
+const RelatedProducts = dynamic(
+  () => import('@/components/product/related-products').then((m) => ({ default: m.RelatedProducts })),
+  { ssr: false },
+);
+
+export const revalidate = 60;
+
 async function getProduct(id: string) {
-  const res = await fetch(`${API_URL}/products/${id}`, { next: { revalidate: 60 } });
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    const res = await fetch(`${API_URL}/products/${id}`, { next: { revalidate } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function generateStaticParams() {
+  return generateTopProductIds(50);
 }
 
 export async function generateMetadata(props: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await props.params;
   const product = await getProduct(id);
-  if (!product) return { title: '—' };
+  if (!product) {
+    return { title: id };
+  }
   const desc = typeof product.description === 'string' ? product.description.slice(0, 160) : undefined;
   return { title: product.title as string, description: desc };
 }
@@ -46,8 +66,7 @@ export default async function ProductPage(props: { params: Promise<{ id: string 
   const product = await getProduct(id);
   if (!product) notFound();
 
-  const locale = parseLocale(cookies().get(LOCALE_COOKIE)?.value);
-  const dict = (locale === 'ru' ? ru : uz) as unknown as Record<string, unknown>;
+  const dict = getMessagesForLocale(DEFAULT_LOCALE) as unknown as Record<string, unknown>;
   const currency = getMessageString(dict, 'checkout.currency') ?? 'soʻm';
   const descriptionHeading = getMessageString(dict, 'product.descriptionHeading') ?? 'Tavsif';
   const backAria = getMessageString(dict, 'nav.back') ?? 'Orqaga';

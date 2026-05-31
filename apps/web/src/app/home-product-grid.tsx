@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { ProductCard, type ProductCardProduct } from '@/components/product/product-card';
 import { API_URL } from '@/lib/utils';
+import { apiFetch } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { type ApiProduct, apiProductToCardProduct } from '@/types/api';
@@ -37,7 +38,7 @@ export function HomeProductGrid() {
     try {
       if (append) setLoadingMore(true);
       else setLoadError(false);
-      const res = await fetch(url);
+      const res = await apiFetch(url);
       if (!res.ok) {
         if (!append) setLoadError(true);
         return;

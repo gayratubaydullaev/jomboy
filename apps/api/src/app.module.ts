@@ -1,6 +1,7 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CSRF_EXCLUDED_ROUTES } from '@myshopuz/shared';
 import { CsrfMiddleware } from './common/csrf.middleware';
 import { RlsInterceptor } from './common/rls.interceptor';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -101,34 +102,13 @@ import { ApiLocaleMiddleware } from './i18n/api-locale.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(ApiLocaleMiddleware).forRoutes('*');
+    const csrfExclude = CSRF_EXCLUDED_ROUTES.map((route) => ({
+      path: route.path,
+      method: RequestMethod[route.method as keyof typeof RequestMethod],
+    }));
     consumer
       .apply(CsrfMiddleware)
-      .exclude(
-        { path: 'auth/login', method: RequestMethod.POST },
-        { path: 'auth/register', method: RequestMethod.POST },
-        { path: 'auth/refresh', method: RequestMethod.POST },
-        { path: 'auth/logout', method: RequestMethod.POST },
-        // OTP
-        { path: 'auth/send-otp', method: RequestMethod.POST },
-        { path: 'auth/verify-otp', method: RequestMethod.POST },
-        { path: 'auth/telegram', method: RequestMethod.POST },
-        { path: 'auth/telegram/request-login', method: RequestMethod.POST },
-        { path: 'auth/dev-reset-seed-users', method: RequestMethod.POST },
-        { path: 'users/me', method: RequestMethod.PATCH },
-        { path: 'payments/click/callback', method: RequestMethod.POST },
-        { path: 'payments/payme/callback', method: RequestMethod.POST },
-        { path: 'cart', method: RequestMethod.GET },
-        { path: 'cart/items', method: RequestMethod.POST },
-        { path: 'cart/items/:productId', method: RequestMethod.PATCH },
-        { path: 'cart/items/:productId', method: RequestMethod.DELETE },
-        { path: 'orders', method: RequestMethod.POST },
-        { path: 'checkout-session', method: RequestMethod.POST },
-        { path: 'checkout-session/guest', method: RequestMethod.POST },
-        { path: 'payments/click/init', method: RequestMethod.POST },
-        { path: 'payments/payme/init', method: RequestMethod.POST },
-        { path: 'health', method: RequestMethod.GET },
-        { path: 'health/ready', method: RequestMethod.GET },
-      )
+      .exclude(...csrfExclude)
       .forRoutes('*');
   }
 }

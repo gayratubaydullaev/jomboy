@@ -3,11 +3,13 @@ import { Suspense } from 'react';
 import { ProductGrid } from './product-grid';
 import { CatalogFilters } from './catalog-filters';
 import { CatalogTitle } from './catalog-title';
-import { getServerLocale, getMessagesForLocale } from '@/i18n/server-locale';
+import { DEFAULT_LOCALE } from '@/i18n/config';
+import { getMessagesForLocale } from '@/i18n/server-locale';
+
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = getServerLocale();
-  const dict = getMessagesForLocale(locale);
+  const dict = getMessagesForLocale(DEFAULT_LOCALE);
   return {
     title: dict.catalog.metaTitle,
     description: dict.catalog.metaDescription,

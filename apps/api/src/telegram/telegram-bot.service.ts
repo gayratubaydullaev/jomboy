@@ -7,38 +7,16 @@ import * as TelegramBotModule from 'node-telegram-bot-api';
 import { getTelegramLocaleForChat, rememberTelegramLocale, setTelegramLocaleForChat } from './telegram-locale';
 import type { TelegramLocale } from './telegram-locale';
 import {
-  buildAdminMenuRows,
-  buildBuyerMenuRows,
-  buildMenuBackRow,
-  buildSellerMenuRows,
-  formatTelegramDateTime,
   formatTelegramMoney,
   tt,
-  telegramDeliveryType,
   telegramOrderStatus,
-  telegramPaymentMethod,
-  telegramPaymentStatus,
 } from './telegram-i18n';
+import { OrderStatus } from '@prisma/client';
 
 const TelegramBot = (TelegramBotModule as { default?: typeof TelegramBotModule }).default ?? TelegramBotModule;
-import { OrderStatus, Prisma } from '@prisma/client';
-
-function esc(s: string): string {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function formatVariantOptions(options: Record<string, string> | unknown): string {
-  if (!options || typeof options !== 'object' || Array.isArray(options)) return '';
-  const entries = Object.entries(options as Record<string, string>).filter(([, v]) => v != null && String(v).trim() !== '');
-  if (entries.length === 0) return '';
-  return entries.map(([k, v]) => `${k}: ${v}`).join(', ');
-}
-
-const MAX_MESSAGE_LENGTH = 4096;
-function truncateForTelegram(text: string, suffix = '…'): string {
-  if (text.length <= MAX_MESSAGE_LENGTH) return text;
-  return text.slice(0, MAX_MESSAGE_LENGTH - suffix.length) + suffix;
-}
+import { TelegramBotUiService } from './telegram-bot-ui.service';
+import { TelegramBotOrdersHandler } from './telegram-bot-orders.handler';
+import { esc } from './telegram-bot-formatters';
 
 @Injectable()
 export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
@@ -50,6 +28,8 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     private prisma: PrismaService,
     private auth: AuthService,
     private telegram: TelegramService,
+    private ui: TelegramBotUiService,
+    private orders: TelegramBotOrdersHandler,
   ) {}
 
   onModuleInit() {
@@ -59,6 +39,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       return;
     }
     this.bot = new TelegramBot(token, { polling: true });
+    this.ui.setBot(this.bot);
     this.bot.on('message', (msg: TelegramBotModule.Message) => this.handleMessage(msg).catch((e) => this.logger.warn(e)));
     this.bot.on('callback_query', (query: TelegramBotModule.CallbackQuery) => this.handleCallback(query).catch((e) => this.logger.warn(e)));
     const commandList = (loc: 'uz' | 'ru') =>
@@ -96,98 +77,8 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     if (this.bot) {
       this.bot.stopPolling();
       this.bot = null;
+      this.ui.setBot(null);
     }
-  }
-
-  private async getAdminTelegramChatId(): Promise<string | null> {
-    return this.telegram.getAdminChatId();
-  }
-
-  private async getBuyerByTelegramChatId(chatId: string): Promise<{ id: string; firstName: string; lastName: string } | null> {
-    const user = await this.prisma.user.findFirst({
-      where: { telegramId: chatId },
-      select: { id: true, firstName: true, lastName: true },
-    });
-    return user;
-  }
-
-  private async sendOrEdit(
-    chatId: string,
-    text: string,
-    options: { parse_mode?: 'HTML'; reply_markup?: TelegramBotModule.InlineKeyboardMarkup },
-    messageId?: number,
-  ): Promise<void> {
-    const safeText = truncateForTelegram(text);
-    if (messageId != null && this.bot) {
-      await this.bot.editMessageText(safeText, {
-        chat_id: chatId,
-        message_id: messageId,
-        parse_mode: options.parse_mode ?? 'HTML',
-        reply_markup: options.reply_markup,
-      }).catch(() => {
-        this.bot!.sendMessage(chatId, safeText, { ...options }).catch((e) => this.logger.warn(e));
-      });
-    } else if (this.bot) {
-      await this.bot.sendMessage(chatId, safeText, options);
-    }
-  }
-
-  private async getBackMenuRows(chatId: string): Promise<TelegramBotModule.InlineKeyboardButton[][]> {
-    const loc = getTelegramLocaleForChat(chatId);
-    const adminChatId = await this.getAdminTelegramChatId();
-    if (adminChatId === chatId) return buildAdminMenuRows(loc, this.telegram.getBaseUrl());
-    return buildSellerMenuRows(loc);
-  }
-
-  private async getMenuWithPanel(chatId: string): Promise<TelegramBotModule.InlineKeyboardMarkup> {
-    const loc = getTelegramLocaleForChat(chatId);
-    const baseUrl = this.telegram.getBaseUrl();
-    const webAppUrl = baseUrl ? `${baseUrl.replace(/\/$/, '')}/telegram-app` : null;
-    const adminChatId = await this.getAdminTelegramChatId();
-    const isAdmin = adminChatId === chatId;
-    const shop = await this.prisma.shop.findFirst({ where: { telegramChatId: chatId }, select: { id: true } });
-    if (isAdmin) {
-      const rows: TelegramBotModule.InlineKeyboardButton[][] = [];
-      if (webAppUrl) rows.push([{ text: tt(loc, 'menu.shopWeb'), web_app: { url: webAppUrl }, style: 'primary' }]);
-      rows.push(...buildAdminMenuRows(loc, baseUrl));
-      if (baseUrl) rows.push([{ text: tt(loc, 'menu.adminPanel'), url: `${baseUrl}/admin`, style: 'primary' }]);
-      return { inline_keyboard: rows };
-    }
-    if (shop) {
-      const rows: TelegramBotModule.InlineKeyboardButton[][] = [];
-      if (webAppUrl) rows.push([{ text: tt(loc, 'menu.shopWeb'), web_app: { url: webAppUrl }, style: 'primary' }]);
-      rows.push(...buildSellerMenuRows(loc));
-      if (baseUrl) rows.push([{ text: tt(loc, 'menu.sellerPanel'), url: `${baseUrl}/seller`, style: 'primary' }]);
-      return { inline_keyboard: rows };
-    }
-    return { inline_keyboard: buildBuyerMenuRows(loc, webAppUrl) };
-  }
-
-  private langPickerMarkup(loc: ReturnType<typeof getTelegramLocaleForChat>) {
-    return {
-      inline_keyboard: [
-        [
-          { text: tt(loc, 'lang.nameUz'), callback_data: 'lang:uz', style: 'primary' as const },
-          { text: tt(loc, 'lang.nameRu'), callback_data: 'lang:ru', style: 'primary' as const },
-        ],
-        ...buildMenuBackRow(loc),
-      ],
-    };
-  }
-
-  private async sendLangPicker(chatId: string, messageId?: number) {
-    const loc = getTelegramLocaleForChat(chatId);
-    const currentName = loc === 'ru' ? tt(loc, 'lang.nameRu') : tt(loc, 'lang.nameUz');
-    const text = tt(loc, 'lang.prompt', { current: currentName });
-    const reply_markup = this.langPickerMarkup(loc);
-    await this.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup }, messageId);
-  }
-
-  private async sendMenuResponse(chatId: string, messageId?: number) {
-    const loc = getTelegramLocaleForChat(chatId);
-    const menuMarkup = await this.getMenuWithPanel(chatId);
-    const text = `${tt(loc, 'menuIntro.title')}\n\n${tt(loc, 'menuIntro.body')}`;
-    await this.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: menuMarkup }, messageId);
   }
 
   private async handleMessage(msg: TelegramBotModule.Message) {
@@ -254,17 +145,17 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       }
     }
 
-    const adminChatId = await this.getAdminTelegramChatId();
+    const adminChatId = await this.ui.getAdminTelegramChatId();
     const isAdmin = adminChatId === chatId;
     const shop = await this.prisma.shop.findFirst({ where: { telegramChatId: chatId }, select: { id: true } });
-    const buyer = await this.getBuyerByTelegramChatId(chatId);
+    const buyer = await this.ui.getBuyerByTelegramChatId(chatId);
 
     const isCodeCommand =
       text === '/code' || text.startsWith('/code@') || (text.startsWith('/code') && (text.length === 6 || text[6] === ' '));
     if (isCodeCommand) {
       try {
         const code = await this.telegram.createLinkCode(chatId);
-        const menuMarkup = await this.getMenuWithPanel(chatId);
+        const menuMarkup = await this.ui.getMenuWithPanel(chatId);
         await this.bot!.sendMessage(
           chatId,
           tt(loc, 'code.reply', { code }),
@@ -279,7 +170,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
 
     const isStartOrLink = text === '/start' || text === '/link' || text.startsWith('/start@') || text.startsWith('/link@');
     if (isStartOrLink) {
-      const menuMarkup = await this.getMenuWithPanel(chatId);
+      const menuMarkup = await this.ui.getMenuWithPanel(chatId);
       if (isAdmin) {
         await this.bot!.sendMessage(
           chatId,
@@ -306,7 +197,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     }
 
     if (text === '/shop' || text === '/catalog' || text === '/do\'kon') {
-      const menuMarkup = await this.getMenuWithPanel(chatId);
+      const menuMarkup = await this.ui.getMenuWithPanel(chatId);
       await this.bot!.sendMessage(
         chatId,
         tt(loc, 'shop.hint'),
@@ -316,8 +207,8 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     }
 
     if (text === '/orders') {
-      if (buyer && !shop && !isAdmin) return this.sendBuyerOrdersResponse(chatId);
-      return this.sendOrdersResponse(chatId);
+      if (buyer && !shop && !isAdmin) return this.orders.sendBuyerOrdersResponse(chatId);
+      return this.orders.sendOrdersResponse(chatId);
     }
     if (text === '/stats') return this.sendStatsResponse(chatId);
     if (text === '/pending') return this.sendPendingResponse(chatId);
@@ -330,7 +221,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       const arg = rawText.replace(/^\/lang(@\S+)?\s*/i, '').trim().toLowerCase();
       if (arg === 'uz' || arg === 'ru') {
         setTelegramLocaleForChat(chatId, arg as TelegramLocale);
-        const menuMarkup = await this.getMenuWithPanel(chatId);
+        const menuMarkup = await this.ui.getMenuWithPanel(chatId);
         await this.bot!.sendMessage(
           chatId,
           tt(arg as TelegramLocale, 'lang.saved', {
@@ -340,13 +231,12 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
         );
         return;
       }
-      return this.sendLangPicker(chatId);
+      return this.ui.sendLangPicker(chatId);
     }
 
-    // Nomaʼlum matn: bitta xabar bilan menyu (buyruqlar yuqorida qaytadi — ikkinchi xabar boʻlmasin)
     const isCommand = text.startsWith('/') || text === 'start' || text === 'link';
     if (text.length > 0 && !isCommand) {
-      const menuMarkup = await this.getMenuWithPanel(chatId);
+      const menuMarkup = await this.ui.getMenuWithPanel(chatId);
       await this.bot!.sendMessage(
         chatId,
         tt(loc, 'unknown.useMenu'),
@@ -355,83 +245,10 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  private async sendOrdersResponse(chatId: string, messageId?: number) {
-    const loc = getTelegramLocaleForChat(chatId);
-    const cur = tt(loc, 'currency.som');
-    const adminChatId = await this.getAdminTelegramChatId();
-    if (adminChatId === chatId) {
-      const orders = await this.prisma.order.findMany({
-        take: 15,
-        orderBy: { createdAt: 'desc' },
-        include: { buyer: { select: { firstName: true, lastName: true } }, seller: { select: { shop: { select: { name: true } } } } },
-      });
-      if (orders.length === 0) {
-        await this.sendOrEdit(chatId, tt(loc, 'orders.admin.empty'), { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
-        return;
-      }
-      const lines = orders.map((o) =>
-        tt(loc, 'orders.line', {
-          number: o.orderNumber,
-          status: telegramOrderStatus(loc, o.status, o.deliveryType),
-          amount: formatTelegramMoney(loc, Number(o.totalAmount)),
-          currency: cur,
-        }),
-      );
-      const orderButtons: TelegramBotModule.InlineKeyboardButton[][] = [];
-      const forButtons = orders.slice(0, 10);
-      for (let i = 0; i < forButtons.length; i += 2) {
-        const row: TelegramBotModule.InlineKeyboardButton[] = [];
-        row.push({ text: `📄 ${forButtons[i].orderNumber}`, callback_data: `admin_order_detail:${forButtons[i].id}`, style: 'primary' });
-        if (forButtons[i + 1]) row.push({ text: `📄 ${forButtons[i + 1].orderNumber}`, callback_data: `admin_order_detail:${forButtons[i + 1].id}`, style: 'primary' });
-        orderButtons.push(row);
-      }
-      const backRows = await this.getBackMenuRows(chatId);
-      const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: [...orderButtons, ...backRows] };
-      await this.sendOrEdit(chatId, tt(loc, 'orders.admin.list') + lines.join('\n'), { parse_mode: 'HTML', reply_markup }, messageId);
-      return;
-    }
-    const shop = await this.prisma.shop.findFirst({
-      where: { telegramChatId: chatId },
-      select: { userId: true },
-    });
-    if (!shop) {
-      await this.sendOrEdit(chatId, tt(loc, 'orders.seller.unlink'), { reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
-      return;
-    }
-    const orders = await this.prisma.order.findMany({
-      where: { sellerId: shop.userId, status: { in: ['PENDING', 'CONFIRMED', 'PROCESSING', 'SHIPPED'] } },
-      take: 10,
-      orderBy: { createdAt: 'desc' },
-      include: { items: { include: { product: { select: { title: true } } } }, buyer: { select: { firstName: true, lastName: true } } },
-    });
-    if (orders.length === 0) {
-      await this.sendOrEdit(chatId, tt(loc, 'orders.seller.empty'), { reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
-      return;
-    }
-    const lines = orders.map((o) =>
-      tt(loc, 'orders.lineEmoji', {
-        number: o.orderNumber,
-        status: telegramOrderStatus(loc, o.status, o.deliveryType),
-        amount: formatTelegramMoney(loc, Number(o.totalAmount)),
-        currency: cur,
-      }),
-    );
-    const orderButtons: TelegramBotModule.InlineKeyboardButton[][] = [];
-    for (let i = 0; i < orders.length; i += 2) {
-      const row: TelegramBotModule.InlineKeyboardButton[] = [];
-      row.push({ text: `📄 ${orders[i].orderNumber}`, callback_data: `order_detail:${orders[i].id}`, style: 'primary' });
-      if (orders[i + 1]) row.push({ text: `📄 ${orders[i + 1].orderNumber}`, callback_data: `order_detail:${orders[i + 1].id}`, style: 'primary' });
-      orderButtons.push(row);
-    }
-    const backRows = await this.getBackMenuRows(chatId);
-    const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: [...orderButtons, ...backRows] };
-    await this.sendOrEdit(chatId, tt(loc, 'orders.seller.list') + lines.join('\n'), { parse_mode: 'HTML', reply_markup }, messageId);
-  }
-
   private async sendStatsResponse(chatId: string, messageId?: number) {
     const loc = getTelegramLocaleForChat(chatId);
     const cur = tt(loc, 'currency.som');
-    const adminChatId = await this.getAdminTelegramChatId();
+    const adminChatId = await this.ui.getAdminTelegramChatId();
     if (adminChatId === chatId) {
       const [usersCount, productsCount, ordersCount, totalRevenue, pendingProducts, pendingReviews] = await Promise.all([
         this.prisma.user.count(),
@@ -450,7 +267,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
         `${tt(loc, 'stats.admin.orders')}: ${ordersCount}\n` +
         `${tt(loc, 'stats.admin.revenue')}: ${formatTelegramMoney(loc, Number(revenue))} ${cur}\n\n` +
         `${tt(loc, 'stats.admin.moderation')}:\n${tt(loc, 'stats.admin.modProducts')}: ${pendingProducts}\n${tt(loc, 'stats.admin.modReviews')}: ${pendingReviews}`;
-      await this.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
+      await this.ui.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: await this.ui.getMenuWithPanel(chatId) }, messageId);
       return;
     }
     const shop = await this.prisma.shop.findFirst({
@@ -458,7 +275,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       select: { userId: true },
     });
     if (!shop) {
-      await this.sendOrEdit(chatId, tt(loc, 'stats.unlinkAccount'), { reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
+      await this.ui.sendOrEdit(chatId, tt(loc, 'stats.unlinkAccount'), { reply_markup: await this.ui.getMenuWithPanel(chatId) }, messageId);
       return;
     }
     const [ordersCount, pendingCount, paidSum, productsCount] = await Promise.all([
@@ -475,20 +292,20 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       `${tt(loc, 'stats.seller.pending')}: ${pendingCount}\n` +
       `${tt(loc, 'stats.seller.products')}: ${productsCount}\n` +
       `${tt(loc, 'stats.seller.revenue')}: ${formatTelegramMoney(loc, Number(revenue))} ${cur}`;
-    await this.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
+    await this.ui.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: await this.ui.getMenuWithPanel(chatId) }, messageId);
   }
 
   private async sendPendingResponse(chatId: string, messageId?: number) {
     const loc = getTelegramLocaleForChat(chatId);
-    const adminChatId = await this.getAdminTelegramChatId();
+    const adminChatId = await this.ui.getAdminTelegramChatId();
     if (adminChatId === chatId) {
       const [pendingProducts, pendingReviews] = await Promise.all([
         this.prisma.product.count({ where: { isActive: true, isModerated: false } }),
         this.prisma.review.count({ where: { isModerated: false } }),
       ]);
-      const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: await this.getBackMenuRows(chatId) };
+      const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: await this.ui.getBackMenuRows(chatId) };
       const webHint = this.telegram.getBaseUrl() ? tt(loc, 'pending.admin.webHint') : '';
-      await this.sendOrEdit(
+      await this.ui.sendOrEdit(
         chatId,
         tt(loc, 'pending.admin.title') +
           '\n\n' +
@@ -504,16 +321,16 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       select: { userId: true },
     });
     if (!shop) {
-      await this.sendOrEdit(chatId, tt(loc, 'orders.seller.unlink'), { reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
+      await this.ui.sendOrEdit(chatId, tt(loc, 'orders.seller.unlink'), { reply_markup: await this.ui.getMenuWithPanel(chatId) }, messageId);
       return;
     }
     const pendingCount = await this.prisma.order.count({
       where: { sellerId: shop.userId, status: 'PENDING' },
     });
-    await this.sendOrEdit(
+    await this.ui.sendOrEdit(
       chatId,
       pendingCount > 0 ? tt(loc, 'pending.seller.count', { count: pendingCount }) : tt(loc, 'pending.seller.none'),
-      { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) },
+      { parse_mode: 'HTML', reply_markup: await this.ui.getMenuWithPanel(chatId) },
       messageId,
     );
   }
@@ -524,7 +341,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    const adminChatId = await this.getAdminTelegramChatId();
+    const adminChatId = await this.ui.getAdminTelegramChatId();
     if (adminChatId === chatId) {
       const [count, sum] = await Promise.all([
         this.prisma.order.count({ where: { createdAt: { gte: todayStart } } }),
@@ -534,10 +351,10 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
         }),
       ]);
       const total = sum._sum.totalAmount?.toString() ?? '0';
-      await this.sendOrEdit(
+      await this.ui.sendOrEdit(
         chatId,
         `${tt(loc, 'today.admin.title')}\n\n${tt(loc, 'today.orders')}: ${count}\n${tt(loc, 'today.paidSum')}: ${formatTelegramMoney(loc, Number(total))} ${cur}`,
-        { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) },
+        { parse_mode: 'HTML', reply_markup: await this.ui.getMenuWithPanel(chatId) },
         messageId,
       );
       return;
@@ -547,7 +364,7 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       select: { userId: true },
     });
     if (!shop) {
-      await this.sendOrEdit(chatId, tt(loc, 'orders.seller.unlink'), { reply_markup: await this.getMenuWithPanel(chatId) }, messageId);
+      await this.ui.sendOrEdit(chatId, tt(loc, 'orders.seller.unlink'), { reply_markup: await this.ui.getMenuWithPanel(chatId) }, messageId);
       return;
     }
     const [count, sum] = await Promise.all([
@@ -558,69 +375,10 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
       }),
     ]);
     const total = sum._sum.totalAmount?.toString() ?? '0';
-    await this.sendOrEdit(
+    await this.ui.sendOrEdit(
       chatId,
       `${tt(loc, 'today.seller.title')}\n\n${tt(loc, 'today.orders')}: ${count}\n${tt(loc, 'today.paidSum')}: ${formatTelegramMoney(loc, Number(total))} ${cur}`,
-      { parse_mode: 'HTML', reply_markup: await this.getMenuWithPanel(chatId) },
-      messageId,
-    );
-  }
-
-  private async sendBuyerOrdersResponse(chatId: string, messageId?: number) {
-    const loc = getTelegramLocaleForChat(chatId);
-    const cur = tt(loc, 'currency.som');
-    const buyer = await this.getBuyerByTelegramChatId(chatId);
-    if (!buyer) {
-      const menuMarkup = await this.getMenuWithPanel(chatId);
-      await this.sendOrEdit(
-        chatId,
-        tt(loc, 'buyer.orders.needOpen'),
-        { parse_mode: 'HTML', reply_markup: menuMarkup },
-        messageId,
-      );
-      return;
-    }
-    const orders = await this.prisma.order.findMany({
-      where: { buyerId: buyer.id },
-      take: 15,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        items: { include: { product: { select: { title: true } } } },
-        seller: { select: { shop: { select: { name: true } } } },
-      },
-    });
-    const baseUrl = this.telegram.getBaseUrl();
-    const webAppUrl = baseUrl ? `${baseUrl.replace(/\/$/, '')}/telegram-app` : null;
-    const menuRows = buildBuyerMenuRows(loc, webAppUrl);
-    if (orders.length === 0) {
-      await this.sendOrEdit(
-        chatId,
-        tt(loc, 'buyer.orders.empty'),
-        { parse_mode: 'HTML', reply_markup: { inline_keyboard: menuRows } },
-        messageId,
-      );
-      return;
-    }
-    const lines = orders.map((o) =>
-      tt(loc, 'orders.line', {
-        number: o.orderNumber,
-        status: telegramOrderStatus(loc, o.status, o.deliveryType),
-        amount: formatTelegramMoney(loc, Number(o.totalAmount)),
-        currency: cur,
-      }),
-    );
-    const orderButtons: TelegramBotModule.InlineKeyboardButton[][] = [];
-    for (let i = 0; i < Math.min(orders.length, 10); i += 2) {
-      const row: TelegramBotModule.InlineKeyboardButton[] = [];
-      row.push({ text: `📄 ${orders[i].orderNumber}`, callback_data: `buyer_order_detail:${orders[i].id}`, style: 'primary' });
-      if (orders[i + 1]) row.push({ text: `📄 ${orders[i + 1].orderNumber}`, callback_data: `buyer_order_detail:${orders[i + 1].id}`, style: 'primary' });
-      orderButtons.push(row);
-    }
-    const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: [...orderButtons, ...menuRows] };
-    await this.sendOrEdit(
-      chatId,
-      tt(loc, 'buyer.orders.list') + lines.join('\n'),
-      { parse_mode: 'HTML', reply_markup },
+      { parse_mode: 'HTML', reply_markup: await this.ui.getMenuWithPanel(chatId) },
       messageId,
     );
   }
@@ -633,15 +391,15 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     isAdmin?: boolean,
   ) {
     const loc = getTelegramLocaleForChat(chatId);
-    const menuMarkup = await this.getMenuWithPanel(chatId);
+    const menuMarkup = await this.ui.getMenuWithPanel(chatId);
     let isSellerOrAdmin = !!shop || !!isAdmin;
     if (isSellerOrAdmin === false && buyer === undefined) {
-      const adminChatId = await this.getAdminTelegramChatId();
+      const adminChatId = await this.ui.getAdminTelegramChatId();
       const shopFound = await this.prisma.shop.findFirst({ where: { telegramChatId: chatId }, select: { id: true } });
       isSellerOrAdmin = adminChatId === chatId || !!shopFound;
     }
     const text = isSellerOrAdmin ? tt(loc, 'help.seller') : tt(loc, 'help.buyer');
-    await this.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: menuMarkup }, messageId);
+    await this.ui.sendOrEdit(chatId, text, { parse_mode: 'HTML', reply_markup: menuMarkup }, messageId);
   }
 
   private async handleCallback(query: TelegramBotModule.CallbackQuery) {
@@ -652,7 +410,6 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
     const sid = String(chatId);
     rememberTelegramLocale(sid, (query.from as { language_code?: string } | undefined)?.language_code);
     const loc = getTelegramLocaleForChat(sid);
-    const cur = tt(loc, 'currency.som');
 
     if (data === 'lang:uz' || data === 'lang:ru') {
       const newLoc = data.slice(5) as TelegramLocale;
@@ -662,306 +419,38 @@ export class TelegramBotService implements OnModuleInit, OnModuleDestroy {
           lang: tt(newLoc, newLoc === 'ru' ? 'lang.nameRu' : 'lang.nameUz'),
         }),
       });
-      return this.sendLangPicker(sid, messageId);
+      return this.ui.sendLangPicker(sid, messageId);
     }
 
     if (data.startsWith('cmd:')) {
       const cmd = data.slice(4);
       await this.bot.answerCallbackQuery(query.id);
       const msgId = query.message?.message_id;
-      if (cmd === 'menu') return this.sendMenuResponse(sid, msgId);
+      if (cmd === 'menu') return this.ui.sendMenuResponse(sid, msgId);
       if (cmd === 'orders') {
-        const buyer = await this.getBuyerByTelegramChatId(sid);
+        const buyer = await this.ui.getBuyerByTelegramChatId(sid);
         const shop = await this.prisma.shop.findFirst({ where: { telegramChatId: sid }, select: { id: true } });
-        const adminChatId = await this.getAdminTelegramChatId();
-        if (buyer && !shop && adminChatId !== sid) return this.sendBuyerOrdersResponse(sid, msgId);
-        return this.sendOrdersResponse(sid, msgId);
+        const adminChatId = await this.ui.getAdminTelegramChatId();
+        if (buyer && !shop && adminChatId !== sid) return this.orders.sendBuyerOrdersResponse(sid, msgId);
+        return this.orders.sendOrdersResponse(sid, msgId);
       }
       if (cmd === 'stats') return this.sendStatsResponse(sid, msgId);
       if (cmd === 'pending') return this.sendPendingResponse(sid, msgId);
       if (cmd === 'today') return this.sendTodayResponse(sid, msgId);
       if (cmd === 'help') {
-        const buyer = await this.getBuyerByTelegramChatId(sid);
+        const buyer = await this.ui.getBuyerByTelegramChatId(sid);
         const shop = await this.prisma.shop.findFirst({ where: { telegramChatId: sid }, select: { id: true } });
-        const adminChatId = await this.getAdminTelegramChatId();
+        const adminChatId = await this.ui.getAdminTelegramChatId();
         return this.sendHelpResponse(sid, msgId, buyer, shop, adminChatId === sid);
       }
-      if (cmd === 'lang') return this.sendLangPicker(sid, msgId);
+      if (cmd === 'lang') return this.ui.sendLangPicker(sid, msgId);
       return;
     }
 
-    if (data === 'buyer_orders') {
-      await this.bot.answerCallbackQuery(query.id);
-      return this.sendBuyerOrdersResponse(sid, query.message?.message_id);
-    }
-
-    if (data.startsWith('buyer_order_detail:')) {
-      const orderId = data.slice(19);
-      const buyer = await this.getBuyerByTelegramChatId(sid);
-      if (!buyer) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.openShopFirst') });
-        return;
-      }
-      await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.loading') });
-      const orderInclude = {
-        items: { include: { product: { select: { title: true } }, variant: true } },
-        seller: { select: { firstName: true, lastName: true, shop: { select: { name: true } } } },
-      } as const;
-      const order = await this.prisma.order.findFirst({
-        where: { id: orderId, buyerId: buyer.id },
-        include: orderInclude,
-      });
-      if (!order) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.orderNotFound') });
-        return;
-      }
-      type BuyerOrderWithRelations = Prisma.OrderGetPayload<{ include: typeof orderInclude }>;
-      const o = order as BuyerOrderWithRelations;
-      const sellerName = o.seller
-        ? `${o.seller.firstName} ${o.seller.lastName}${o.seller.shop ? ` (${o.seller.shop.name})` : ''}`
-        : tt(loc, 'common.dash');
-      const addr =
-        o.shippingAddress && typeof o.shippingAddress === 'object'
-          ? Object.entries(o.shippingAddress as Record<string, unknown>)
-              .filter(([, v]) => v != null && String(v).trim() !== '')
-              .map(([k, v]) => `${k}: ${v}`)
-              .join(', ') || tt(loc, 'common.dash')
-          : tt(loc, 'common.dash');
-      const itemsLines = o.items
-        .map(
-          (i: { product: { title: string }; variant?: { options?: unknown } | null; quantity: number; price: { toNumber?: () => number } | number }) =>
-            tt(loc, 'detail.itemLine', {
-              title: esc(i.product.title),
-              variant: i.variant?.options ? ` (${esc(formatVariantOptions(i.variant.options))})` : '',
-              qty: i.quantity,
-              price: formatTelegramMoney(loc, Number(i.price)),
-              currency: cur,
-            }),
-        )
-        .join('\n');
-      const text =
-        `${tt(loc, 'detail.title')}\n\n` +
-        `${tt(loc, 'detail.number')}: <code>${esc(o.orderNumber)}</code>\n` +
-        `${tt(loc, 'detail.status')}: ${telegramOrderStatus(loc, o.status, o.deliveryType)}\n` +
-        `${tt(loc, 'detail.payment')}: ${telegramPaymentStatus(loc, o.paymentStatus ?? '')} (${telegramPaymentMethod(loc, o.paymentMethod ?? '')})\n` +
-        `${tt(loc, 'detail.delivery')}: ${telegramDeliveryType(loc, o.deliveryType ?? '')}\n` +
-        `${tt(loc, 'detail.total')}: ${formatTelegramMoney(loc, Number(o.totalAmount))} ${cur}\n` +
-        `${tt(loc, 'detail.date')}: ${formatTelegramDateTime(loc, new Date(o.createdAt))}\n\n` +
-        `${tt(loc, 'detail.seller')}: ${esc(sellerName)}\n${tt(loc, 'detail.address')}: ${esc(addr)}\n` +
-        (o.notes ? `${tt(loc, 'detail.notes')}: ${esc(o.notes)}\n` : '') +
-        '\n' +
-        tt(loc, 'detail.products') +
-        '\n' +
-        itemsLines;
-      const baseUrl = this.telegram.getBaseUrl();
-      const webAppUrl = baseUrl ? `${baseUrl.replace(/\/$/, '')}/telegram-app` : null;
-      const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: buildBuyerMenuRows(loc, webAppUrl) };
-      await this.sendOrEdit(sid, text, { parse_mode: 'HTML', reply_markup }, messageId);
-      return;
-    }
-
-    if (data.startsWith('admin_order_detail:')) {
-      const orderId = data.slice(19);
-      const adminChatId = await this.getAdminTelegramChatId();
-      if (adminChatId !== sid) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.denied') });
-        return;
-      }
-      await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.loading') });
-      const orderInclude = {
-        items: { include: { product: { select: { title: true } }, variant: true } },
-        buyer: { select: { firstName: true, lastName: true, email: true, phone: true } },
-        seller: { select: { firstName: true, lastName: true, shop: { select: { name: true } } } },
-      } as const;
-      const order = await this.prisma.order.findUnique({
-        where: { id: orderId },
-        include: orderInclude,
-      });
-      if (!order) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.orderNotFound') });
-        return;
-      }
-      type OrderWithRelations = Prisma.OrderGetPayload<{ include: typeof orderInclude }>;
-      const o = order as OrderWithRelations;
-      const buyerName = o.buyer ? `${o.buyer.firstName} ${o.buyer.lastName}` : o.guestPhone || o.guestEmail || tt(loc, 'common.guest');
-      const buyerContact = o.buyer
-        ? [o.buyer.email, o.buyer.phone].filter(Boolean).join(', ') || tt(loc, 'common.dash')
-        : [o.guestEmail, o.guestPhone].filter(Boolean).join(', ') || tt(loc, 'common.dash');
-      const sellerName = o.seller
-        ? `${o.seller.firstName} ${o.seller.lastName}${o.seller.shop ? ` (${o.seller.shop.name})` : ''}`
-        : tt(loc, 'common.dash');
-      const addr =
-        o.shippingAddress && typeof o.shippingAddress === 'object'
-          ? Object.entries(o.shippingAddress as Record<string, unknown>)
-              .filter(([, v]) => v != null && String(v).trim() !== '')
-              .map(([k, v]) => `${k}: ${v}`)
-              .join(', ') || tt(loc, 'common.dash')
-          : tt(loc, 'common.dash');
-      const itemsLines = o.items
-        .map(
-          (i: { product: { title: string }; variant?: { options?: unknown } | null; quantity: number; price: { toNumber?: () => number } | number }) =>
-            tt(loc, 'detail.itemLine', {
-              title: esc(i.product.title),
-              variant: i.variant?.options ? ` (${esc(formatVariantOptions(i.variant.options))})` : '',
-              qty: i.quantity,
-              price: formatTelegramMoney(loc, Number(i.price)),
-              currency: cur,
-            }),
-        )
-        .join('\n');
-      const text =
-        `${tt(loc, 'detail.adminTitle')}\n\n` +
-        `${tt(loc, 'detail.number')}: <code>${esc(o.orderNumber)}</code>\n` +
-        `${tt(loc, 'detail.status')}: ${telegramOrderStatus(loc, o.status, o.deliveryType)}\n` +
-        `${tt(loc, 'detail.payment')}: ${telegramPaymentStatus(loc, o.paymentStatus ?? '')} (${telegramPaymentMethod(loc, o.paymentMethod ?? '')})\n` +
-        `${tt(loc, 'detail.delivery')}: ${telegramDeliveryType(loc, o.deliveryType ?? '')}\n` +
-        `${tt(loc, 'detail.total')}: ${formatTelegramMoney(loc, Number(o.totalAmount))} ${cur}\n` +
-        `${tt(loc, 'detail.date')}: ${formatTelegramDateTime(loc, new Date(o.createdAt))}\n\n` +
-        `${tt(loc, 'detail.buyer')}: ${esc(buyerName)}\n${tt(loc, 'detail.contact')}: ${esc(buyerContact)}\n${tt(loc, 'detail.seller')}: ${esc(sellerName)}\n${tt(loc, 'detail.address')}: ${esc(addr)}\n` +
-        (o.notes ? `${tt(loc, 'detail.notes')}: ${esc(o.notes)}\n` : '') +
-        '\n' +
-        tt(loc, 'detail.products') +
-        '\n' +
-        itemsLines;
-      await this.sendOrEdit(sid, text, { parse_mode: 'HTML', reply_markup: { inline_keyboard: await this.getBackMenuRows(sid) } }, messageId);
-      return;
-    }
-
-    if (data.startsWith('order_detail:')) {
-      const orderId = data.slice(13);
-      const shop = await this.prisma.shop.findFirst({
-        where: { telegramChatId: sid },
-        select: { userId: true },
-      });
-      if (!shop) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.shopNotLinked') });
-        return;
-      }
-      await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.loading') });
-      const sellerOrderInclude = {
-        items: { include: { product: { select: { title: true } }, variant: true } },
-        buyer: { select: { firstName: true, lastName: true } },
-      } as const;
-      const order = await this.prisma.order.findFirst({
-        where: { id: orderId, sellerId: shop.userId },
-        include: sellerOrderInclude,
-      });
-      if (!order) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.orderNotFound') });
-        return;
-      }
-      type SellerOrderWithRelations = Prisma.OrderGetPayload<{ include: typeof sellerOrderInclude }>;
-      const so = order as SellerOrderWithRelations;
-      const buyerName = so.buyer ? `${so.buyer.firstName} ${so.buyer.lastName}` : so.guestPhone || so.guestEmail || tt(loc, 'common.guest');
-      const itemsText = so.items
-        .map(
-          (i: { product: { title: string }; variant?: { options?: unknown } | null; quantity: number; price: { toNumber?: () => number } | number }) =>
-            tt(loc, 'detail.itemLine', {
-              title: esc(i.product.title),
-              variant: i.variant?.options ? ` (${esc(formatVariantOptions(i.variant.options))})` : '',
-              qty: i.quantity,
-              price: formatTelegramMoney(loc, Number(i.price)),
-              currency: cur,
-            }),
-        )
-        .join('\n');
-      const text =
-        `${tt(loc, 'detail.title')}\n\n` +
-        `${tt(loc, 'detail.number')}: <code>${esc(so.orderNumber)}</code>\n` +
-        `${tt(loc, 'detail.status')}: ${telegramOrderStatus(loc, so.status, so.deliveryType)}\n` +
-        `${tt(loc, 'detail.payment')}: ${telegramPaymentStatus(loc, so.paymentStatus ?? '')} (${telegramPaymentMethod(loc, so.paymentMethod ?? '')})\n` +
-        `${tt(loc, 'detail.buyer')}: ${esc(buyerName)}\n` +
-        `${tt(loc, 'detail.total')}: ${formatTelegramMoney(loc, Number(so.totalAmount))} ${cur}\n` +
-        `${tt(loc, 'detail.date')}: ${formatTelegramDateTime(loc, new Date(so.createdAt))}\n\n` +
-        tt(loc, 'detail.products') +
-        '\n' +
-        itemsText;
-      const backRows = await this.getBackMenuRows(sid);
-      const canMarkPaid =
-        (so.paymentMethod === 'CASH' || so.paymentMethod === 'CARD_ON_DELIVERY') && so.paymentStatus === 'PENDING';
-      const reply_markup: TelegramBotModule.InlineKeyboardMarkup = {
-        inline_keyboard: canMarkPaid
-          ? [[{ text: tt(loc, 'kb.markPaid'), callback_data: `order_mark_paid:${orderId}`, style: 'primary' }], ...backRows]
-          : backRows,
-      };
-      await this.sendOrEdit(sid, text, { parse_mode: 'HTML', reply_markup }, messageId);
-      return;
-    }
-
-    if (data.startsWith('order_mark_paid:')) {
-      const orderId = data.slice(16);
-      const shop = await this.prisma.shop.findFirst({
-        where: { telegramChatId: sid },
-        select: { userId: true },
-      });
-      if (!shop) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.shopNotLinked') });
-        return;
-      }
-      const order = await this.prisma.order.findFirst({
-        where: { id: orderId, sellerId: shop.userId },
-        select: { paymentMethod: true, paymentStatus: true },
-      });
-      if (!order) {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.orderNotFound') });
-        return;
-      }
-      if (order.paymentMethod !== 'CASH' && order.paymentMethod !== 'CARD_ON_DELIVERY') {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.cashOnlyMark') });
-        return;
-      }
-      if (order.paymentStatus === 'PAID') {
-        await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.alreadyPaid') });
-        return;
-      }
-      await this.prisma.order.update({
-        where: { id: orderId },
-        data: { paymentStatus: 'PAID' },
-      });
-      await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.markedPaid') });
-      const editMessageId = query.message?.message_id;
-      if (editMessageId) {
-        const updated = await this.prisma.order.findFirst({
-          where: { id: orderId, sellerId: shop.userId },
-          include: {
-            items: { include: { product: { select: { title: true } }, variant: true } },
-            buyer: { select: { firstName: true, lastName: true } },
-          },
-        });
-        if (updated) {
-          const buyerName = updated.buyer ? `${updated.buyer.firstName} ${updated.buyer.lastName}` : updated.guestPhone || updated.guestEmail || tt(loc, 'common.guest');
-          const itemsText = updated.items
-            .map(
-              (i: { product: { title: string }; variant?: { options?: unknown } | null; quantity: number; price: { toNumber?: () => number } | number }) =>
-                tt(loc, 'detail.itemLine', {
-                  title: esc(i.product.title),
-                  variant: i.variant?.options ? ` (${esc(formatVariantOptions(i.variant.options))})` : '',
-                  qty: i.quantity,
-                  price: formatTelegramMoney(loc, Number(i.price)),
-                  currency: cur,
-                }),
-            )
-            .join('\n');
-          const text =
-            `${tt(loc, 'detail.title')}\n\n` +
-            `${tt(loc, 'detail.number')}: <code>${esc(updated.orderNumber)}</code>\n` +
-            `${tt(loc, 'detail.status')}: ${telegramOrderStatus(loc, updated.status, updated.deliveryType)}\n` +
-            `${tt(loc, 'detail.payment')}: ${telegramPaymentStatus(loc, updated.paymentStatus ?? '')} (${telegramPaymentMethod(loc, updated.paymentMethod ?? '')})\n` +
-            `${tt(loc, 'detail.buyer')}: ${esc(buyerName)}\n` +
-            `${tt(loc, 'detail.total')}: ${formatTelegramMoney(loc, Number(updated.totalAmount))} ${cur}\n` +
-            `${tt(loc, 'detail.date')}: ${formatTelegramDateTime(loc, new Date(updated.createdAt))}\n\n` +
-            tt(loc, 'detail.products') +
-            '\n' +
-            itemsText;
-          const reply_markup: TelegramBotModule.InlineKeyboardMarkup = { inline_keyboard: await this.getBackMenuRows(sid) };
-          await this.sendOrEdit(sid, text, { parse_mode: 'HTML', reply_markup }, editMessageId);
-        }
-      }
-      return;
-    }
+    if (await this.orders.handleOrderCallback(query)) return;
 
     if (data.startsWith('seller_app:approve:') || data.startsWith('seller_app:reject:')) {
-      const adminChatId = await this.getAdminTelegramChatId();
+      const adminChatId = await this.ui.getAdminTelegramChatId();
       if (adminChatId !== sid) {
         await this.bot.answerCallbackQuery(query.id, { text: tt(loc, 'cb.denied') });
         return;

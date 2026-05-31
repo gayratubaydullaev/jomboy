@@ -1,9 +1,9 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/i18n/config';
-import { DEFAULT_LOCALE, LOCALE_COOKIE, intlLocaleTag, parseLocale } from '@/i18n/config';
+import { DEFAULT_LOCALE, LOCALE_COOKIE, htmlLang, intlLocaleTag, parseLocale } from '@/i18n/config';
 import type { Messages } from '@/i18n/dictionaries';
 import { messagesByLocale as dictionaries } from '@/i18n/dictionaries';
 import { getMessageString, interpolate } from '@/i18n/resolve';
@@ -18,6 +18,18 @@ type I18nContextValue = {
 };
 
 const I18nContext = createContext<I18nContextValue | null>(null);
+
+function readLocaleCookie(): Locale | null {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(new RegExp(`(?:^|; )${LOCALE_COOKIE}=([^;]*)`));
+  if (!match?.[1]) return null;
+  const raw = decodeURIComponent(match[1]);
+  return isLocale(raw) ? raw : null;
+}
+
+function isLocale(value: string): value is Locale {
+  return value === 'uz' || value === 'ru';
+}
 
 function setLocaleCookie(next: Locale) {
   const maxAge = 60 * 60 * 24 * 365;
@@ -46,6 +58,14 @@ export function I18nProvider({
   const router = useRouter();
   const [locale, setLocaleState] = useState<Locale>(() => parseLocale(initialLocale));
 
+  useEffect(() => {
+    const fromCookie = readLocaleCookie();
+    if (fromCookie) {
+      setLocaleState(fromCookie);
+      document.documentElement.lang = htmlLang(fromCookie);
+    }
+  }, []);
+
   const fallback = dictionaries[DEFAULT_LOCALE];
 
   const t = useCallback(
@@ -60,6 +80,7 @@ export function I18nProvider({
     (next: Locale) => {
       setLocaleState(next);
       setLocaleCookie(next);
+      document.documentElement.lang = htmlLang(next);
       router.refresh();
     },
     [router],

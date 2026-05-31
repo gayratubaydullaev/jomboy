@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { API_URL, formatPrice } from '@/lib/utils';
@@ -43,14 +44,14 @@ export default function AdminPayoutsPage() {
   const [recordNote, setRecordNote] = useState('');
   const [recordSubmitting, setRecordSubmitting] = useState(false);
   const [recordError, setRecordError] = useState('');
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const cur = () => t('checkout.currency');
 
   const fetchPayouts = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoadError('');
-    apiFetch(`${API_URL}/admin/payouts?limit=100`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/payouts?limit=100`)
       .then((r) => r.json())
       .then((d) => {
         setData(d);
@@ -60,7 +61,7 @@ export default function AdminPayoutsPage() {
         setData({ data: [], total: 0 });
         setLoadError(t('admin.common.apiConnectShort'));
       });
-  }, [token, t]);
+  }, [isReady, isLoggedIn, t]);
 
   useEffect(() => {
     fetchPayouts();
@@ -83,7 +84,7 @@ export default function AdminPayoutsPage() {
 
   const submitRecordPayout = () => {
     const row = recordModal.row;
-    if (!row || !token) return;
+    if (!row || !isLoggedIn) return;
     const amount = parseFloat(recordAmount.replace(/,/g, '.'));
     if (Number.isNaN(amount) || amount <= 0) {
       setRecordError(t('admin.ui.enterAmount'));
@@ -95,8 +96,7 @@ export default function AdminPayoutsPage() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+        },
       body: JSON.stringify({
         sellerId: row.seller.id,
         amount,
@@ -117,7 +117,7 @@ export default function AdminPayoutsPage() {
       });
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-64 w-full" />;
 
   const rows = Array.isArray(data?.data) ? data.data : [];

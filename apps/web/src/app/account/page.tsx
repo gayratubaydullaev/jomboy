@@ -44,15 +44,15 @@ export default function AccountPage() {
   const [tgLinkWaiting, setTgLinkWaiting] = useState(false);
   const [tgLinkError, setTgLinkError] = useState<string | null>(null);
   const tgLinkPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const { token, isReady, logout: authLogout } = useAuth();
+  const { isLoggedIn, isReady, logout: authLogout } = useAuth();
 
   useEffect(() => {
     if (!isReady) return;
-    if (!token) {
+    if (!isLoggedIn) {
       router.replace('/auth/login?next=/account');
       return;
     }
-    apiFetch(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/users/me`)
       .then((r) => r.json())
       .then((data) => {
         setUser(data);
@@ -61,15 +61,14 @@ export default function AccountPage() {
         setPhone(data?.phone ?? '');
       })
       .catch(() => router.replace('/auth/login'));
-  }, [isReady, token, router]);
+  }, [isReady, isLoggedIn, router]);
 
   const saveProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !user) return;
+    if (!isLoggedIn || !user) return;
     setSaving(true);
     apiFetch(`${API_URL}/users/me`, {
       method: 'PATCH',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), phone: phone.trim() || null }),
     })
       .then(async (r) => {
@@ -96,21 +95,20 @@ export default function AccountPage() {
   };
 
   const refreshUser = () => {
-    if (!token) return;
-    apiFetch(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/users/me`)
       .then((r) => r.json())
       .then((data) => setUser(data))
       .catch(() => {});
   };
 
   const startTelegramLink = () => {
-    if (!token || tgLinkLoading || tgLinkWaiting) return;
+    if (!isLoggedIn || tgLinkLoading || tgLinkWaiting) return;
     setTgLinkError(null);
     setTgLinkLoading(true);
     apiFetch(`${API_URL}/auth/telegram/request-link`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-    })
+      })
       .then((r) => {
         if (!r.ok) return r.json().then((e: { message?: string }) => Promise.reject(new Error(e?.message || r.statusText)));
         return r.json();
@@ -120,7 +118,7 @@ export default function AccountPage() {
         setTgLinkWaiting(true);
         window.open(data.linkUrl, '_blank', 'noopener');
         const poll = () => {
-          fetch(`${API_URL}/auth/telegram/verify?token=${encodeURIComponent(data.token)}`, { credentials: 'include' })
+          apiFetch(`${API_URL}/auth/telegram/verify?token=${encodeURIComponent(data.token)}`)
             .then((res) => res.json())
             .then((result: { status?: string }) => {
               if (result.status === 'linked') {

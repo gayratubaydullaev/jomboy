@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { API_URL } from '@/lib/utils';
+import { apiFetch } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProductCard, type ProductCardProduct } from '@/components/product/product-card';
 import { useTranslation } from '@/contexts/i18n-context';
@@ -19,7 +20,7 @@ export function RelatedProducts({ categoryId, currentProductId }: RelatedProduct
   useEffect(() => {
     if (!categoryId) return;
     const params = new URLSearchParams({ limit: '8', categoryId, sortBy: 'createdAt', sortOrder: 'desc' });
-    fetch(`${API_URL}/products?${params}`)
+    apiFetch(`${API_URL}/products?${params}`)
       .then((r) => r.json())
       .then((res) => {
         const list = Array.isArray(res?.data) ? res.data : [];

@@ -1,19 +1,24 @@
-# Production deploy: API image from GHCR, DB and Redis on server.
-# Use: docker compose -f docker-compose.deploy.yml pull && docker compose -f docker-compose.deploy.yml up -d
-# Env: set DEPLOY_IMAGE in .env or export (e.g. ghcr.io/OWNER/jomboy-api:latest)
+# Production deploy: API + Web images from GHCR, DB and Redis on server.
+# Use: docker compose -f docker-compose.deploy.yml pull && docker compose -f docker-compose.deploy.yml up -d --wait
+# Env (.env): DEPLOY_IMAGE, DEPLOY_WEB_IMAGE, DATABASE_URL, JWT_SECRET, REDIS_URL, etc.
 
 version: '3.8'
 
 services:
   api:
-    image: ${DEPLOY_IMAGE:-ghcr.io/placeholder/jomboy-api:latest}
+    image: ${DEPLOY_IMAGE:-ghcr.io/placeholder/myshopuz-api:latest}
     ports:
       - "4000:4000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL}
       - JWT_SECRET=${JWT_SECRET}
+      - CSRF_SECRET=${CSRF_SECRET}
       - REDIS_URL=${REDIS_URL}
+      - SENTRY_DSN=${SENTRY_DSN:-}
+      - SENTRY_RELEASE=${SENTRY_RELEASE:-}
+      - APPLY_RLS=${APPLY_RLS:-}
+      - SKIP_MIGRATE=${SKIP_MIGRATE:-}
     depends_on:
       db:
         condition: service_healthy
@@ -25,6 +30,25 @@ services:
       timeout: 5s
       retries: 5
       start_period: 90s
+    restart: unless-stopped
+
+  web:
+    image: ${DEPLOY_WEB_IMAGE:-ghcr.io/placeholder/myshopuz-web:latest}
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - SESSION_COOKIE_SECRET=${SESSION_COOKIE_SECRET}
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
     restart: unless-stopped
 
   db:

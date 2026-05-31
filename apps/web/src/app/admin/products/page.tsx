@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -34,7 +35,7 @@ export default function AdminProductsPage() {
   const [filter, setFilter] = useState<'false' | 'true' | ''>('');
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState('');
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const cur = t('checkout.currency');
 
   useEffect(() => {
@@ -42,10 +43,10 @@ export default function AdminProductsPage() {
   }, [searchParams]);
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoadError('');
     const q = filter ? `?page=1&limit=50&isModerated=${filter}` : '?page=1&limit=50';
-    apiFetch(`${API_URL}/admin/products${q}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/products${q}`)
       .then((r) => r.json())
       .then((d) => {
         setData(d);
@@ -55,18 +56,17 @@ export default function AdminProductsPage() {
         setData({ data: [], total: 0, page: 1, totalPages: 0 });
         setLoadError(t('admin.common.apiConnectError'));
       });
-  }, [token, filter, t]);
+  }, [isReady, isLoggedIn, filter, t]);
 
   useEffect(() => {
     load();
   }, [load]);
 
   const moderate = (productId: string, approve: boolean) => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoading(true);
     apiFetch(`${API_URL}/admin/products/${productId}/moderate`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({ approve }),
     })
       .then(() => {
@@ -77,7 +77,7 @@ export default function AdminProductsPage() {
       .finally(() => setLoading(false));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (data === null) return <Skeleton className="h-64 w-full" />;
 
   const products = data.data ?? [];

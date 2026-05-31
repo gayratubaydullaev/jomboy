@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, Header } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import { Public } from '../auth/decorators/public.decorator';
@@ -10,6 +10,7 @@ export class CategoriesController {
 
   @Get()
   @Public()
+  @Header('Cache-Control', 'public, max-age=600')
   @ApiOperation({ summary: 'List categories' })
   findAll(@Query('parentId') parentId?: string) {
     return this.categories.findAll(parentId === 'null' ? null : parentId);
@@ -17,6 +18,7 @@ export class CategoriesController {
 
   @Get('slug/:slug')
   @Public()
+  @Header('Cache-Control', 'public, max-age=600')
   @ApiOperation({ summary: 'Get category by slug' })
   findBySlug(@Param('slug') slug: string) {
     return this.categories.findBySlug(slug);
@@ -24,6 +26,7 @@ export class CategoriesController {
 
   @Get(':id')
   @Public()
+  @Header('Cache-Control', 'public, max-age=600')
   @ApiOperation({ summary: 'Get category by id' })
   findOne(@Param('id') id: string) {
     return this.categories.findOne(id);

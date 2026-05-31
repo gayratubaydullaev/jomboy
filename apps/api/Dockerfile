@@ -20,7 +20,7 @@ RUN pnpm --filter @myshopuz/shared run build && \
 
 FROM base AS runner
 ENV NODE_ENV=production
-RUN apk add --no-cache wget && \
+RUN apk add --no-cache wget postgresql-client && \
   addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nestjs
 WORKDIR /app
 COPY --from=builder /app/apps/api/dist ./dist

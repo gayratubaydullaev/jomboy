@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { API_URL, formatPrice } from '@/lib/utils';
-import { apiFetch, getCsrfToken } from '@/lib/api';
+import { apiFetch, apiUpload } from '@/lib/api';
 import { toast } from 'sonner';
 import { FileSpreadsheet, Download, Upload, Copy, CheckCircle, XCircle, Package } from 'lucide-react';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
@@ -43,28 +44,25 @@ export default function SellerProductsPage() {
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [copiedErrors, setCopiedErrors] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const currency = t('checkout.currency');
 
   const loadProducts = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/products/my`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/products/my`)
       .then((r) => r.json())
       .then(setData);
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   useEffect(() => {
     loadProducts();
   }, [loadProducts]);
 
   const downloadTemplate = async () => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setTemplateLoading(true);
     try {
-      const csrf = await getCsrfToken();
-      const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-      if (csrf) headers['x-csrf-token'] = csrf;
-      const r = await fetch(`${API_URL}/products/import-template`, { headers, credentials: 'include' });
+      const r = await apiFetch(`${API_URL}/products/import-template`);
       if (!r.ok) throw new Error(L('downloadError'));
       const blob = await r.blob();
       const url = URL.createObjectURL(blob);
@@ -101,7 +99,7 @@ export default function SellerProductsPage() {
 
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !token) return;
+    if (!file || !isLoggedIn) return;
     const ext = file.name.split('.').pop()?.toLowerCase();
     if (ext !== 'xlsx' && ext !== 'xls') {
       toast.error(L('toastImportExt'));
@@ -113,15 +111,7 @@ export default function SellerProductsPage() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const csrf = await getCsrfToken();
-      const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-      if (csrf) headers['x-csrf-token'] = csrf;
-      const r = await fetch(`${API_URL}/products/import`, {
-        method: 'POST',
-        headers,
-        body: form,
-        credentials: 'include',
-      });
+      const r = await apiUpload(`${API_URL}/products/import`, form);
       const result = await r.json().catch(() => ({}));
       if (result.created != null) {
         setImportResult(result);
@@ -144,7 +134,7 @@ export default function SellerProductsPage() {
     }
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <div className="space-y-4"><Skeleton className="h-24 w-full" /></div>;
 
   const products = data.data ?? [];

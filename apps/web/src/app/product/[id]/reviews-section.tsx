@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
@@ -47,7 +48,6 @@ export function ReviewsSection({
   };
 
   const [reviews, setReviews] = useState<Review[] | null>(initialReviews ?? null);
-  const [mounted, setMounted] = useState(false);
   const [formRating, setFormRating] = useState(0);
   const [formComment, setFormComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -89,25 +89,19 @@ export function ReviewsSection({
   }, []);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
     if (initialReviews != null) return;
     refetchReviews(productId).then(setReviews);
   }, [productId, initialReviews]);
 
-  const token = mounted && typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-  const isLoggedIn = !!token;
+  const { isLoggedIn } = useAuth();
+  
 
   useEffect(() => {
     if (!isLoggedIn || !productId) {
       setCanReview(null);
       return;
     }
-    apiFetch(`${API_URL}/reviews/product/${productId}/can-review`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    apiFetch(`${API_URL}/reviews/product/${productId}/can-review`)
       .then(async (r) => {
         if (!r.ok) {
           setCanReview({ canReview: false, purchaseCount: 0, reviewCount: 0 });
@@ -117,15 +111,15 @@ export function ReviewsSection({
         setCanReview(data);
       })
       .catch(() => setCanReview({ canReview: false, purchaseCount: 0, reviewCount: 0 }));
-  }, [isLoggedIn, productId, token]);
+  }, [isLoggedIn, productId]);
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formRating < 1 || formRating > 5 || !token) return;
+    if (formRating < 1 || formRating > 5 || !isLoggedIn) return;
     setSubmitting(true);
     apiFetch(`${API_URL}/reviews/product/${productId}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ rating: formRating, comment: formComment.trim() || undefined }),
     })
       .then(async (r) => {

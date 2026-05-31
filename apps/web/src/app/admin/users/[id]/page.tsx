@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -56,7 +57,7 @@ export default function AdminUserProfilePage() {
   const [user, setUser] = useState<UserProfile | null | undefined>(undefined);
   const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
   const [permissionSaving, setPermissionSaving] = useState<keyof ModeratorPermissions | null>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const isSuperAdmin = currentUserRole === 'ADMIN';
 
   const roleLabel = (role: string) => {
@@ -68,25 +69,25 @@ export default function AdminUserProfilePage() {
   const permissionLabel = (key: keyof ModeratorPermissions) => t(`admin.users.detail.permissions.${key}`);
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/users/me`)
       .then((r) => r.json())
       .then((me: { role?: string }) => setCurrentUserRole(me?.role ?? null))
       .catch(() => setCurrentUserRole(null));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
   useEffect(() => {
-    if (!token || !id) return;
-    apiFetch(`${API_URL}/admin/users/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !id) return;
+    apiFetch(`${API_URL}/admin/users/${id}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(t('admin.ui.notFound')))))
       .then(setUser)
       .catch(() => setUser(null));
-  }, [token, id, t]);
+  }, [isReady, isLoggedIn, id, t]);
 
   const block = (block: boolean) => {
-    if (!token || !user) return;
+    if (!isLoggedIn || !user) return;
     apiFetch(`${API_URL}/admin/users/${user.id}/block`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ block }),
     })
       .then(async (r) => {
@@ -100,10 +101,10 @@ export default function AdminUserProfilePage() {
   };
 
   const setRole = (role: string) => {
-    if (!token || !user) return;
+    if (!isLoggedIn || !user) return;
     apiFetch(`${API_URL}/admin/users/${user.id}/role`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ role }),
     })
       .then(async (r) => {
@@ -117,11 +118,11 @@ export default function AdminUserProfilePage() {
   };
 
   const setModeratorPermission = (key: keyof ModeratorPermissions, value: boolean) => {
-    if (!token || !user || user.role !== 'ADMIN_MODERATOR') return;
+    if (!isLoggedIn || !user || user.role !== 'ADMIN_MODERATOR') return;
     setPermissionSaving(key);
     apiFetch(`${API_URL}/admin/users/${user.id}/moderator-permissions`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ [key]: value }),
     })
       .then(async (r) => {
@@ -136,7 +137,7 @@ export default function AdminUserProfilePage() {
       .finally(() => setPermissionSaving(null));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (user === undefined) {
     return (
       <div className="min-w-0 max-w-2xl space-y-6">

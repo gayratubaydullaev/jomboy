@@ -79,5 +79,6 @@ export async function DELETE() {
   };
   res.cookies.set(SESSION_COOKIE_NAME, '', cookieOpts);
   res.cookies.set(ACCESS_TOKEN_COOKIE, '', cookieOpts);
+  res.cookies.set('refreshToken', '', cookieOpts);
   return res;
 }

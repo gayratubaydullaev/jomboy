@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { API_URL } from '@/lib/utils';
@@ -35,19 +36,6 @@ type Session = {
   chatWithSellerEnabled?: boolean;
 };
 
-function getMyId(): string {
-  if (typeof window === 'undefined') return '';
-  try {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) return '';
-    const b64 = accessToken.split('.')[1]?.replace(/-/g, '+').replace(/_/g, '/');
-    if (!b64) return '';
-    const payload = JSON.parse(atob(b64));
-    return payload?.sub ?? '';
-  } catch {
-    return '';
-  }
-}
 
 const POLL_INTERVAL_MS = 4000;
 
@@ -60,42 +48,53 @@ export default function ChatRoomPage() {
   const [messages, setMessages] = useState<Message[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
+  const [myId, setMyId] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-  const myId = getMyId();
+  const { isLoggedIn, isReady } = useAuth();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setMyId('');
+      return;
+    }
+    apiFetch(`${API_URL}/users/me`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((user: { id?: string } | null) => setMyId(user?.id ?? ''))
+      .catch(() => setMyId(''));
+  }, [isLoggedIn]);
 
   const loadSession = useCallback(() => {
-    if (!token || !id) return;
-    apiFetch(`${API_URL}/chat/sessions/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !id) return;
+    apiFetch(`${API_URL}/chat/sessions/${id}`)
       .then((r) => r.json())
       .then(setSession)
       .catch(() => setSession(null));
-  }, [token, id]);
+  }, [isLoggedIn, id]);
 
   const loadMessages = useCallback(() => {
-    if (!token || !id) return;
-    apiFetch(`${API_URL}/chat/sessions/${id}/messages`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !id) return;
+    apiFetch(`${API_URL}/chat/sessions/${id}/messages`)
       .then((r) => r.json())
       .then((data) => setMessages(Array.isArray(data) ? data : []))
       .catch(() => setMessages([]));
-  }, [token, id]);
+  }, [isLoggedIn, id]);
 
   useEffect(() => {
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       router.replace('/auth/login?next=/chat/' + id);
       return;
     }
     loadSession();
     loadMessages();
-  }, [token, id, router, loadSession, loadMessages]);
+  }, [isReady, isLoggedIn, id, router, loadSession, loadMessages]);
 
   useEffect(() => {
-    if (!token || !id) return;
+    if (!isLoggedIn || !id) return;
     const interval = setInterval(() => {
       if (document.visibilityState === 'visible') loadMessages();
     }, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
-  }, [token, id, loadMessages]);
+  }, [isLoggedIn, id, loadMessages]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -104,11 +103,11 @@ export default function ChatRoomPage() {
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const text = input.trim();
-    if (!text || !token || !id) return;
+    if (!text || !isLoggedIn || !id) return;
     setLoading(true);
     apiFetch(`${API_URL}/chat/sessions/${id}/messages`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content: text }),
     })
       .then(async (r) => {
@@ -126,7 +125,7 @@ export default function ChatRoomPage() {
       .finally(() => setLoading(false));
   };
 
-  if (!token) return null;
+  if (!isReady || !isLoggedIn) return null;
   if (messages === null)
     return (
       <div className="w-full max-w-lg mx-auto px-0 sm:px-4 md:px-6 p-4">

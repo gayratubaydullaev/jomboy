@@ -242,6 +242,11 @@ JWT_ACCESS_EXPIRES=15m
 # Frontend domeni — CORS va cookie. Bir nechta bo'lsa vergul bilan
 CORS_ORIGIN=https://samarkand.site,https://www.samarkand.site
 CSRF_SECRET=your-csrf-secret-min-32-characters-for-production
+# Production majburiy: to'lov callback IP ro'yxati (vergul bilan)
+CLICK_ALLOWED_IPS=1.2.3.4,5.6.7.8
+PAYME_ALLOWED_IPS=1.2.3.4
+THROTTLE_USE_REDIS=true
+REDIS_URL=redis://127.0.0.1:6379
 # Frontend manzili: Telegram Web App va bildirishnomalardagi linklar
 APP_URL=https://samarkand.site
 TELEGRAM_BOT_TOKEN=123456789:ABC...

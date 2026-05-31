@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { API_URL } from '@/lib/utils';
-import { apiFetch, getCsrfToken } from '@/lib/api';
+import { apiFetch, apiUpload } from '@/lib/api';
 import { Plus, Pencil, Trash2, Eye, EyeOff, Upload } from 'lucide-react';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
@@ -66,12 +67,12 @@ export default function AdminBannersPage() {
   const [uploading, setUploading] = useState(false);
   const [editing, setEditing] = useState<Banner | null>(null);
   const [form, setForm] = useState(defaultForm);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoadError('');
-    apiFetch(`${API_URL}/admin/banners`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/banners`)
       .then((r) => r.json())
       .then((d) => {
         setList(Array.isArray(d) ? d : []);
@@ -81,7 +82,7 @@ export default function AdminBannersPage() {
         setList([]);
         setLoadError(t('admin.common.apiConnectShort'));
       });
-  }, [token, t]);
+  }, [isReady, isLoggedIn, t]);
 
   useEffect(() => {
     load();
@@ -89,20 +90,12 @@ export default function AdminBannersPage() {
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !token) return;
+    if (!file || !isLoggedIn) return;
     setUploading(true);
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const csrf = await getCsrfToken();
-      const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-      if (csrf) headers['x-csrf-token'] = csrf;
-      const r = await fetch(`${API_URL}/upload/image`, {
-        method: 'POST',
-        headers,
-        body: formData,
-        credentials: 'include',
-      });
+      const r = await apiUpload(`${API_URL}/upload/image`, formData);
       const data = await r.json().catch(() => ({}));
       if (data?.url) {
         setForm((f) => ({ ...f, image: data.url }));
@@ -118,7 +111,7 @@ export default function AdminBannersPage() {
 
   const create = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !form.image.trim() || !form.href.trim()) return;
+    if (!isLoggedIn || !form.image.trim() || !form.href.trim()) return;
     setLoading(true);
     const payload = {
       image: form.image.trim(),
@@ -132,7 +125,7 @@ export default function AdminBannersPage() {
     };
     apiFetch(`${API_URL}/admin/banners`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     })
       .then(() => {
@@ -146,7 +139,7 @@ export default function AdminBannersPage() {
 
   const update = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !editing) return;
+    if (!isLoggedIn || !editing) return;
     setLoading(true);
     const payload: Record<string, unknown> = {
       image: form.image.trim() || undefined,
@@ -160,7 +153,7 @@ export default function AdminBannersPage() {
     };
     apiFetch(`${API_URL}/admin/banners/${editing.id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     })
       .then(() => {
@@ -173,8 +166,8 @@ export default function AdminBannersPage() {
   };
 
   const remove = (id: string) => {
-    if (!token || !confirm(t('admin.ui.confirmDeleteBanner'))) return;
-    apiFetch(`${API_URL}/admin/banners/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !confirm(t('admin.ui.confirmDeleteBanner'))) return;
+    apiFetch(`${API_URL}/admin/banners/${id}`, { method: 'DELETE', })
       .then(() => {
         load();
         toast.success(t('admin.ui.bannerDeleted'));
@@ -183,10 +176,10 @@ export default function AdminBannersPage() {
   };
 
   const toggleActive = (b: Banner) => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     apiFetch(`${API_URL}/admin/banners/${b.id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ isActive: !b.isActive }),
     })
       .then(() => {
@@ -198,7 +191,7 @@ export default function AdminBannersPage() {
 
   const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleString(intlLocale) : '');
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (list === null) return <Skeleton className="h-64 w-full" />;
 
   return (

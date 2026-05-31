@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { API_URL } from '@/lib/utils';
@@ -42,25 +43,25 @@ function ChatListContent() {
   const asParam = searchParams.get('as');
   const [sessions, setSessions] = useState<Session[] | null>(null);
   const [asBuyer, setAsBuyer] = useState(asParam === 'seller' ? false : true);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
     setAsBuyer(asParam === 'seller' ? false : true);
   }, [asParam]);
 
   useEffect(() => {
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       router.replace('/auth/login?next=/chat');
       return;
     }
     const q = asBuyer ? '?as=buyer' : '?as=seller';
-    apiFetch(`${API_URL}/chat/sessions${q}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/chat/sessions${q}`)
       .then((r) => r.json())
       .then(setSessions)
       .catch(() => setSessions([]));
-  }, [token, asBuyer, router]);
+  }, [isReady, isLoggedIn, asBuyer, router]);
 
-  if (!token) return null;
+  if (!isReady || !isLoggedIn) return null;
   if (sessions === null) {
     return (
       <div className="max-w-lg mx-auto p-4">

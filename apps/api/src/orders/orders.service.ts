@@ -8,6 +8,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { CreateOrderDto, DeliveryType } from './dto/create-order.dto';
 import { OrderStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { normalizePagination, paginatedResponse, emptyPaginatedResponse } from '@myshopuz/shared';
 
 @Injectable()
 export class OrdersService {
@@ -245,11 +246,12 @@ export class OrdersService {
   }
 
   async findMyOrders(buyerId: string, page = 1, limit = 20) {
+    const { page: p, limit: take, skip } = normalizePagination(page, limit);
     const [data, total] = await Promise.all([
       this.prisma.order.findMany({
         where: { buyerId },
-        skip: (page - 1) * limit,
-        take: limit,
+        skip,
+        take,
         orderBy: { createdAt: 'desc' },
         include: {
           items: { include: { product: { include: { images: true } } } },
@@ -258,7 +260,7 @@ export class OrdersService {
       }),
       this.prisma.order.count({ where: { buyerId } }),
     ]);
-    return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
+    return paginatedResponse(data, total, p, take);
   }
 
   async findSellerOrders(sellerId: string, page = 1, limit = 20, status?: OrderStatus) {
@@ -267,15 +269,16 @@ export class OrdersService {
       select: { id: true },
     });
     if (!shop) {
-      return { data: [], total: 0, page: 1, limit, totalPages: 0 };
+      return emptyPaginatedResponse(limit);
     }
     const where: { sellerId: string; status?: OrderStatus } = { sellerId };
     if (status) where.status = status;
+    const { page: p, limit: take, skip } = normalizePagination(page, limit);
     const [data, total] = await Promise.all([
       this.prisma.order.findMany({
         where,
-        skip: (page - 1) * limit,
-        take: limit,
+        skip,
+        take,
         orderBy: { createdAt: 'desc' },
         include: {
           items: {
@@ -308,7 +311,7 @@ export class OrdersService {
       }),
       this.prisma.order.count({ where }),
     ]);
-    return { data, total, page, limit, totalPages: Math.ceil(total / limit) };
+    return paginatedResponse(data, total, p, take);
   }
 
   async findOne(id: string, userId: string, role: string) {

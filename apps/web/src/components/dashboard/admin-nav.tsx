@@ -148,19 +148,19 @@ export function AdminNav() {
   const { t } = useTranslation();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { token } = useAuth();
+  const { isLoggedIn, isReady } = useAuth();
   const [adminUser, setAdminUser] = useState<{ role: string; moderatorPermissions?: Record<string, boolean> | null } | null>(null);
 
   useEffect(() => {
-    if (!token || !API_URL) return;
-    apiFetch(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !API_URL) return;
+    apiFetch(`${API_URL}/users/me`)
       .then((r) => (r.ok ? r.json() : null))
       .then((me: { role?: string; moderatorPermissions?: Record<string, boolean> | null }) =>
         me ? { role: me.role ?? '', moderatorPermissions: me.moderatorPermissions ?? null } : null
       )
       .then(setAdminUser)
       .catch(() => setAdminUser(null));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   return (
     <>

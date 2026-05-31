@@ -125,3 +125,29 @@ export async function registerBuyerE2e(
   const body = res.body as { accessToken: string; user: { id: string } };
   return { accessToken: body.accessToken, userId: body.user.id };
 }
+
+export async function loginE2e(
+  server: ReturnType<INestApplication['getHttpServer']>,
+  email: string,
+  password: string,
+): Promise<{ accessToken: string; cookies: string[] }> {
+  const res = await request(server).post('/auth/login').send({ email, password });
+  if (![200, 201].includes(res.status)) {
+    throw new Error(`login failed with status ${res.status}`);
+  }
+  const body = res.body as { accessToken: string };
+  const cookies = (res.headers['set-cookie'] as string[] | undefined) ?? [];
+  return { accessToken: body.accessToken, cookies };
+}
+
+export async function getCsrfE2e(server: ReturnType<INestApplication['getHttpServer']>) {
+  const res = await request(server).get('/auth/csrf').expect(200);
+  const csrfToken = (res.body as { csrfToken: string }).csrfToken;
+  const cookies = (res.headers['set-cookie'] as string[] | undefined) ?? [];
+  return { csrfToken, cookies };
+}
+
+export function mergeCookieHeader(...cookieSets: string[][]): string {
+  const pairs = cookieSets.flat().map((c) => c.split(';')[0]?.trim()).filter(Boolean);
+  return pairs.join('; ');
+}

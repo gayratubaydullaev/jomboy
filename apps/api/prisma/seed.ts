@@ -6,6 +6,11 @@ const prisma = new PrismaClient();
 const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop';
 
 async function main() {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'Refusing to run seed in production (NODE_ENV=production). Use ADMIN_EMAIL/ADMIN_PASSWORD or prisma migrate deploy only.',
+    );
+  }
   const adminHash = await bcrypt.hash('Admin123!', 10);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@myshop.uz' },

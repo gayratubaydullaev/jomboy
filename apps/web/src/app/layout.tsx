@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -11,8 +10,8 @@ import { CsrfPrefetch } from '@/components/csrf-prefetch';
 import { AuthProvider } from '@/contexts/auth-context';
 import { PublicSettingsProvider } from '@/contexts/public-settings-context';
 import { I18nProvider } from '@/contexts/i18n-context';
-import { LOCALE_COOKIE, parseLocale, htmlLang } from '@/i18n/config';
-import { getServerLocale, serverT } from '@/i18n/server-locale';
+import { DEFAULT_LOCALE, htmlLang } from '@/i18n/config';
+import { serverT } from '@/i18n/server-locale';
 import { getPublicSiteName } from '@/lib/site-name';
 import { TelegramWebAppProvider } from '@/contexts/telegram-webapp-context';
 import { TelegramThemeApplicator } from '@/components/telegram-theme-applicator';
@@ -26,7 +25,7 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-geist-sa
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteName = await getPublicSiteName();
-  const locale = getServerLocale();
+  const locale = DEFAULT_LOCALE;
   const ogLocale = locale === 'ru' ? serverT(locale, 'site.ogLocaleRu') : serverT(locale, 'site.ogLocaleUz');
   return {
     title: {
@@ -53,12 +52,9 @@ export const viewport = {
   viewportFit: 'cover' as const,
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = cookies();
-  const locale = parseLocale(cookieStore.get(LOCALE_COOKIE)?.value);
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={htmlLang(locale)} suppressHydrationWarning>
+    <html lang={htmlLang(DEFAULT_LOCALE)} suppressHydrationWarning>
       <body className={inter.variable + ' font-sans antialiased min-h-screen bg-background text-foreground overflow-x-hidden'}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TelegramWebAppProvider>
@@ -67,7 +63,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <TelegramBackButton />
               <AuthProvider>
                 <PublicSettingsProvider>
-                  <I18nProvider initialLocale={locale}>
+                  <I18nProvider initialLocale={DEFAULT_LOCALE}>
                     <TelegramWebAppAuth />
                     <MergeGuestFavoritesOnLogin />
                     <SentryInit />

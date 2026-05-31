@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -58,12 +59,12 @@ export default function AdminDashboardPage() {
   const { t } = useTranslation();
   const [stats, setStats] = useState<Stats | null>(null);
   const [statsError, setStatsError] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const cur = t('checkout.currency');
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/stats`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/stats`)
       .then(async (r) => {
         if (!r.ok) throw new Error('stats failed');
         return r.json();
@@ -73,7 +74,7 @@ export default function AdminDashboardPage() {
         setStatsError(false);
       })
       .catch(() => setStatsError(true));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   return (
     <div className="min-w-0 max-w-full">
@@ -87,7 +88,7 @@ export default function AdminDashboardPage() {
         <p className="text-sm text-destructive mb-4">{t('admin.common.apiConnectShort')}</p>
       )}
 
-      {token && !stats && !statsError && (
+      {isLoggedIn && !stats && !statsError && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <Card key={i}>

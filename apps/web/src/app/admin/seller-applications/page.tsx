@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
@@ -54,28 +55,28 @@ export default function AdminSellerApplicationsPage() {
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [page, setPage] = useState(1);
   const [rejectReason, setRejectReason] = useState<Record<string, string>>({});
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     const params = new URLSearchParams();
     if (statusFilter) params.set('status', statusFilter);
     params.set('page', String(page));
     params.set('limit', '20');
-    fetch(`${API_URL}/admin/seller-applications?${params}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/seller-applications?${params}`)
       .then((r) => r.json())
       .then(setData)
       .catch(() => setData(null));
-  }, [token, statusFilter, page]);
+  }, [isReady, isLoggedIn, statusFilter, page]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     load();
-  }, [token, load]);
+  }, [isReady, isLoggedIn, load]);
 
   const approve = (id: string) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/seller-applications/${id}/approve`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/seller-applications/${id}/approve`, { method: 'POST', })
       .then(() => {
         toast.success(t('admin.ui.applicationApproved'));
         load();
@@ -85,10 +86,10 @@ export default function AdminSellerApplicationsPage() {
 
   const reject = (id: string) => {
     const reason = rejectReason[id] ?? '';
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     apiFetch(`${API_URL}/admin/seller-applications/${id}/reject`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ reason: reason.trim() || undefined }),
     })
       .then(() => {
@@ -99,7 +100,7 @@ export default function AdminSellerApplicationsPage() {
       .catch(() => toast.error(t('admin.common.errorGeneric')));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-64 w-full rounded-xl" />;
 
   return (

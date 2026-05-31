@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Package, ShoppingBag, BarChart3, Settings, ArrowLeft, Store, MessageCircle, Plus, ExternalLink, Star, Menu, X, Bell } from 'lucide-react';
@@ -151,15 +152,15 @@ export function SellerNav() {
   const secondaryItems = [{ href: '/seller/settings', label: t('seller.nav.shopSettings'), icon: Settings }];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [stats, setStats] = useState<{ pendingOrdersCount?: number; shopSlug?: string | null; shopName?: string | null } | null>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/stats`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/stats`)
       .then((r) => r.json())
       .then((data) => setStats(data))
       .catch(() => setStats(null));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const pendingCount = stats?.pendingOrdersCount ?? 0;
   const shopSlug = stats?.shopSlug ?? null;

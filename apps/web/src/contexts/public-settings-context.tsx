@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { API_URL } from '@/lib/utils';
+import { apiFetch } from '@/lib/api';
 import { DEFAULT_SITE_NAME } from '@/lib/site-name';
 
 function normalizeSiteName(value?: string | null): string | null {
@@ -19,7 +20,7 @@ export function PublicSettingsProvider({ children }: { children: React.ReactNode
 
   useEffect(() => {
     if (!API_URL) return;
-    fetch(`${API_URL}/settings/public`, { credentials: 'include' })
+    apiFetch(`${API_URL}/settings/public`)
       .then((r) => r.ok ? r.json() : null)
       .then((data: { siteName?: string } | null) => {
         const name = normalizeSiteName(data?.siteName);

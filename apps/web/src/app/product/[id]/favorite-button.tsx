@@ -10,6 +10,7 @@ import { apiFetch } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import { isGuestFavorite, toggleGuestFavorite as toggleGuest } from '@/lib/guest-favorites';
 import { useTranslation } from '@/contexts/i18n-context';
+import { useAuth } from '@/contexts/auth-context';
 
 export function FavoriteButton({
   productId,
@@ -22,15 +23,13 @@ export function FavoriteButton({
   productId: string;
   initial?: boolean;
   className?: string;
-  /** Class for the heart icon (e.g. responsive size) */
   iconClassName?: string;
-  /** Applied when item is in favorites (e.g. red background) */
   activeClassName?: string;
-  /** Called after successful toggle (e.g. to remove card from favorites list when unfavorited) */
   onToggle?: (isFav: boolean) => void;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
+  const { isLoggedIn, isReady } = useAuth();
   const [isFav, setIsFav] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -41,25 +40,21 @@ export function FavoriteButton({
 
   useEffect(() => {
     if (!mounted) return;
-    const token = localStorage.getItem('accessToken');
-    if (token) setIsFav(!!initial);
+    if (isLoggedIn) setIsFav(!!initial);
     else setIsFav(isGuestFavorite(productId));
-  }, [mounted, initial, productId]);
+  }, [mounted, isLoggedIn, initial, productId]);
 
   useEffect(() => {
-    if (!mounted) return;
-    const token = localStorage.getItem('accessToken');
-    if (token) return;
+    if (!mounted || isLoggedIn) return;
     const handler = () => setIsFav(isGuestFavorite(productId));
     window.addEventListener('guest-favorites-changed', handler);
     return () => window.removeEventListener('guest-favorites-changed', handler);
-  }, [mounted, productId]);
+  }, [mounted, isLoggedIn, productId]);
 
   const toggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       const next = toggleGuest(productId);
       setIsFav(next);
       toast.success(next ? t('favorites.toastAdded') : t('favorites.toastRemoved'));
@@ -70,10 +65,9 @@ export function FavoriteButton({
     const next = !isFav;
     setIsFav(next);
     const url = next ? `${API_URL}/favorites` : `${API_URL}/favorites/${productId}`;
-    const authToken = localStorage.getItem('accessToken');
     apiFetch(url, {
       method: next ? 'POST' : 'DELETE',
-      headers: { Authorization: `Bearer ${authToken}` },
+      headers: next ? { 'Content-Type': 'application/json' } : undefined,
       body: next ? JSON.stringify({ productId }) : undefined,
     })
       .then((r) => {

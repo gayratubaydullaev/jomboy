@@ -1,19 +1,9 @@
 import { MetadataRoute } from 'next';
-
-async function fetchJson<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    return (await res.json()) as T;
-  } catch {
-    return null;
-  }
-}
+import { fetchJsonOrNull, getApiBaseUrl } from '@/lib/server-fetch';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://myshop.uz';
-  const apiRaw = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
-  const apiUrl = apiRaw.includes(',') ? apiRaw.split(',')[0].trim() : apiRaw;
+  const apiUrl = getApiBaseUrl();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: base, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
@@ -24,8 +14,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/telegram-app/catalog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.7 },
   ];
 
-  const categories = await fetchJson<{ slug: string; updatedAt?: string }[] | { data?: { slug: string }[] }>(
+  const categories = await fetchJsonOrNull<{ slug: string; updatedAt?: string }[] | { data?: { slug: string }[] }>(
     `${apiUrl}/categories`,
+    3600,
   );
   const categoryList = (Array.isArray(categories) ? categories : categories?.data ?? []) as {
     slug: string;
@@ -38,8 +29,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const productsPage = await fetchJson<{ data?: { slug: string; shop?: { slug: string }; updatedAt?: string }[] }>(
+  const productsPage = await fetchJsonOrNull<{ data?: { slug: string; shop?: { slug: string }; updatedAt?: string }[] }>(
     `${apiUrl}/products?limit=500&sortBy=createdAt&sortOrder=desc`,
+    3600,
   );
   const productRoutes: MetadataRoute.Sitemap = (productsPage?.data ?? []).map((p) => ({
     url: `${base}/product/${p.slug}${p.shop?.slug ? `?shop=${p.shop.slug}` : ''}`,

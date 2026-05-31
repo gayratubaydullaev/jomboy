@@ -45,14 +45,61 @@ jobs:
           DATABASE_URL: postgresql://test:test@localhost:5432/test
           JWT_SECRET: ci-test-secret-min-32-chars
           REDIS_URL: redis://localhost:6379
+          CSRF_SECRET: ci-test-csrf-secret-min-32-chars-long
+          CLICK_ALLOWED_IPS: 127.0.0.1
+          PAYME_ALLOWED_IPS: 127.0.0.1
+          THROTTLE_USE_REDIS: 'true'
           NODE_ENV: production
           # Web (Next.js)
           NEXT_PUBLIC_API_URL: http://localhost:4000
           JWT_SECRET: ci-test-jwt-secret-min-32-chars-long!!
           SESSION_COOKIE_SECRET: ci-test-session-secret-min-32-chars!!
 
-      - name: Test
-        run: pnpm run test
+      - name: Test (unit)
+        run: pnpm run test:unit
+
+      - name: API unit coverage
+        run: pnpm --filter @myshopuz/api run test:coverage
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          JWT_SECRET: ci-test-secret-min-32-chars-long-enough
+          NODE_ENV: test
+
+      - name: Web unit coverage
+        run: pnpm --filter @myshopuz/web run test:coverage
+
+      - name: Security audit
+        run: pnpm run audit:check
+
+  web-e2e:
+    name: Web E2E (Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @myshopuz/shared build
+      - name: Build web
+        run: pnpm --filter @myshopuz/web build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:4000
+          JWT_SECRET: ci-test-jwt-secret-min-32-chars-long!!
+          SESSION_COOKIE_SECRET: ci-test-session-secret-min-32-chars!!
+      - name: Install Playwright
+        working-directory: apps/web
+        run: pnpm exec playwright install chromium --with-deps
+      - name: Playwright smoke tests
+        working-directory: apps/web
+        run: pnpm run test:e2e
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3000
 
   api-e2e:
     name: API E2E
@@ -106,3 +153,28 @@ jobs:
           PAYME_MERCHANT_ID: e2e-merchant
           PAYME_KEY: e2e-payme-secret-key
         run: pnpm run test:e2e
+      - name: Export OpenAPI spec
+        if: success()
+        working-directory: apps/api
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          JWT_SECRET: ci-test-secret-min-32-chars-long-enough
+          REDIS_URL: redis://localhost:6379
+          NODE_ENV: test
+          PAYME_MERCHANT_ID: e2e-merchant
+          PAYME_KEY: e2e-payme-secret-key
+        run: |
+          pnpm run build
+          pnpm run start:prod &
+          APP_PID=$!
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:4000/api/docs-json -o ../../docs/openapi.json && break
+            sleep 2
+          done
+          kill $APP_PID || true
+      - name: Upload OpenAPI artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-spec
+          path: docs/openapi.json

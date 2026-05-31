@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,20 +54,20 @@ export default function AdminSettingsPage() {
   const [telegramCode, setTelegramCode] = useState('');
   const [telegramLinking, setTelegramLinking] = useState(false);
   const [telegramDisconnecting, setTelegramDisconnecting] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const loadTelegramStatus = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/telegram`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/telegram`)
       .then((r) => r.json())
       .then(setTelegramStatus)
       .catch(() => setTelegramStatus({ connected: false }));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setError('');
-    apiFetch(`${API_URL}/admin/settings`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/settings`)
       .then((r) => r.json())
       .then((s: Settings) => {
         setSettings(s);
@@ -89,15 +90,15 @@ export default function AdminSettingsPage() {
         setSettings({ siteName: null, commissionRate: '5', minPayoutAmount: '100000' });
       });
     loadTelegramStatus();
-  }, [token, loadTelegramStatus]);
+  }, [isReady, isLoggedIn, loadTelegramStatus]);
 
   const linkTelegram = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !telegramCode.trim()) return;
+    if (!isLoggedIn || !telegramCode.trim()) return;
     setTelegramLinking(true);
     apiFetch(`${API_URL}/admin/telegram/link`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: telegramCode.trim().toUpperCase() }),
     })
       .then((r) => r.json())
@@ -113,12 +114,11 @@ export default function AdminSettingsPage() {
   };
 
   const disconnectTelegram = () => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setTelegramDisconnecting(true);
     apiFetch(`${API_URL}/admin/telegram/disconnect`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-    })
+      })
       .then((r) => r.json())
       .then((data) => {
         if (data.ok) {
@@ -132,12 +132,12 @@ export default function AdminSettingsPage() {
 
   const save = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoading(true);
     setError('');
     apiFetch(`${API_URL}/admin/settings`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         siteName: siteName.trim() || null,
         commissionRate: Number(commission),
@@ -175,7 +175,7 @@ export default function AdminSettingsPage() {
     setPaymentDelivery((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!settings) return <Skeleton className="h-32 w-full" />;
 
   return (

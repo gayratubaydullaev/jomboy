@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/auth-context';
 import { useTelegramWebApp } from '@/contexts/telegram-webapp-context';
 import { API_URL } from '@/lib/utils';
+import { apiFetch } from '@/lib/api';
 
 /**
  * При открытии Web App через Menu Button (или по любой ссылке в TWA) автоматически
@@ -11,7 +12,7 @@ import { API_URL } from '@/lib/utils';
  * находит пользователя или создаёт нового (без дублирования).
  */
 export function TelegramWebAppAuth() {
-  const { setToken } = useAuth();
+  const { completeAuthSession: onAuthComplete } = useAuth();
   const { isTWA, webApp, isReady } = useTelegramWebApp();
   const requested = useRef(false);
 
@@ -21,10 +22,9 @@ export function TelegramWebAppAuth() {
     const initData = webApp.initData.trim();
     requested.current = true;
 
-    fetch(`${API_URL}/auth/telegram`, {
+    apiFetch(`${API_URL}/auth/telegram`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
       body: JSON.stringify({ initData }),
     })
       .then((res) => {
@@ -32,12 +32,12 @@ export function TelegramWebAppAuth() {
         return res.json();
       })
       .then((data: { accessToken?: string }) => {
-        if (data.accessToken) setToken(data.accessToken);
+        if (data.accessToken) void onAuthComplete(data.accessToken);
       })
       .catch(() => {
-        requested.current = false; // allow retry on next mount if failed
+        requested.current = false;
       });
-  }, [isReady, isTWA, webApp, setToken]);
+  }, [isReady, isTWA, webApp, onAuthComplete]);
 
   return null;
 }

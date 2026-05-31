@@ -1,34 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getBackendUrl, isAllowedProxyPath } from '@/lib/proxy-path';
 
 const ACCESS_TOKEN_COOKIE = 'access_token';
-
-const ALLOWED_PREFIXES = [
-  'auth',
-  'products',
-  'cart',
-  'orders',
-  'categories',
-  'banners',
-  'settings',
-  'payments',
-  'checkout-session',
-  'reviews',
-  'favorites',
-  'notifications',
-  'chat',
-  'users',
-  'seller',
-  'seller-application',
-  'upload',
-  'health',
-] as const;
-
-function isAllowedProxyPath(pathStr: string, hasAuth: boolean): boolean {
-  if (!pathStr) return false;
-  const first = pathStr.split('/')[0]?.toLowerCase();
-  if (first === 'admin') return hasAuth;
-  return ALLOWED_PREFIXES.includes(first as (typeof ALLOWED_PREFIXES)[number]);
-}
 
 const FORWARD_HEADERS = [
   'authorization',
@@ -40,11 +13,8 @@ const FORWARD_HEADERS = [
   'cookie',
 ] as const;
 
-function getBackendUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
-  let url = raw.includes(',') ? raw.split(',')[0].trim() : raw;
-  if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
-  return url.replace(/\/$/, '');
+function getBackendUrlFromEnv(): string {
+  return getBackendUrl();
 }
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ path?: string[] }> }) {
@@ -88,7 +58,7 @@ async function proxy(
     console.warn('[api/proxy] Blocked path:', pathStr);
     return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
   }
-  const backendUrl = getBackendUrl();
+  const backendUrl = getBackendUrlFromEnv();
   const url = `${backendUrl}/${pathStr}${request.nextUrl.search}`;
 
   let body: string | ArrayBuffer | undefined;

@@ -9,16 +9,16 @@ import { useAuth } from '@/contexts/auth-context';
 
 export function SellerGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { token, isReady } = useAuth();
+  const { isLoggedIn, isReady } = useAuth();
   const [allowed, setAllowed] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!isReady) return;
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       router.replace('/auth/login?next=/seller');
       return;
     }
-    apiFetch(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/users/me`)
       .then((r) => r.json())
       .then((user: { role?: string }) => {
         if (user?.role !== 'SELLER') {
@@ -28,7 +28,7 @@ export function SellerGuard({ children }: { children: React.ReactNode }) {
         setAllowed(true);
       })
       .catch(() => router.replace('/auth/login?next=/seller'));
-  }, [router, token, isReady]);
+  }, [router, isReady, isLoggedIn]);
 
   if (allowed !== true) return <Skeleton className="h-screen w-full" />;
   return <>{children}</>;

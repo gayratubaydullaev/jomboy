@@ -1,24 +1,37 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { ChevronLeft } from 'lucide-react';
 import { API_URL } from '@/lib/utils';
+import { generateTopProductIds } from '@/lib/server-fetch';
 import { ReviewsSection } from '../reviews-section';
-import { LOCALE_COOKIE, parseLocale } from '@/i18n/config';
+import { DEFAULT_LOCALE } from '@/i18n/config';
+import { getMessagesForLocale } from '@/i18n/server-locale';
 import { getMessageString } from '@/i18n/resolve';
-import uz from '../../../../../messages/uz.json';
-import ru from '../../../../../messages/ru.json';
+
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  return generateTopProductIds(50);
+}
 
 async function getProduct(id: string) {
-  const res = await fetch(`${API_URL}/products/${id}`, { next: { revalidate: 60 } });
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    const res = await fetch(`${API_URL}/products/${id}`, { next: { revalidate } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 }
 
 async function getReviews(productId: string) {
-  const res = await fetch(`${API_URL}/reviews/product/${productId}`, { next: { revalidate: 30 } });
-  if (!res.ok) return [];
-  return res.json();
+  try {
+    const res = await fetch(`${API_URL}/reviews/product/${productId}`, { next: { revalidate: 30 } });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
 export default async function ProductReviewsPage(props: { params: Promise<{ id: string }> }) {
@@ -26,8 +39,7 @@ export default async function ProductReviewsPage(props: { params: Promise<{ id: 
   const [product, reviews] = await Promise.all([getProduct(id), getReviews(id)]);
   if (!product) notFound();
 
-  const locale = parseLocale(cookies().get(LOCALE_COOKIE)?.value);
-  const dict = (locale === 'ru' ? ru : uz) as unknown as Record<string, unknown>;
+  const dict = getMessagesForLocale(DEFAULT_LOCALE) as unknown as Record<string, unknown>;
   const back = getMessageString(dict, 'product.reviewsPageBack') ?? '';
   const subtitle = getMessageString(dict, 'product.reviewsPageSubtitle') ?? '';
 

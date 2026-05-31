@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { API_URL } from '@/lib/utils';
-import { apiFetch } from '@/lib/api';
+import { apiFetch, apiUpload } from '@/lib/api';
 import { useAuth } from '@/contexts/auth-context';
 import { useTranslation } from '@/contexts/i18n-context';
 import { Store, CheckCircle, Clock, XCircle } from 'lucide-react';
@@ -33,7 +33,7 @@ type ApplicationStatus = {
 export default function BecomeSellerPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { token, isReady } = useAuth();
+  const { isLoggedIn, isReady } = useAuth();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [application, setApplication] = useState<ApplicationStatus | null>(null);
@@ -51,11 +51,11 @@ export default function BecomeSellerPage() {
 
   useEffect(() => {
     if (!isReady) return;
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       router.replace('/auth/login?next=/become-seller');
       return;
     }
-    apiFetch(`${API_URL}/seller-application/my`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/seller-application/my`)
       .then((r) => r.json())
       .then((data: { application: ApplicationStatus | null; canApply: boolean }) => {
         setApplication(data.application ?? null);
@@ -73,16 +73,16 @@ export default function BecomeSellerPage() {
       })
       .catch(() => setApplication(null))
       .finally(() => setLoading(false));
-  }, [isReady, token, router]);
+  }, [isReady, isLoggedIn, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !shopName.trim()) return;
+    if (!isLoggedIn || !shopName.trim()) return;
     setError(null);
     setSubmitting(true);
     apiFetch(`${API_URL}/seller-application/apply`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         shopName: shopName.trim(),
         description: description.trim() || undefined,
@@ -106,7 +106,7 @@ export default function BecomeSellerPage() {
       .finally(() => setSubmitting(false));
   };
 
-  if (!token) return null;
+  if (!isReady || !isLoggedIn) return null;
   if (loading) {
     return (
       <div className="max-w-lg mx-auto px-0 sm:px-4 md:px-6 py-8">
@@ -242,15 +242,14 @@ export default function BecomeSellerPage() {
                     className="mt-1 w-full text-sm"
                     onChange={async (e) => {
                       const files = e.target.files;
-                      if (!files?.length || !token) return;
+                      if (!files?.length || !isLoggedIn) return;
                       e.target.value = '';
                       setDocUploading(true);
-                      const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
                       for (const file of Array.from(files).slice(0, 10)) {
                         const form = new FormData();
                         form.append('file', file);
                         try {
-                          const r = await fetch(`${API_URL}/upload/seller-application`, { method: 'POST', headers, body: form, credentials: 'include' });
+                          const r = await apiUpload(`${API_URL}/upload/seller-application`, form);
                           const data = await r.json();
                           if (data?.url) {
                             setDocumentUrls((prev) => [...prev, data.url]);

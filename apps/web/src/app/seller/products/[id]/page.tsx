@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,13 +10,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { API_URL } from '@/lib/utils';
-import { apiFetch, getCsrfToken } from '@/lib/api';
+import { apiFetch, apiUpload } from '@/lib/api';
 import { ArrowLeft, Upload, X, ChevronLeft, ChevronRight, PackageX } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
 import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 import { useTranslation } from '@/contexts/i18n-context';
+import { API_PATHS } from '@myshopuz/shared';
+import { useProductOptions } from '@/hooks/use-product-options';
+import { ProductVariantsSection } from '@/components/seller/product-variants-section';
 
 type Category = { id: string; name: string; slug: string; parentId: string | null; children?: Category[] };
 
@@ -48,7 +52,7 @@ export default function EditProductPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -59,15 +63,14 @@ export default function EditProductPage() {
   const [categoryId, setCategoryId] = useState('');
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isActive, setIsActive] = useState(true);
-  const [optionsRows, setOptionsRows] = useState<{ name: string; values: string }[]>([]);
-  const [variantRows, setVariantRows] = useState<{ options: Record<string, string>; stock: number; imageUrl: string }[]>([]);
+  const { optionsRows, setOptionsRows, variantRows, setVariantRows, generateAllVariants } = useProductOptions();
   const [specsRows, setSpecsRows] = useState<{ key: string; value: string }[]>([]);
   const [unit, setUnit] = useState('');
 
   useEffect(() => {
-    if (!token || !id) return;
+    if (!isLoggedIn || !id) return;
     setProduct(undefined);
-    apiFetch(`${API_URL}/products/my/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}${API_PATHS.products.myById(id)}`)
       .then(async (r) => {
         if (!r.ok) throw new Error('not_found');
         return r.json() as Promise<Product>;
@@ -101,61 +104,33 @@ export default function EditProductPage() {
         }
       })
       .catch(() => setProduct(null));
-  }, [token, id]);
+  }, [isReady, isLoggedIn, id]);
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/categories?parentId=null`)
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}${API_PATHS.categories.roots}`)
       .then((r) => r.json())
       .then((roots: Category[]) => setCategories(roots ?? []))
       .catch(() => setCategories([]));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const leafCategories = categories.flatMap((c) => (c.children ?? []));
 
-  const generateAllVariants = () => {
-    const names = optionsRows.map((r) => r.name.trim()).filter(Boolean);
-    const valueLists = optionsRows
-      .filter((r) => r.name.trim())
-      .map((r) => r.values.split(',').map((v) => v.trim()).filter(Boolean));
-    if (valueLists.some((arr) => !arr.length)) {
-      toast.error(F('toastVariantValues'));
-      return;
-    }
-    function cartesian<T>(arrays: T[][]): T[][] {
-      if (arrays.length === 0) return [[]];
-      const [first, ...rest] = arrays;
-      const restProduct = cartesian(rest);
-      return first.flatMap((v) => restProduct.map((p) => [v, ...p]));
-    }
-    const combos = cartesian(valueLists);
-    const newRows = combos.map((values) => {
-      const options: Record<string, string> = {};
-      names.forEach((name, i) => {
-        options[name] = values[i] as string;
-      });
-      return { options, stock: 0, imageUrl: '' };
-    });
-    setVariantRows(newRows);
-    toast.success(F('toastVariantsCreated', { count: newRows.length }));
+  const onGenerateVariants = () => {
+    generateAllVariants(
+      () => toast.error(F('toastVariantValues')),
+      (count) => toast.success(F('toastVariantsCreated', { count })),
+    );
   };
 
   const uploadVariantImage = async (e: React.ChangeEvent<HTMLInputElement>, variantIndex: number) => {
     const file = e.target.files?.[0];
-    if (!file || !token) return;
+    if (!file || !isLoggedIn) return;
     setUploading(true);
     const form = new FormData();
     form.append('file', file);
     try {
-      const csrf = await getCsrfToken();
-      const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-      if (csrf) headers['x-csrf-token'] = csrf;
-      const r = await fetch(`${API_URL}/upload/image`, {
-        method: 'POST',
-        headers,
-        body: form,
-        credentials: 'include',
-      });
+      const r = await apiUpload(`${API_URL}/upload/image`, form);
       const data = await r.json().catch(() => ({}));
       if (data?.url) {
         setVariantRows((prev) => prev.map((v, i) => (i === variantIndex ? { ...v, imageUrl: data.url } : v)));
@@ -196,18 +171,15 @@ export default function EditProductPage() {
 
   const uploadMultipleImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files?.length || !token) return;
+    if (!files?.length || !isLoggedIn) return;
     const fileList = Array.from(files).slice(0, 10);
     setUploading(true);
     let added = 0;
-    const csrf = await getCsrfToken();
-    const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
-    if (csrf) headers['x-csrf-token'] = csrf;
     for (const file of fileList) {
       try {
         const form = new FormData();
         form.append('file', file);
-        const r = await fetch(`${API_URL}/upload/image`, { method: 'POST', headers, body: form, credentials: 'include' });
+        const r = await apiUpload(`${API_URL}/upload/image`, form);
         const data = await r.json().catch(() => ({}));
         if (data?.url) {
           setImageUrls((prev) => [...prev, data.url]);
@@ -225,7 +197,7 @@ export default function EditProductPage() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !id) return;
+    if (!isLoggedIn || !id) return;
     const priceNum = parseFloat(price.replace(/\s/g, '').replace(',', '.'));
     const compareNum = comparePrice ? parseFloat(comparePrice.replace(/\s/g, '').replace(',', '.')) : undefined;
     if (isNaN(priceNum) || priceNum < 0) {
@@ -268,7 +240,6 @@ export default function EditProductPage() {
     setLoading(true);
     apiFetch(`${API_URL}/products/${id}`, {
       method: 'PATCH',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
         title: title.trim(),
         description: description.trim(),
@@ -297,7 +268,7 @@ export default function EditProductPage() {
       .finally(() => setLoading(false));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (product === undefined) {
     return (
       <div className="mx-auto min-w-0 max-w-2xl space-y-6">
@@ -505,141 +476,16 @@ export default function EditProductPage() {
                 <Input value={sku} onChange={(e) => setSku(e.target.value)} placeholder={F('phSku')} className="mt-1" />
               </div>
             </div>
-            <div>
-              <label className="text-sm font-medium">{F('labelVariants')}</label>
-              <p className="text-xs text-muted-foreground mb-2">{F('variantsHint')}</p>
-              {optionsRows.map((row, idx) => (
-                <div key={idx} className="flex gap-2 mb-2">
-                  <Input
-                    placeholder={F('phOptionName')}
-                    value={row.name}
-                    onChange={(e) => setOptionsRows((prev) => prev.map((r, i) => (i === idx ? { ...r, name: e.target.value } : r)))}
-                    className="flex-1 max-w-[140px]"
-                  />
-                  <Input
-                    placeholder={F('phOptionValues')}
-                    value={row.values}
-                    onChange={(e) => setOptionsRows((prev) => prev.map((r, i) => (i === idx ? { ...r, values: e.target.value } : r)))}
-                    className="flex-1"
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="shrink-0 text-muted-foreground"
-                    onClick={() => setOptionsRows((prev) => prev.filter((_, i) => i !== idx))}
-                    aria-label={F('ariaRemove')}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
-              <Button type="button" variant="outline" size="sm" onClick={() => setOptionsRows((prev) => [...prev, { name: '', values: '' }])}>
-                {F('btnAddVariantShort')}
-              </Button>
-            </div>
-            {optionsRows.some((r) => r.name.trim() && r.values.split(',').map((v) => v.trim()).filter(Boolean).length > 0) && (
-              <div>
-                <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <label className="text-sm font-medium">{F('labelVariantGrid')}</label>
-                  <Button type="button" variant="outline" size="sm" onClick={generateAllVariants}>
-                    {F('btnGenerateVariants')}
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mb-2">{F('variantGridHint')}</p>
-                {variantRows.map((vr, idx) => {
-                  const comboLabel = optionsRows.filter((r) => r.name.trim()).map((row) => vr.options[row.name] ?? '—').join(' · ');
-                  return (
-                    <div key={idx} className="flex flex-wrap items-end gap-2 mb-2 p-3 rounded-lg border bg-muted/30">
-                      {comboLabel && <span className="w-full text-xs font-medium text-muted-foreground mb-0.5">{comboLabel}</span>}
-                      {optionsRows
-                        .filter((r) => r.name.trim())
-                        .map((row) => {
-                          const vals = row.values.split(',').map((v) => v.trim()).filter(Boolean);
-                          if (!vals.length) return null;
-                          return (
-                            <div key={row.name} className="flex flex-col">
-                              <label className="text-xs text-muted-foreground">{row.name}</label>
-                              <select
-                                value={vr.options[row.name] ?? vals[0]}
-                                onChange={(e) =>
-                                  setVariantRows((prev) =>
-                                    prev.map((v, i) => (i === idx ? { ...v, options: { ...v.options, [row.name]: e.target.value } } : v))
-                                  )
-                                }
-                                className="rounded-md border border-input bg-background px-2 py-1.5 text-sm min-w-[80px]"
-                              >
-                                {vals.map((val) => (
-                                  <option key={val} value={val}>
-                                    {val}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          );
-                        })}
-                      <div className="flex flex-col">
-                        <label className="text-xs text-muted-foreground">{F('labelVariantStock')}</label>
-                        <Input
-                          type="number"
-                          min={0}
-                          value={vr.stock}
-                          onChange={(e) =>
-                            setVariantRows((prev) => prev.map((v, i) => (i === idx ? { ...v, stock: parseInt(e.target.value, 10) || 0 } : v)))
-                          }
-                          className="w-20"
-                        />
-                      </div>
-                      <div className="flex flex-col flex-1 min-w-[140px]">
-                        <label className="text-xs text-muted-foreground">{F('labelVariantImage')}</label>
-                        <div className="flex gap-1 items-center">
-                          <Input
-                            placeholder={F('phVariantImage')}
-                            value={vr.imageUrl}
-                            onChange={(e) => setVariantRows((prev) => prev.map((v, i) => (i === idx ? { ...v, imageUrl: e.target.value } : v)))}
-                            className="text-sm flex-1 min-w-0"
-                          />
-                          <label className="shrink-0 cursor-pointer">
-                            <input type="file" accept="image/*" className="sr-only" onChange={(e) => uploadVariantImage(e, idx)} disabled={uploading} />
-                            <span className="inline-flex items-center justify-center h-10 px-2 rounded-md border border-input bg-background text-xs font-medium hover:bg-accent">
-                              {F('btnVariantUpload')}
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="shrink-0 text-muted-foreground"
-                        onClick={() => setVariantRows((prev) => prev.filter((_, i) => i !== idx))}
-                        aria-label={F('ariaRemove')}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  );
-                })}
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    const opts: Record<string, string> = {};
-                    optionsRows.forEach((r) => {
-                      const key = r.name.trim();
-                      if (!key) return;
-                      const vals = r.values.split(',').map((v) => v.trim()).filter(Boolean);
-                      const first = vals[0];
-                      if (first) opts[key] = first;
-                    });
-                    setVariantRows((prev) => [...prev, { options: opts, stock: 0, imageUrl: '' }]);
-                  }}
-                >
-                  {F('btnAddVariantRow')}
-                </Button>
-              </div>
-            )}
+            <ProductVariantsSection
+              optionsRows={optionsRows}
+              setOptionsRows={setOptionsRows}
+              variantRows={variantRows}
+              setVariantRows={setVariantRows}
+              onGenerateVariants={onGenerateVariants}
+              onUploadVariantImage={uploadVariantImage}
+              uploading={uploading}
+              addOptionLabelKey="btnAddVariantShort"
+            />
             <div>
               <label className="text-sm font-medium">{F('labelSpecs')}</label>
               <p className="text-xs text-muted-foreground mb-2">{F('specsHint')}</p>

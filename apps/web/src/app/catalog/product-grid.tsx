@@ -1,17 +1,21 @@
 'use client';
 
 import { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 import { useSearchParams } from 'next/navigation';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ProductCard, type ProductCardProduct } from '@/components/product/product-card';
 import { API_URL, transliterateCyrillicToLatin } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { swrFetcher } from '@/lib/swr-fetcher';
 import { type ApiProduct, type PaginatedResponse, apiProductToCardProduct } from '@/types/api';
 import { useTranslation } from '@/contexts/i18n-context';
+
+const ProductGridMotion = dynamic(
+  () => import('./product-grid-motion').then((m) => ({ default: m.ProductGridMotion })),
+  { ssr: false },
+);
 
 export function ProductGrid({ linkPrefix = '' }: { linkPrefix?: string }) {
   const { t } = useTranslation();
@@ -39,7 +43,7 @@ export function ProductGrid({ linkPrefix = '' }: { linkPrefix?: string }) {
   const { data, isLoading, error } = useSWR<PaginatedResponse<ApiProduct>>(
     url,
     swrFetcher,
-    { revalidateOnFocus: true, dedupingInterval: 5000 }
+    { revalidateOnFocus: true, dedupingInterval: 10000 }
   );
 
   const loading = isLoading;
@@ -86,30 +90,5 @@ export function ProductGrid({ linkPrefix = '' }: { linkPrefix?: string }) {
     );
   }
 
-  return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={{
-        hidden: { opacity: 0 },
-        show: {
-          opacity: 1,
-          transition: { staggerChildren: 0.1 },
-        },
-      }}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 min-w-0"
-    >
-      {products.map((p: ProductCardProduct, index: number) => (
-        <motion.div
-          key={p.id}
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            show: { opacity: 1, y: 0 },
-          }}
-        >
-          <ProductCard product={p} linkPrefix={linkPrefix} priority={index < 6} />
-        </motion.div>
-      ))}
-    </motion.div>
-  );
+  return <ProductGridMotion products={products} linkPrefix={linkPrefix} />;
 }

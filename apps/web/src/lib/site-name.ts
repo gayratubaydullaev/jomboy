@@ -7,6 +7,7 @@ export async function getPublicSiteName(): Promise<string> {
   if (apiUrl && !/^https?:\/\//i.test(apiUrl)) apiUrl = 'https://' + apiUrl;
   try {
     const res = await fetch(`${apiUrl}/settings/public`, { next: { revalidate: 60 } });
+    if (!res.ok) return DEFAULT_SITE_NAME;
     const data = (await res.json()) as { siteName?: string };
     const name = data?.siteName?.trim();
     if (name && !name.includes('{{')) return name;

@@ -7,11 +7,11 @@ import { getGuestFavoriteIds, mergeGuestFavoritesToAccount } from '@/lib/guest-f
 
 /** When user logs in, merge guest favorites (localStorage) into their account, then clear guest list. */
 export function MergeGuestFavoritesOnLogin() {
-  const { token } = useAuth();
+  const { isLoggedIn } = useAuth();
   const didMergeRef = useRef(false);
 
   useEffect(() => {
-    if (!token) {
+    if (!isLoggedIn) {
       didMergeRef.current = false;
       return;
     }
@@ -19,8 +19,8 @@ export function MergeGuestFavoritesOnLogin() {
     const guestIds = getGuestFavoriteIds();
     if (guestIds.length === 0) return;
     didMergeRef.current = true;
-    mergeGuestFavoritesToAccount(API_URL, token).catch(() => {});
-  }, [token]);
+    mergeGuestFavoritesToAccount(API_URL).catch(() => {});
+  }, [isLoggedIn]);
 
   return null;
 }

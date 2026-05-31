@@ -7,6 +7,7 @@ export function validateEnv(): Record<string, unknown> {
       ? [
           { key: 'CSRF_SECRET', minLength: 32 } as { key: string; minLength?: number },
           { key: 'CLICK_ALLOWED_IPS', minLength: 1 } as { key: string; minLength?: number },
+          { key: 'PAYME_ALLOWED_IPS', minLength: 1 } as { key: string; minLength?: number },
           { key: 'REDIS_URL', minLength: 1 } as { key: string; minLength?: number },
         ]
       : []),

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -44,18 +45,18 @@ export default function AdminOrdersPage() {
   const { t, intlLocale } = useTranslation();
   const [data, setData] = useState<OrdersResponse | null>(null);
   const [page, setPage] = useState(1);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     const params = new URLSearchParams({ page: String(page), limit: String(PAGE_SIZE) });
-    apiFetch(`${API_URL}/admin/orders?${params}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/orders?${params}`)
       .then((r) => r.json())
       .then(setData)
       .catch(() => setData({ message: t('admin.common.errorGeneric') }));
-  }, [token, page, t]);
+  }, [isReady, isLoggedIn, page, t]);
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-24 w-full" />;
 
   const orders = 'data' in data ? data.data : [];

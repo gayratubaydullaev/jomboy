@@ -9,7 +9,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { apiFetch, syncSessionCookie } from '@/lib/api';
+import { apiFetch, completeAuthSession } from '@/lib/api';
 import { API_URL } from '@/lib/utils';
 import { registerSchema, type RegisterInput } from '@/lib/validations';
 import { useTranslation } from '@/contexts/i18n-context';
@@ -82,9 +82,7 @@ export default function RegisterPage() {
       .then((r) => (r.ok ? r.json() : r.json().then((d) => Promise.reject(d))))
       .then((data) => {
         if (data.accessToken) {
-          localStorage.setItem('accessToken', data.accessToken);
-          void syncSessionCookie(data.accessToken);
-          window.dispatchEvent(new Event('auth-change'));
+          void completeAuthSession(data.accessToken);
           router.push('/');
           router.refresh();
         }

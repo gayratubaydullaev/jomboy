@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Label } from '@/components/ui/label';
 import { API_URL } from '@/lib/utils';
-import { apiFetch } from '@/lib/api';
+import { apiFetch, apiUpload } from '@/lib/api';
 import { MessageCircle, Send, Unplug, FileText, X } from 'lucide-react';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
@@ -59,19 +60,19 @@ export default function SellerSettingsPage() {
   const [telegramCode, setTelegramCode] = useState('');
   const [telegramLinking, setTelegramLinking] = useState(false);
   const [telegramDisconnecting, setTelegramDisconnecting] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const loadTelegramStatus = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/telegram`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/telegram`)
       .then((r) => r.json())
       .then(setTelegramStatus)
       .catch(() => setTelegramStatus({ connected: false }));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/shop`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/shop`)
       .then((r) => r.json())
       .then((s) => {
         setShop(s);
@@ -96,15 +97,15 @@ export default function SellerSettingsPage() {
       })
       .catch(() => setShop(null));
     loadTelegramStatus();
-  }, [token, loadTelegramStatus]);
+  }, [isReady, isLoggedIn, loadTelegramStatus]);
 
   const linkTelegram = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !telegramCode.trim()) return;
+    if (!isLoggedIn || !telegramCode.trim()) return;
     setTelegramLinking(true);
     apiFetch(`${API_URL}/seller/telegram/link`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: telegramCode.trim().toUpperCase() }),
     })
       .then((r) => r.json())
@@ -120,12 +121,11 @@ export default function SellerSettingsPage() {
   };
 
   const disconnectTelegram = () => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setTelegramDisconnecting(true);
     apiFetch(`${API_URL}/seller/telegram/disconnect`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-    })
+      })
       .then((r) => r.json())
       .then((data) => {
         if (data.ok) {
@@ -139,16 +139,15 @@ export default function SellerSettingsPage() {
 
   const uploadDocuments = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files?.length || !token) return;
+    if (!files?.length || !isLoggedIn) return;
     e.target.value = '';
     setDocUploading(true);
-    const headers: Record<string, string> = { Authorization: `Bearer ${token}` };
     let added = 0;
     for (const file of Array.from(files).slice(0, 10)) {
       const form = new FormData();
       form.append('file', file);
       try {
-        const r = await fetch(`${API_URL}/upload/image`, { method: 'POST', headers, body: form, credentials: 'include' });
+        const r = await apiUpload(`${API_URL}/upload/image`, form);
         const data = await r.json();
         if (data?.url) {
           setDocumentUrls((prev) => [...prev, data.url]);
@@ -167,11 +166,11 @@ export default function SellerSettingsPage() {
   };
 
   const toggleChat = (enabled: boolean) => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setChatSaving(true);
     apiFetch(`${API_URL}/seller/shop/chat`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatEnabled: enabled }),
     })
       .then((r) => r.json())
@@ -186,7 +185,7 @@ export default function SellerSettingsPage() {
 
   const save = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoading(true);
     const pickupAddress =
       pickup?.city || pickup?.street || pickup?.house || pickup?.phone
@@ -200,7 +199,7 @@ export default function SellerSettingsPage() {
         : null;
     apiFetch(`${API_URL}/seller/shop`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name,
         description,
@@ -221,7 +220,7 @@ export default function SellerSettingsPage() {
       .finally(() => setLoading(false));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (shop === undefined) return <Skeleton className="h-32 w-full" />;
 
   return (

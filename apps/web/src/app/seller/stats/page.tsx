@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -39,7 +40,7 @@ export default function SellerStatsPage() {
   const [chart, setChart] = useState<ChartPoint[]>([]);
   const [chartDays, setChartDays] = useState<number>(30);
   const [chartLoading, setChartLoading] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const currency = t('checkout.currency');
 
   const formatChartDate = (dateStr: string) => {
@@ -48,21 +49,21 @@ export default function SellerStatsPage() {
   };
 
   const fetchStats = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/stats`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/stats`)
       .then((r) => r.json())
       .then(setStats);
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const fetchChart = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setChartLoading(true);
-    apiFetch(`${API_URL}/seller/stats/sales-chart?days=${chartDays}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/seller/stats/sales-chart?days=${chartDays}`)
       .then((r) => r.json())
       .then((data: ChartPoint[]) => setChart(Array.isArray(data) ? data : []))
       .catch(() => setChart([]))
       .finally(() => setChartLoading(false));
-  }, [token, chartDays]);
+  }, [isReady, isLoggedIn, chartDays]);
 
   useEffect(() => {
     fetchStats();
@@ -72,7 +73,7 @@ export default function SellerStatsPage() {
     fetchChart();
   }, [fetchChart]);
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!stats) return <Skeleton className="h-32 w-full" />;
 
   const totalSales = Number(stats.totalRevenue);

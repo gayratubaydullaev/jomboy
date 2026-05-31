@@ -11,6 +11,10 @@ export function SentryInit() {
       Sentry.init({
         dsn,
         environment: process.env.NODE_ENV,
+        release:
+          process.env.NEXT_PUBLIC_SENTRY_RELEASE ||
+          process.env.NEXT_PUBLIC_BUILD_ID ||
+          undefined,
         tracesSampleRate: 0.1,
       });
     });

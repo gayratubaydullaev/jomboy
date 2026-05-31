@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -45,12 +46,12 @@ export default function AdminSellersPage() {
   const [commissionValue, setCommissionValue] = useState('');
   const [commissionSubmitting, setCommissionSubmitting] = useState(false);
   const [commissionError, setCommissionError] = useState('');
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const fetchSellers = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoadError('');
-    apiFetch(`${API_URL}/admin/sellers?limit=50`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/sellers?limit=50`)
       .then((r) => r.json())
       .then((d) => {
         setData(d);
@@ -60,7 +61,7 @@ export default function AdminSellersPage() {
         setData({ data: [], total: 0 });
         setLoadError(t('admin.sellers.loadError'));
       });
-  }, [token, t]);
+  }, [isReady, isLoggedIn, t]);
 
   useEffect(() => {
     fetchSellers();
@@ -81,7 +82,7 @@ export default function AdminSellersPage() {
 
   const submitCommission = () => {
     const seller = commissionModal.seller;
-    if (!seller || !token) return;
+    if (!seller || !isLoggedIn) return;
     const trimmed = commissionValue.trim();
     const value = trimmed === '' ? null : parseFloat(trimmed.replace(/,/g, '.'));
     if (trimmed !== '' && (value == null || Number.isNaN(value) || value < 0 || value > 100)) {
@@ -94,8 +95,7 @@ export default function AdminSellersPage() {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+        },
       body: JSON.stringify({ commissionRate: value }),
     })
       .then(() => {
@@ -110,7 +110,7 @@ export default function AdminSellersPage() {
       });
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-64 w-full" />;
 
   const sellers = Array.isArray(data?.data) ? data.data : [];

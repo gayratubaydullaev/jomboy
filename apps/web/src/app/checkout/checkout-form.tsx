@@ -65,7 +65,7 @@ export function CheckoutForm({
   }, []);
 
   useEffect(() => {
-    fetch(`${API_URL}/settings/checkout-options`, { credentials: 'include' })
+    apiFetch(`${API_URL}/settings/checkout-options`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data: { paymentMethods?: string[]; deliveryTypes?: string[] } | null) => {
         const methods = data?.paymentMethods?.length ? data.paymentMethods : ['CASH', 'CARD_ON_DELIVERY', 'CLICK', 'PAYME'];
@@ -90,8 +90,8 @@ export function CheckoutForm({
       setPaymentMethod(paymentMethods[0] as 'CLICK' | 'PAYME' | 'CASH' | 'CARD_ON_DELIVERY');
   }, [checkoutOptions, deliveryType, paymentMethod]);
 
-  const { token, setToken } = useAuth();
-  const isGuest = !token;
+  const { isLoggedIn, completeAuthSession } = useAuth();
+  const isGuest = !isLoggedIn;
   const onlinePaymentMethods = ['CLICK', 'PAYME'] as const;
 
   useEffect(() => {
@@ -142,7 +142,6 @@ export function CheckoutForm({
     setLoading(true);
     try {
       const headers: Record<string, string> = { 'Content-Type': 'application/json', ...getCartHeaders() };
-      if (token) headers.Authorization = `Bearer ${token}`;
       const shippingAddress = deliveryType === 'DELIVERY'
         ? {
             city: address.city.trim(),
@@ -161,12 +160,11 @@ export function CheckoutForm({
 
       const isPayFirst = paymentMethod === 'CLICK' || paymentMethod === 'PAYME';
       if (isPayFirst) {
-        const sessionUrl = token ? `${API_URL}/checkout-session` : `${API_URL}/checkout-session/guest`;
+        const sessionUrl = isLoggedIn ? `${API_URL}/checkout-session` : `${API_URL}/checkout-session/guest`;
         const sessionHeaders: Record<string, string> = {
           'Content-Type': 'application/json',
           ...getCartHeaders(),
         };
-        if (token) sessionHeaders.Authorization = `Bearer ${token}`;
         const sessionRes = await apiFetch(sessionUrl, {
           method: 'POST',
           headers: sessionHeaders,
@@ -192,12 +190,11 @@ export function CheckoutForm({
             ? `${window.location.origin}${successPathPrefix}/success?session_id=${encodeURIComponent(sessionId)}${pollQs}`
             : '';
         const payHeaders: Record<string, string> = { 'Content-Type': 'application/json', ...getCartHeaders() };
-        if (token) payHeaders.Authorization = `Bearer ${token}`;
         const payBody: { sessionId: string; returnUrl: string; pollToken?: string } = {
           sessionId,
           returnUrl: successWithSession,
         };
-        if (!token && sessionData.pollToken) payBody.pollToken = sessionData.pollToken;
+        if (!isLoggedIn && sessionData.pollToken) payBody.pollToken = sessionData.pollToken;
         const pay = await apiFetch(paymentMethod === 'CLICK' ? `${API_URL}/payments/click/init` : `${API_URL}/payments/payme/init`, {
           method: 'POST',
           headers: payHeaders,
@@ -252,8 +249,8 @@ export function CheckoutForm({
       }
       const data = await res.json() as { orders?: unknown[]; guestAuth?: { accessToken: string; user: { id: string } } };
       const orderList = Array.isArray(data) ? data : (data.orders ?? []);
-      if (data && !Array.isArray(data) && data.guestAuth) {
-        setToken(data.guestAuth.accessToken);
+      if (data && !Array.isArray(data) && data.guestAuth?.accessToken) {
+        await completeAuthSession(data.guestAuth.accessToken);
       }
       if (orderList.length > 0 && typeof sessionStorage !== 'undefined') {
         sessionStorage.setItem('checkout_orders', JSON.stringify(orderList));

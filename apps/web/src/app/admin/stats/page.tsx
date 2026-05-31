@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -47,36 +48,36 @@ export default function AdminStatsPage() {
   const [salesChart, setSalesChart] = useState<SalesChartPoint[]>([]);
   const [chartDays, setChartDays] = useState<number>(30);
   const [chartLoading, setChartLoading] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const currency = t('checkout.currency');
 
   const fetchStats = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/stats`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/stats`)
       .then((r) => r.json())
       .then(setStats);
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const fetchPayouts = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/payouts?limit=100`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/payouts?limit=100`)
       .then((r) => r.json())
       .then(setPayouts)
       .catch(() => setPayouts({ data: [] }));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const fetchChart = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setChartLoading(true);
-    apiFetch(`${API_URL}/admin/stats/sales-chart?days=${chartDays}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/stats/sales-chart?days=${chartDays}`)
       .then((r) => r.json())
       .then((data: SalesChartPoint[]) => {
         setSalesChart(Array.isArray(data) ? data : []);
       })
       .catch(() => setSalesChart([]))
       .finally(() => setChartLoading(false));
-  }, [token, chartDays]);
+  }, [isReady, isLoggedIn, chartDays]);
 
   useEffect(() => {
     fetchStats();
@@ -87,7 +88,7 @@ export default function AdminStatsPage() {
     fetchChart();
   }, [fetchChart]);
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!stats) return <Skeleton className="h-32 w-full" />;
 
   const sellerRows = Array.isArray(payouts?.data) ? payouts.data : [];

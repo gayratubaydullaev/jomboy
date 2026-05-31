@@ -1,3 +1,5 @@
+import { apiFetch } from '@/lib/api';
+
 const GUEST_FAVORITES_KEY = 'guestFavorites';
 
 /** Список ID товаров в избранном у гостя (localStorage). */
@@ -41,7 +43,6 @@ export function toggleGuestFavorite(productId: string): boolean {
   return !inFav;
 }
 
-/** Clear guest favorites (e.g. on logout so the next user doesn't see the previous user's list). */
 export function clearGuestFavorites(): void {
   if (typeof window === 'undefined') return;
   localStorage.removeItem(GUEST_FAVORITES_KEY);
@@ -49,17 +50,14 @@ export function clearGuestFavorites(): void {
 }
 
 /** After login: add guest favorites to the user's account via API, then clear guest list. */
-export async function mergeGuestFavoritesToAccount(apiUrl: string, accessToken: string): Promise<void> {
+export async function mergeGuestFavoritesToAccount(apiUrl: string): Promise<void> {
   const ids = getGuestFavoriteIds();
   if (!ids.length) return;
   for (const productId of ids) {
     try {
-      await fetch(`${apiUrl}/favorites`, {
+      await apiFetch(`${apiUrl}/favorites`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId }),
       });
     } catch {

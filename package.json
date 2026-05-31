@@ -1,2 +1,42 @@
-{"name":"myshopuz","private":true,"version":"1.0.0","scripts":{"dev":"turbo run dev","dev:api":"pnpm --filter @myshopuz/api run dev","dev:web":"pnpm --filter @myshopuz/web run dev","build":"turbo run build","start":"turbo run start","lint":"turbo run lint","format":"prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"","test":"turbo run test","db:generate":"pnpm --filter @myshopuz/api run prisma:generate","db:push":"pnpm --filter @myshopuz/api run prisma:push","db:push:schema-only":"pnpm --filter @myshopuz/api run prisma:push:schema-only","db:migrate":"pnpm --filter @myshopuz/api run prisma:migrate",
-    "db:migrate:deploy":"pnpm --filter @myshopuz/api run prisma:migrate:deploy","db:studio":"pnpm --filter @myshopuz/api run prisma:studio","db:seed":"pnpm --filter @myshopuz/api exec prisma db seed","docker:up":"docker-compose up -d","docker:down":"docker-compose down"},"devDependencies":{"eslint-config-prettier":"^9.1.0","prettier":"^3.2.5","turbo":"^2.9.14"},"pnpm":{"overrides":{"form-data":">=2.5.4","handlebars":">=4.7.9"}},"packageManager":"pnpm@9.14.2","workspaces":["apps/*","packages/*"]}
+{
+  "name": "myshopuz",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:api": "pnpm --filter @myshopuz/api run dev",
+    "dev:web": "pnpm --filter @myshopuz/web run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "test": "turbo run test",
+    "test:unit": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "audit:check": "pnpm audit --audit-level=high",
+    "db:generate": "pnpm --filter @myshopuz/api run prisma:generate",
+    "db:push": "pnpm --filter @myshopuz/api run prisma:push",
+    "db:push:schema-only": "pnpm --filter @myshopuz/api run prisma:push:schema-only",
+    "db:migrate": "pnpm --filter @myshopuz/api run prisma:migrate",
+    "db:migrate:deploy": "pnpm --filter @myshopuz/api run prisma:migrate:deploy",
+    "db:studio": "pnpm --filter @myshopuz/api run prisma:studio",
+    "db:seed": "pnpm --filter @myshopuz/api exec prisma db seed",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.9.14"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": ">=2.5.4",
+      "handlebars": ">=4.7.9",
+      "glob": ">=10.5.0",
+      "tar": ">=7.5.8"
+    }
+  },
+  "packageManager": "pnpm@9.14.2",
+  "workspaces": ["apps/*", "packages/*"]
+}

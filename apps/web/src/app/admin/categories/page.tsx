@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,12 +30,12 @@ export default function AdminCategoriesPage() {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<{ id: string; name: string; slug: string; description: string } | null>(null);
   const [newCat, setNewCat] = useState<{ name: string; slug: string; description: string; parentId: string }>({ name: '', slug: '', description: '', parentId: '' });
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoadError('');
-    apiFetch(`${API_URL}/admin/categories`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/categories`)
       .then((r) => r.json())
       .then((data) => {
         setList(Array.isArray(data) ? data : []);
@@ -44,7 +45,7 @@ export default function AdminCategoriesPage() {
         setList([]);
         setLoadError(t('admin.common.apiConnectError'));
       });
-  }, [token, t]);
+  }, [isReady, isLoggedIn, t]);
 
   useEffect(() => {
     load();
@@ -54,11 +55,10 @@ export default function AdminCategoriesPage() {
 
   const create = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !newCat.name.trim()) return;
+    if (!isLoggedIn || !newCat.name.trim()) return;
     setLoading(true);
     apiFetch(`${API_URL}/admin/categories`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
         name: newCat.name.trim(),
         slug: newCat.slug.trim() || slugify(newCat.name),
@@ -77,11 +77,10 @@ export default function AdminCategoriesPage() {
 
   const update = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token || !editing) return;
+    if (!isLoggedIn || !editing) return;
     setLoading(true);
     apiFetch(`${API_URL}/admin/categories/${editing.id}`, {
       method: 'PATCH',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
         name: editing.name.trim(),
         slug: editing.slug.trim() || slugify(editing.name),
@@ -98,8 +97,8 @@ export default function AdminCategoriesPage() {
   };
 
   const remove = (id: string) => {
-    if (!token || !confirm(t('admin.ui.confirmDeleteCategory'))) return;
-    apiFetch(`${API_URL}/admin/categories/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+    if (!isLoggedIn || !confirm(t('admin.ui.confirmDeleteCategory'))) return;
+    apiFetch(`${API_URL}/admin/categories/${id}`, { method: 'DELETE', })
       .then(() => {
         load();
         toast.success(t('admin.ui.categoryDeleted'));
@@ -109,7 +108,7 @@ export default function AdminCategoriesPage() {
       });
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (list === null) return <Skeleton className="h-64 w-full" />;
 
   return (

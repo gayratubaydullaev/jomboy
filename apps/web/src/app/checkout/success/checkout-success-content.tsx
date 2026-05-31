@@ -98,19 +98,17 @@ async function pollSessionOrder(
 
 async function fetchOrderDetails(
   orderId: string,
-  opts: { jwt?: string | null; guestViewToken?: string },
+  guestViewToken: string | undefined,
   productFallback: string,
 ): Promise<StoredOrder | null> {
-  if (opts.guestViewToken) {
+  if (guestViewToken) {
     const r = await apiFetch(
-      `${API_URL}/orders/${orderId}/guest-view?token=${encodeURIComponent(opts.guestViewToken)}`,
+      `${API_URL}/orders/${orderId}/guest-view?token=${encodeURIComponent(guestViewToken)}`,
     );
     if (r.ok) return toStoredOrder(await r.json(), productFallback);
     return null;
   }
-  const orderRes = await apiFetch(`${API_URL}/orders/${orderId}`, {
-    headers: opts.jwt ? { Authorization: `Bearer ${opts.jwt}` } : {},
-  });
+  const orderRes = await apiFetch(`${API_URL}/orders/${orderId}`);
   if (orderRes.ok) return toStoredOrder(await orderRes.json(), productFallback);
   return null;
 }
@@ -164,10 +162,9 @@ export function CheckoutSuccessContent() {
           const sessionData = await pollSessionOrder(sessionIdFromUrl, pollToken);
           setPending(false);
           if (sessionData?.orderId) {
-            const jwt = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
             const order = await fetchOrderDetails(
               sessionData.orderId,
-              { jwt, guestViewToken: sessionData.guestViewToken },
+              sessionData.guestViewToken,
               productFallback,
             );
             if (order) {

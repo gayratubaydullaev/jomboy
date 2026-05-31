@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { apiFetch, syncSessionCookie } from '@/lib/api';
+import { apiFetch, completeAuthSession } from '@/lib/api';
 import { API_URL } from '@/lib/utils';
 import { loginSchema, type LoginInput } from '@/lib/validations';
 import { useTranslation } from '@/contexts/i18n-context';
@@ -78,7 +78,7 @@ function LoginForm() {
             setTgError(t('auth.login.telegramTimeout'));
             return;
           }
-          fetch(`${API_URL}/auth/telegram/verify?token=${encodeURIComponent(loginToken)}`, { credentials: 'include' })
+          apiFetch(`${API_URL}/auth/telegram/verify?token=${encodeURIComponent(loginToken)}`)
             .then((r) => r.json())
             .then((res: { status?: string; accessToken?: string; user?: unknown }) => {
               if (res.status === 'pending') return;
@@ -86,9 +86,7 @@ function LoginForm() {
                 if (pollRef.current) clearInterval(pollRef.current);
                 pollRef.current = null;
                 setTgWaiting(false);
-                localStorage.setItem('accessToken', res.accessToken);
-                void syncSessionCookie(res.accessToken);
-                window.dispatchEvent(new Event('auth-change'));
+                void completeAuthSession(res.accessToken);
                 router.push(next);
                 router.refresh();
               }
@@ -123,9 +121,7 @@ function LoginForm() {
       })
       .then((data) => {
         if (data.accessToken) {
-          localStorage.setItem('accessToken', data.accessToken);
-          void syncSessionCookie(data.accessToken);
-          window.dispatchEvent(new Event('auth-change'));
+          void completeAuthSession(data.accessToken);
           router.push(next);
           router.refresh();
         }

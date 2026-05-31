@@ -1,0 +1,41 @@
+# Dependencies & build artifacts
+node_modules
+**/node_modules
+.next
+**/.next
+dist
+**/dist
+coverage
+**/.turbo
+.turbo
+
+# Git & IDE
+.git
+.github
+.cursor
+*.md
+!apps/api/prisma/MIGRATIONS.md
+
+# Tests & dev
+**/*.spec.ts
+**/*.test.ts
+**/*.test.tsx
+**/e2e
+**/test
+apps/web/playwright-report
+apps/web/test-results
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Uploads & logs
+uploads
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

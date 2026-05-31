@@ -1,13 +1,7 @@
 import type { ProductCardProduct } from '@/components/product/product-card';
+import type { PaginatedResponse } from '@myshopuz/shared';
 
-/** Paginated API response. */
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+export type { PaginatedResponse };
 
 /** API product shape (price/comparePrice may be number from JSON). */
 export interface ApiProduct {

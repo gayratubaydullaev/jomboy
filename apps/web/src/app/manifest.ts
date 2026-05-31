@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { getServerLocale, serverT } from '@/i18n/server-locale';
+import { DEFAULT_LOCALE } from '@/i18n/config';
+import { serverT } from '@/i18n/server-locale';
 
 export default function manifest(): MetadataRoute.Manifest {
-  const locale = getServerLocale();
+  const locale = DEFAULT_LOCALE;
   return {
     name: serverT(locale, 'pwa.name'),
     short_name: serverT(locale, 'pwa.shortName'),

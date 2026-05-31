@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProductCard } from '@/components/product/product-card';
-import { API_URL, isTokenExpired } from '@/lib/utils';
+import { API_URL } from '@/lib/utils';
 import { apiFetch, apiGetJson } from '@/lib/api';
 import { getGuestFavoriteIds, removeGuestFavorite } from '@/lib/guest-favorites';
 import { useAuth } from '@/contexts/auth-context';
@@ -31,6 +31,13 @@ async function fetchProductOrNull(id: string): Promise<ApiProduct | null> {
   }
 }
 
+async function loadGuestFavorites(): Promise<FavItem[]> {
+  const ids = getGuestFavoriteIds();
+  if (ids.length === 0) return [];
+  const products = await Promise.all(ids.map((id) => fetchProductOrNull(id)));
+  return products.filter((p): p is ApiProduct => p != null).map((p) => ({ id: p.id, product: p }));
+}
+
 const FavoritesSkeleton = () => (
   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1 md:gap-4">
     {Array.from({ length: 6 }).map((_, i) => (
@@ -47,7 +54,7 @@ const FavoritesSkeleton = () => (
 
 export default function FavoritesPage() {
   const { t } = useTranslation();
-  const { token, setToken } = useAuth();
+  const { isLoggedIn, isReady } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [list, setList] = useState<FavItem[] | null>(null);
 
@@ -56,64 +63,27 @@ export default function FavoritesPage() {
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-    const authToken = token;
-    if (authToken && isTokenExpired(authToken)) {
-      setToken(null);
-      const ids = getGuestFavoriteIds();
-      if (ids.length === 0) setList([]);
-      else {
-        Promise.all(ids.map((id) => fetchProductOrNull(id)))
-          .then((products) => {
-            setList(
-              products.filter((p): p is ApiProduct => p != null).map((p) => ({ id: p.id, product: p }))
-            );
-          })
-          .catch(() => setList([]));
-      }
-      return;
-    }
-    if (authToken) {
-      apiGetJson<FavItem[]>(`${API_URL}/favorites`, { headers: { Authorization: `Bearer ${authToken}` } })
+    if (!mounted || !isReady) return;
+    if (isLoggedIn) {
+      apiGetJson<FavItem[]>(`${API_URL}/favorites`)
         .then(setList)
         .catch(() => setList([]));
     } else {
-      const ids = getGuestFavoriteIds();
-      if (ids.length === 0) setList([]);
-      else {
-        Promise.all(ids.map((id) => fetchProductOrNull(id)))
-          .then((products) => {
-            setList(
-              products.filter((p): p is ApiProduct => p != null).map((p) => ({ id: p.id, product: p }))
-            );
-          })
-          .catch(() => setList([]));
-      }
+      loadGuestFavorites().then(setList).catch(() => setList([]));
     }
-  }, [mounted, token, setToken]);
+  }, [mounted, isReady, isLoggedIn]);
 
   useEffect(() => {
-    if (!mounted || token) return;
+    if (!mounted || isLoggedIn) return;
     const handler = () => {
-      const ids = getGuestFavoriteIds();
-      if (ids.length === 0) {
-        setList([]);
-        return;
-      }
-      Promise.all(ids.map((id) => fetchProductOrNull(id)))
-        .then((products) => {
-          setList(
-            products.filter((p): p is ApiProduct => p != null).map((p) => ({ id: p.id, product: p }))
-          );
-        })
-        .catch(() => setList([]));
+      loadGuestFavorites().then(setList).catch(() => setList([]));
     };
     window.addEventListener('guest-favorites-changed', handler);
     return () => window.removeEventListener('guest-favorites-changed', handler);
-  }, [mounted, token]);
+  }, [mounted, isLoggedIn]);
 
   const removeFromList = (productId: string) => {
-    if (token) {
+    if (isLoggedIn) {
       setList((prev) => (prev ?? []).filter((f) => f.product.id !== productId));
     } else {
       removeGuestFavorite(productId);
@@ -121,45 +91,38 @@ export default function FavoritesPage() {
     }
   };
 
-  if (!mounted) {
+  if (!mounted || !isReady || list === null) {
     return <FavoritesSkeleton />;
-  }
-
-  if (list === null) {
-    return <FavoritesSkeleton />;
-  }
-
-  if (!list.length) {
-    return (
-      <div className="min-w-0">
-        <h1 className="text-xl sm:text-2xl font-bold mb-6">{t('favorites.title')}</h1>
-        <p className="text-muted-foreground">
-          {t('favorites.emptyPrefix')}{' '}
-          <Link href="/catalog" className="text-primary underline">
-            {t('favorites.catalogLink')}
-          </Link>
-          {!token && <span>{t('favorites.emptyGuestNote')}</span>}
-        </p>
-      </div>
-    );
   }
 
   return (
-    <div className="min-w-0">
-      <h1 className="text-xl sm:text-2xl font-bold mb-6">{t('favorites.title')}</h1>
-      {!token && <p className="text-muted-foreground text-sm mb-4">{t('favorites.guestBanner')}</p>}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1 md:gap-4">
-        {list.map((fav) => (
-          <ProductCard
-            key={fav.id}
-            product={apiProductToCardProduct(fav.product)}
-            initialFavorite
-            onFavoriteChange={(inFavorites) => {
-              if (!inFavorites) removeFromList(fav.product.id);
-            }}
-          />
-        ))}
-      </div>
+    <div className="container mx-auto px-4 py-6 md:py-8">
+      <h1 className="text-2xl font-bold mb-6">{t('favorites.title')}</h1>
+      {list.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground mb-4">{t('favorites.empty')}</p>
+          {!isLoggedIn && <span>{t('favorites.emptyGuestNote')}</span>}
+          <Link href="/catalog" className="text-primary hover:underline block mt-4">
+            {t('favorites.goToCatalog')}
+          </Link>
+        </div>
+      ) : (
+        <>
+          {!isLoggedIn && <p className="text-muted-foreground text-sm mb-4">{t('favorites.guestBanner')}</p>}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1 md:gap-4">
+            {list.map(({ product }) => (
+              <ProductCard
+                key={product.id}
+                product={apiProductToCardProduct(product)}
+                initialFavorite
+                onFavoriteChange={(inFavorites) => {
+                  if (!inFavorites) removeFromList(product.id);
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

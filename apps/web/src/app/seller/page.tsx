@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -40,21 +41,21 @@ export default function SellerDashboardPage() {
   const { t } = useTranslation();
   const [stats, setStats] = useState<Stats | null>(null);
   const [recentOrders, setRecentOrders] = useState<Order[] | null>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/stats`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/stats`)
       .then((r) => r.json())
       .then(setStats)
       .catch(() => setStats(null));
-    apiFetch(`${API_URL}/orders/seller`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/orders/seller`)
       .then((r) => r.json())
       .then((data: { data?: Order[] }) => setRecentOrders((data?.data ?? []).slice(0, 5)))
       .catch(() => setRecentOrders([]));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
 
   const currency = t('checkout.currency');
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,32 +39,30 @@ export function NotificationsPageContent({
   const [data, setData] = useState<{ data: NotificationItem[]; total: number; page: number; totalPages: number } | null>(null);
   const [page, setPage] = useState(1);
   const [markingAll, setMarkingAll] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+  const { isLoggedIn, isReady } = useAuth();
 
   const load = useCallback(() => {
-    if (!token) return;
-    const h = { Authorization: `Bearer ${token}` };
+    if (!isReady || !isLoggedIn) return;
     const params = new URLSearchParams({ page: String(page), limit: String(PAGE_SIZE) });
-    apiFetch(`${API_URL}/notifications?${params}`, { headers: h })
+    apiFetch(`${API_URL}/notifications?${params}`)
       .then((r) => r.json())
       .then(setData)
       .catch(() => setData({ data: [], total: 0, page: 1, totalPages: 0 }));
-  }, [token, page]);
+  }, [isReady, isLoggedIn, page]);
 
   useEffect(() => {
     load();
   }, [load]);
 
   const markAsRead = (id: string) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/notifications/${id}/read`, { method: 'PATCH', headers }).then(() => load());
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/notifications/${id}/read`, { method: 'PATCH' }).then(() => load());
   };
 
   const markAllAsRead = () => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setMarkingAll(true);
-    apiFetch(`${API_URL}/notifications/read-all`, { method: 'POST', headers })
+    apiFetch(`${API_URL}/notifications/read-all`, { method: 'POST' })
       .then(() => load())
       .finally(() => setMarkingAll(false));
   };
@@ -73,7 +72,7 @@ export function NotificationsPageContent({
     return d.toLocaleString(intlLocale, { dateStyle: 'short', timeStyle: 'short' });
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-64 w-full rounded-xl" />;
 
   const hasUnread = data.data.some((n) => !n.readAt);

@@ -1,10 +1,17 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { API_URL } from '@/lib/utils';
-import { BannerCarousel, type BannerSlide } from './banner-carousel';
+import { apiFetch } from '@/lib/api';
+import type { BannerSlide } from './banner-carousel';
 import { cn } from '@/lib/utils';
+
+const BannerCarousel = dynamic(
+  () => import('./banner-carousel').then((m) => ({ default: m.BannerCarousel })),
+  { ssr: false, loading: () => <BannerSkeleton /> },
+);
 
 const CACHE_TTL_MS = 60_000;
 
@@ -68,7 +75,7 @@ export function BannerCarouselWrapper() {
       setLoading(true);
     }
 
-    fetch(`${API_URL}/banners`, { credentials: 'include' })
+    apiFetch(`${API_URL}/banners`)
       .then((r) => (r.ok ? r.json() : []))
       .then((data: unknown) => {
         const { slides: list, intervalMs: interval } = normalizeBanners(data);

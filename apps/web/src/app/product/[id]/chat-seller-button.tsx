@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, MessageCircleOff } from 'lucide-react';
@@ -22,18 +23,17 @@ export function ChatSellerButton({
   const router = useRouter();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const startChat = () => {
     if (!chatEnabled) return;
-    if (!token) {
+    if (!isReady || !isLoggedIn) {
       router.push('/auth/login?next=/product/' + productId + '&reason=chat');
       return;
     }
     setLoading(true);
     apiFetch(`${API_URL}/chat/sessions`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({ sellerId, productId }),
     })
       .then((r) => {

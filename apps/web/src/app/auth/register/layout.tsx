@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/metadata';
-import { getServerLocale, getMessagesForLocale } from '@/i18n/server-locale';
+import { metadataFromKeys } from '@/lib/page-metadata';
+
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = getServerLocale();
-  const dict = getMessagesForLocale(locale) as unknown as Record<string, unknown>;
-  return buildPageMetadata(dict, 'auth.register.metaTitle', 'auth.register.metaDescription');
+  return metadataFromKeys('auth.register.metaTitle', 'auth.register.metaDescription');
 }
 
 export default function RegisterLayout({ children }: { children: React.ReactNode }) {

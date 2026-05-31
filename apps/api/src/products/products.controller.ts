@@ -4,6 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import * as multer from 'multer';
 import { ProductsService } from './products.service';
+import { ProductImportService } from './product-import.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductFilterDto } from './dto/product-filter.dto';
@@ -17,7 +18,10 @@ import { UserRole } from '@prisma/client';
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
-  constructor(private products: ProductsService) {}
+  constructor(
+    private products: ProductsService,
+    private productImport: ProductImportService,
+  ) {}
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -62,7 +66,7 @@ export class ProductsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Download Excel template for bulk product import' })
   async getImportTemplate(@Res() res: Response) {
-    const buffer = await this.products.getImportTemplate();
+    const buffer = await this.productImport.getImportTemplate();
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', 'attachment; filename="tovarlar-shabloni.xlsx"');
     res.send(buffer);
@@ -80,7 +84,7 @@ export class ProductsController {
     if (!file) throw new BadRequestException('Fayl tanlanmadi. Excel (.xlsx, .xls) faylini yuklang.');
     const buf = (file as Express.Multer.File & { buffer?: Buffer }).buffer;
     if (!buf) throw new BadRequestException('Fayl yuklanmadi. Qaytadan urinib koʻring.');
-    return this.products.importFromExcel(userId, buf);
+    return this.productImport.importFromExcel(userId, buf);
   }
 
   @Get('shop-info/:slug')
@@ -99,6 +103,7 @@ export class ProductsController {
 
   @Get(':id')
   @Public()
+  @Header('Cache-Control', 'public, max-age=60')
   @ApiOperation({ summary: 'Get product by id' })
   findOne(@Param('id') id: string) {
     return this.products.findOne(id);

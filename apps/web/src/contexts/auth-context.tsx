@@ -4,113 +4,105 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { API_URL } from '@/lib/utils';
 import { clearCartSession } from '@/lib/cart-session';
 import { clearGuestFavorites } from '@/lib/guest-favorites';
-import { syncSessionCookie } from '@/lib/api';
+import { apiFetch, completeAuthSession, syncSessionCookie } from '@/lib/api';
 
-const STORAGE_KEY = 'accessToken';
 const CHECKOUT_ORDERS_KEY = 'checkout_orders';
 const RECENT_SEARCHES_KEY = 'myshop-recent-searches';
 
 type AuthContextValue = {
-  token: string | null;
   isLoggedIn: boolean;
-  /** false until localStorage has been read (client-side) — use to avoid redirecting before we know the token */
   isReady: boolean;
-  setToken: (token: string | null) => void;
+  /** @deprecated Always null — auth uses httpOnly cookies. Use isLoggedIn. */
+  token: string | null;
+  completeAuthSession: (accessToken: string) => Promise<void>;
+  /** @deprecated Use completeAuthSession(accessToken) or clearAuth(). */
+  setToken: (accessToken: string | null) => void;
+  clearAuth: () => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function readStoredToken(): string | null {
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem(STORAGE_KEY);
-}
-
-function syncSessionFromAccessToken(accessToken: string | null): void {
-  void syncSessionCookie(accessToken);
+async function probeSession(): Promise<boolean> {
+  const refreshRes = await fetch('/api/auth/session/refresh', {
+    method: 'POST',
+    credentials: 'include',
+  });
+  if (refreshRes.ok) return true;
+  const meRes = await apiFetch(`${API_URL}/users/me`);
+  return meRes.ok;
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [token, setTokenState] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
-    const stored = readStoredToken();
-    setTokenState(stored);
-    syncSessionFromAccessToken(stored);
-    setMounted(true);
+  const refreshAuthState = useCallback(async () => {
+    const ok = await probeSession().catch(() => false);
+    setIsLoggedIn(ok);
+    return ok;
   }, []);
 
   useEffect(() => {
-    if (!mounted || typeof window === 'undefined' || !API_URL) return;
-    const stored = readStoredToken();
-    if (stored) return;
-    fetch(`${API_URL}/auth/refresh`, { method: 'POST', credentials: 'include' })
-      .then((r) => {
-        if (!r.ok) return;
-        return r.json() as Promise<{ accessToken?: string }>;
-      })
-      .then((data) => {
-        if (data?.accessToken) {
-          localStorage.setItem(STORAGE_KEY, data.accessToken);
-          setTokenState(data.accessToken);
-          syncSessionFromAccessToken(data.accessToken);
-          window.dispatchEvent(new Event('auth-change'));
-        }
-      })
-      .catch(() => {});
-  }, [mounted]);
+    refreshAuthState().finally(() => setIsReady(true));
+  }, [refreshAuthState]);
 
   useEffect(() => {
-    if (!mounted) return;
-    const onAuthChange = () => setTokenState(readStoredToken());
+    const onAuthChange = () => {
+      void refreshAuthState();
+    };
     window.addEventListener('auth-change', onAuthChange);
     return () => window.removeEventListener('auth-change', onAuthChange);
-  }, [mounted]);
+  }, [refreshAuthState]);
 
-  const setToken = useCallback((value: string | null) => {
-    if (typeof window !== 'undefined') {
-      if (value == null) localStorage.removeItem(STORAGE_KEY);
-      else {
-        localStorage.setItem(STORAGE_KEY, value);
-        syncSessionFromAccessToken(value);
-        window.dispatchEvent(new CustomEvent('cart-updated'));
-      }
-    }
-    if (value == null) syncSessionFromAccessToken(null);
-    setTokenState(value);
+  const clearAuth = useCallback(() => {
+    void syncSessionCookie(null);
+    setIsLoggedIn(false);
     window.dispatchEvent(new Event('auth-change'));
   }, []);
 
+  const handleCompleteAuthSession = useCallback(async (accessToken: string) => {
+    await completeAuthSession(accessToken);
+    setIsLoggedIn(true);
+  }, []);
+
+  const setToken = useCallback(
+    (value: string | null) => {
+      if (value == null) clearAuth();
+      else void handleCompleteAuthSession(value);
+    },
+    [clearAuth, handleCompleteAuthSession],
+  );
+
   const logout = useCallback(() => {
     if (typeof window !== 'undefined') {
-      if (API_URL && token) {
-        fetch(`${API_URL}/auth/logout`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { Authorization: `Bearer ${token}` },
-        }).catch(() => {});
+      if (API_URL) {
+        apiFetch(`${API_URL}/auth/logout`, { method: 'POST' }).catch(() => {});
       }
-      syncSessionFromAccessToken(null);
-      setToken(null);
+      void syncSessionCookie(null);
+      setIsLoggedIn(false);
       clearCartSession();
       clearGuestFavorites();
       try {
         sessionStorage.removeItem(CHECKOUT_ORDERS_KEY);
         localStorage.removeItem(RECENT_SEARCHES_KEY);
+        localStorage.removeItem('accessToken');
       } catch {
         // ignore
       }
+      window.dispatchEvent(new Event('auth-change'));
     } else {
-      setToken(null);
+      setIsLoggedIn(false);
     }
-  }, [setToken, token]);
+  }, []);
 
   const value: AuthContextValue = {
-    token: mounted ? token : null,
-    isLoggedIn: !!token,
-    isReady: mounted,
+    isLoggedIn,
+    isReady,
+    token: null,
+    completeAuthSession: handleCompleteAuthSession,
     setToken,
+    clearAuth,
     logout,
   };
 
@@ -121,10 +113,12 @@ export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);
   if (!ctx) {
     return {
-      token: null,
       isLoggedIn: false,
       isReady: false,
+      token: null,
+      completeAuthSession: async () => {},
       setToken: () => {},
+      clearAuth: () => {},
       logout: () => {},
     };
   }

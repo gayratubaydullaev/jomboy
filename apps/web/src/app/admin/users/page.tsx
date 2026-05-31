@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
@@ -59,33 +60,33 @@ export default function AdminUsersPage() {
   const [roleFilter, setRoleFilter] = useState<string>('');
   const [page, setPage] = useState(1);
   const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const isSuperAdmin = currentUserRole === 'ADMIN';
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     const params = new URLSearchParams();
     if (roleFilter) params.set('role', roleFilter);
     params.set('page', String(page));
     params.set('limit', String(PAGE_SIZE));
     const q = `?${params.toString()}`;
-    apiGetJson<AdminUsersResponse>(`${API_URL}/admin/users${q}`, { headers: { Authorization: `Bearer ${token}` } }).then(setData).catch(() => setData(null));
-  }, [token, roleFilter, page]);
+    apiGetJson<AdminUsersResponse>(`${API_URL}/admin/users${q}`, { }).then(setData).catch(() => setData(null));
+  }, [isReady, isLoggedIn, roleFilter, page]);
 
   useEffect(() => {
-    if (token) {
-      apiGetJson<{ role?: string }>(`${API_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
+    if (isLoggedIn) {
+      apiGetJson<{ role?: string }>(`${API_URL}/users/me`, { })
         .then((me) => setCurrentUserRole(me?.role ?? null))
         .catch(() => setCurrentUserRole(null));
     }
-  }, [token]);
+  }, [isReady, isLoggedIn]);
   useEffect(() => {
     load();
   }, [load]);
 
   const block = (id: string, block: boolean) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/admin/users/${id}/block`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ block }) })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/admin/users/${id}/block`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ block }) })
       .then(async (r) => {
         if (!r.ok) {
           const msg = await r.json().catch(() => ({})) as { message?: string };
@@ -101,10 +102,10 @@ export default function AdminUsersPage() {
   };
 
   const setRole = (id: string, role: string) => {
-    if (!token || !ROLES.includes(role as (typeof ROLES)[number])) return;
+    if (!isLoggedIn || !ROLES.includes(role as (typeof ROLES)[number])) return;
     apiFetch(`${API_URL}/admin/users/${id}/role`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ role }),
     })
       .then(async (r) => {
@@ -121,7 +122,7 @@ export default function AdminUsersPage() {
       .catch((err: Error) => toast.error(err.message ?? t('admin.common.roleSaveFailed')));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-64 w-full" />;
 
   const users = Array.isArray(data?.data) ? data.data : [];

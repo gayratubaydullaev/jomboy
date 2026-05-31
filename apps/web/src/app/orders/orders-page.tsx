@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
@@ -45,11 +46,11 @@ export default function OrdersPage() {
   const { t, intlLocale } = useTranslation();
   const [data, setData] = useState<{ data: Order[] } | null>(null);
   const [forbidden, setForbidden] = useState(false);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/orders/my`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/orders/my`)
       .then((r) => {
         if (r.status === 403) {
           setForbidden(true);
@@ -59,9 +60,16 @@ export default function OrdersPage() {
       })
       .then(setData)
       .catch(() => setData({ data: [] }));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
-  if (!token)
+  if (!isReady) {
+    return (
+      <div className="w-full max-w-2xl mx-auto px-0 sm:px-4 md:px-6 py-8">
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
+  }
+  if (!isLoggedIn)
     return (
       <div className="w-full max-w-2xl mx-auto px-0 sm:px-4 md:px-6 py-8 space-y-4">
         <p className="text-muted-foreground">{t('myOrders.loginPrompt')}</p>

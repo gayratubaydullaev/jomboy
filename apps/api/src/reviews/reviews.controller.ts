@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req, Header } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -34,6 +34,7 @@ export class ReviewsController {
 
   @Get('product/:productId')
   @Public()
+  @Header('Cache-Control', 'public, max-age=30')
   @ApiOperation({ summary: 'Get reviews for product' })
   getForProduct(@Param('productId') productId: string) {
     return this.reviews.getForProduct(productId);

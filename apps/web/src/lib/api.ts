@@ -28,43 +28,44 @@ export function clearCsrfCache(): void {
 }
 
 const MUTATION_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE'];
+
+/** @deprecated Auth uses httpOnly cookies via /api/proxy — no client-side token storage. */
 export const ACCESS_TOKEN_KEY = 'accessToken';
 
-/** Authorization header from localStorage (proxy also injects httpOnly access_token cookie). */
+/** @deprecated Proxy injects access_token httpOnly cookie — returns empty headers. */
 export function getAuthHeaders(): Record<string, string> {
-  if (typeof window === 'undefined') return {};
-  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return {};
 }
 
-/**
- * Try to refresh access token using httpOnly refresh cookie. Updates localStorage and dispatches auth-change.
- */
-async function tryRefreshToken(): Promise<string | null> {
-  if (typeof window === 'undefined') return null;
+async function tryRefreshSession(): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+  const refreshRes = await fetch('/api/auth/session/refresh', {
+    method: 'POST',
+    credentials: 'include',
+  });
+  if (refreshRes.ok) return true;
   const res = await fetch(`${API_URL}/auth/refresh`, { method: 'POST', credentials: 'include' });
-  if (!res.ok) return null;
+  if (!res.ok) return false;
   const data = (await res.json()) as { accessToken?: string };
-  if (!data?.accessToken) return null;
-  localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+  if (!data?.accessToken) return false;
   await syncSessionCookie(data.accessToken);
   window.dispatchEvent(new Event('auth-change'));
-  return data.accessToken;
+  return true;
 }
 
 /**
- * Fetch wrapper: adds credentials, cart session headers, and for POST/PUT/PATCH/DELETE
- * adds x-csrf-token. On 403, clears CSRF cache and retries once. On 401, tries refresh and retries once.
+ * Fetch wrapper: credentials + cart/locale headers + CSRF on mutations.
+ * Auth: httpOnly access_token cookie (proxy injects Authorization).
  */
 export async function apiFetch(
   url: string,
   init?: RequestInit,
-  retried = false
+  retried = false,
 ): Promise<Response> {
   const method = (init?.method ?? 'GET').toUpperCase();
   const headers = new Headers(init?.headers);
   headers.set('Accept', headers.get('Accept') ?? 'application/json');
-  if (!headers.has('Content-Type') && (init?.body !== undefined)) {
+  if (!headers.has('Content-Type') && init?.body !== undefined) {
     headers.set('Content-Type', 'application/json');
   }
   const cart = getCartHeaders();
@@ -72,14 +73,9 @@ export async function apiFetch(
   const locale = getClientLocaleHeader();
   if (locale) headers.set('x-locale', locale);
 
-  if (typeof window !== 'undefined' && !headers.has('authorization')) {
-    const auth = getAuthHeaders();
-    if (auth.Authorization) headers.set('authorization', auth.Authorization);
-  }
-
   if (MUTATION_METHODS.includes(method) && typeof window !== 'undefined') {
-    const token = await getCsrfToken();
-    if (token) headers.set('x-csrf-token', token);
+    const csrf = await getCsrfToken();
+    if (csrf) headers.set('x-csrf-token', csrf);
   }
 
   const res = await fetch(url, {
@@ -89,12 +85,8 @@ export async function apiFetch(
   });
 
   if (res.status === 401 && !retried && typeof window !== 'undefined') {
-    const newToken = await tryRefreshToken();
-    if (newToken) {
-      const newHeaders = new Headers(init?.headers);
-      newHeaders.set('Authorization', `Bearer ${newToken}`);
-      return apiFetch(url, { ...init, headers: newHeaders }, true);
-    }
+    const refreshed = await tryRefreshSession();
+    if (refreshed) return apiFetch(url, init, true);
   }
 
   if (res.status === 403 && !retried && MUTATION_METHODS.includes(method) && typeof window !== 'undefined') {
@@ -117,10 +109,6 @@ export class ApiError extends Error {
   }
 }
 
-/**
- * GET request via apiFetch, returns parsed JSON with type T.
- * Throws ApiError when response is not ok.
- */
 export async function apiGetJson<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await apiFetch(url, init);
   if (!res.ok) {
@@ -130,7 +118,7 @@ export async function apiGetJson<T>(url: string, init?: RequestInit): Promise<T>
   return res.json() as Promise<T>;
 }
 
-/** Sync session cookie for middleware (admin/seller routes). Requires verified JWT. */
+/** Sync session cookie for middleware (admin/seller). Token stays in memory only — never localStorage. */
 export async function syncSessionCookie(accessToken: string | null): Promise<void> {
   if (typeof window === 'undefined') return;
   if (!accessToken) {
@@ -141,5 +129,34 @@ export async function syncSessionCookie(accessToken: string | null): Promise<voi
     method: 'POST',
     credentials: 'include',
     headers: { Authorization: `Bearer ${accessToken}` },
+  });
+}
+
+/** After login/register: set httpOnly cookies without persisting JWT in localStorage. */
+export async function completeAuthSession(accessToken: string): Promise<void> {
+  await syncSessionCookie(accessToken);
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+    } catch {
+      // ignore
+    }
+    window.dispatchEvent(new Event('auth-change'));
+    window.dispatchEvent(new CustomEvent('cart-updated'));
+  }
+}
+
+/** Multipart upload via proxy (CSRF + credentials). */
+export async function apiUpload(url: string, formData: FormData, init?: RequestInit): Promise<Response> {
+  const headers = new Headers(init?.headers);
+  const locale = getClientLocaleHeader();
+  if (locale) headers.set('x-locale', locale);
+  const csrf = await getCsrfToken();
+  if (csrf) headers.set('x-csrf-token', csrf);
+  return apiFetch(url, {
+    ...init,
+    method: init?.method ?? 'POST',
+    body: formData,
+    headers,
   });
 }

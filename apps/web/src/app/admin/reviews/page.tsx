@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -36,32 +37,32 @@ export default function AdminReviewsPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'false' | 'true' | ''>('');
   const [page, setPage] = useState(1);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
     if (searchParams.get('filter') === 'pending') setFilter('false');
   }, [searchParams]);
 
   const load = useCallback(() => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     const params = new URLSearchParams({ page: String(page), limit: String(PAGE_SIZE) });
     if (filter) params.set('isModerated', filter);
-    apiFetch(`${API_URL}/admin/reviews?${params}`, { headers: { Authorization: `Bearer ${token}` } })
+    apiFetch(`${API_URL}/admin/reviews?${params}`)
       .then((r) => r.json())
       .then(setData)
       .catch(() => setData({ data: [], total: 0, page: 1, totalPages: 0 }));
-  }, [token, filter, page]);
+  }, [isReady, isLoggedIn, filter, page]);
 
   useEffect(() => {
     load();
   }, [load]);
 
   const handleModerate = (id: string, approve: boolean) => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setLoading(true);
     apiFetch(`${API_URL}/reviews/${id}/moderate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ approve }),
     })
       .then(() => {
@@ -73,12 +74,11 @@ export default function AdminReviewsPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setDeletingId(id);
     apiFetch(`${API_URL}/reviews/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    })
+      })
       .then(() => {
         toast.success(t('admin.ui.reviewDeleted'));
         load();
@@ -87,7 +87,7 @@ export default function AdminReviewsPage() {
       .finally(() => setDeletingId(null));
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (data === null) return <Skeleton className="h-64 w-full" />;
 
   const reviews = data.data ?? [];

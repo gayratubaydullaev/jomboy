@@ -6,7 +6,14 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
+  collectCoverageFrom: [
+    '**/*.(t|j)s',
+    '!**/*.spec.ts',
+    '!**/main.ts',
+    '!**/*.module.ts',
+    '!telegram/**',
+  ],
+  coverageProvider: 'v8',
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
 };

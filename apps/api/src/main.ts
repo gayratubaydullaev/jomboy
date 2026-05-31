@@ -19,6 +19,7 @@ async function bootstrap() {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     environment: process.env.NODE_ENV,
+    release: process.env.SENTRY_RELEASE || process.env.GITHUB_SHA,
     enabled: !!process.env.SENTRY_DSN,
   });
 

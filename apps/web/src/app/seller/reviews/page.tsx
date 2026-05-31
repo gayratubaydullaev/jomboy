@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,15 +30,15 @@ export default function SellerReviewsPage() {
   const [reviews, setReviews] = useState<Review[] | null>(null);
   const [replyingId, setReplyingId] = useState<string | null>(null);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
 
   const load = useCallback(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/seller/reviews`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/seller/reviews`)
       .then((r) => r.json())
       .then(setReviews)
       .catch(() => setReviews([]));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   useEffect(() => {
     load();
@@ -45,11 +46,11 @@ export default function SellerReviewsPage() {
 
   const handleReply = (reviewId: string) => {
     const text = (drafts[reviewId] ?? '').trim();
-    if (!token || !text) return;
+    if (!isLoggedIn || !text) return;
     setReplyingId(reviewId);
     apiFetch(`${API_URL}/reviews/${reviewId}/reply`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ reply: text }),
     })
       .then(() => {
@@ -64,7 +65,7 @@ export default function SellerReviewsPage() {
       });
   };
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (reviews === null) return <Skeleton className="h-64 w-full" />;
 
   return (

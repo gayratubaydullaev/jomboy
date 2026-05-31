@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -82,17 +83,17 @@ function paymentMethodLabel(pm: string | undefined, t: TranslateFn): string {
 export default function SellerOrdersPage() {
   const { t, intlLocale } = useTranslation();
   const [data, setData] = useState<{ data: OrderRow[] } | null>(null);
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+  const { isLoggedIn, isReady } = useAuth();
   const currency = t('checkout.currency');
 
   useEffect(() => {
-    if (!token) return;
-    apiFetch(`${API_URL}/orders/seller`, { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()).then(setData);
-  }, [token]);
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/orders/seller`).then((r) => r.json()).then(setData);
+  }, [isReady, isLoggedIn]);
 
   const updateStatus = (orderId: string, status: string, deliveryType?: string) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/orders/${orderId}/status`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/orders/${orderId}/status`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) })
       .then(() => {
         setData((d) => (d ? { ...d, data: d.data.map((o) => (o.id === orderId ? { ...o, status } : o)) } : null));
         toast.success(`${t('seller.orders.toastStatusPrefix')} ${orderStatusLabel(status, deliveryType, t)}`);
@@ -101,8 +102,8 @@ export default function SellerOrdersPage() {
   };
 
   const markAsPaid = (orderId: string) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/orders/${orderId}/mark-paid`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/orders/${orderId}/mark-paid`, { method: 'POST', })
       .then(() => {
         setData((d) => (d ? { ...d, data: d.data.map((o) => (o.id === orderId ? { ...o, paymentStatus: 'PAID' } : o)) } : null));
         toast.success(t('seller.orders.toastPaid'));
@@ -117,7 +118,7 @@ export default function SellerOrdersPage() {
   const shipBtnLabel = (o: OrderRow) => (isPickup(o) ? t('seller.orders.readyPickup') : t('seller.orders.shipped'));
   const deliverBtnLabel = (o: OrderRow) => (isPickup(o) ? t('seller.orders.deliveredPickup') : t('seller.orders.delivered'));
 
-  if (!token) return <DashboardAuthGate />;
+  if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-24 w-full" />;
   const orders = data.data ?? [];
 

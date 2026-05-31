@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
 import { Bell, CheckCheck, Loader2, ChevronRight } from 'lucide-react';
 import { API_URL } from '@/lib/utils';
@@ -36,28 +37,25 @@ export function NotificationsBell({ basePath, className }: NotificationsBellProp
   const [markingAll, setMarkingAll] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+  const { isLoggedIn, isReady } = useAuth();
 
   const fetchUnreadCount = useCallback(() => {
-    if (!token) return;
-    const h = { Authorization: `Bearer ${token}` };
-    apiFetch(`${API_URL}/notifications/unread-count`, { headers: h })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/notifications/unread-count`)
       .then((r) => r.json())
       .then((data: { count?: number }) => setUnreadCount(data?.count ?? 0))
       .catch(() => {});
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   const fetchList = useCallback(() => {
-    if (!token) return;
-    const h = { Authorization: `Bearer ${token}` };
+    if (!isReady || !isLoggedIn) return;
     setLoading(true);
-    apiFetch(`${API_URL}/notifications?limit=10`, { headers: h })
+    apiFetch(`${API_URL}/notifications?limit=10`)
       .then((r) => r.json())
       .then((data: { data?: NotificationItem[] }) => setList(data?.data ?? []))
       .catch(() => setList([]))
       .finally(() => setLoading(false));
-  }, [token]);
+  }, [isReady, isLoggedIn]);
 
   useEffect(() => {
     fetchUnreadCount();
@@ -66,8 +64,8 @@ export function NotificationsBell({ basePath, className }: NotificationsBellProp
   }, [fetchUnreadCount]);
 
   useEffect(() => {
-    if (open && token) fetchList();
-  }, [open, token, fetchList]);
+    if (open && isLoggedIn) fetchList();
+  }, [open, isReady, isLoggedIn, fetchList]);
 
   useEffect(() => {
     if (!open) return;
@@ -79,8 +77,8 @@ export function NotificationsBell({ basePath, className }: NotificationsBellProp
   }, [open]);
 
   const markAsRead = (id: string) => {
-    if (!token) return;
-    apiFetch(`${API_URL}/notifications/${id}/read`, { method: 'PATCH', headers })
+    if (!isReady || !isLoggedIn) return;
+    apiFetch(`${API_URL}/notifications/${id}/read`, { method: 'PATCH' })
       .then(() => {
         setList((prev) => prev?.map((n) => (n.id === id ? { ...n, readAt: new Date().toISOString() } : n)) ?? null);
         setUnreadCount((c) => Math.max(0, c - 1));
@@ -89,9 +87,9 @@ export function NotificationsBell({ basePath, className }: NotificationsBellProp
   };
 
   const markAllAsRead = () => {
-    if (!token) return;
+    if (!isReady || !isLoggedIn) return;
     setMarkingAll(true);
-    apiFetch(`${API_URL}/notifications/read-all`, { method: 'POST', headers })
+    apiFetch(`${API_URL}/notifications/read-all`, { method: 'POST' })
       .then(() => {
         setUnreadCount(0);
         setList((prev) => prev?.map((n) => ({ ...n, readAt: n.readAt ?? new Date().toISOString() })) ?? null);

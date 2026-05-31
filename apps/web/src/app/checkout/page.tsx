@@ -1,16 +1,10 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import { localePageMetadata } from '@/lib/page-metadata';
 import { CheckoutForm } from './checkout-form';
 import { CheckoutPageChrome } from './checkout-page-chrome';
-import { LOCALE_COOKIE, parseLocale } from '@/i18n/config';
-import uz from '../../../messages/uz.json';
-import ru from '../../../messages/ru.json';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const cookieStore = cookies();
-  const locale = parseLocale(cookieStore.get(LOCALE_COOKIE)?.value);
-  const dict = locale === 'ru' ? ru : uz;
-  return { title: dict.checkout.metaTitle };
+  return localePageMetadata('checkout.metaTitle', undefined, '/checkout');
 }
 
 export default function CheckoutPage() {

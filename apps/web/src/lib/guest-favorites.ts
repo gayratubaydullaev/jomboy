@@ -49,6 +49,28 @@ export function clearGuestFavorites(): void {
   window.dispatchEvent(new CustomEvent('guest-favorites-changed'));
 }
 
+/** Comma-separated product ids for share URL (?shared=). */
+export function encodeGuestFavoritesShareParam(): string {
+  return getGuestFavoriteIds().join(',');
+}
+
+export function decodeGuestFavoritesShareParam(raw: string | null | undefined): string[] {
+  if (!raw?.trim()) return [];
+  return raw
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean);
+}
+
+export function buildGuestFavoritesShareUrl(): string {
+  if (typeof window === 'undefined') return '';
+  const ids = encodeGuestFavoritesShareParam();
+  if (!ids) return '';
+  const url = new URL('/favorites', window.location.origin);
+  url.searchParams.set('shared', ids);
+  return url.toString();
+}
+
 /** After login: add guest favorites to the user's account via API, then clear guest list. */
 export async function mergeGuestFavoritesToAccount(apiUrl: string): Promise<void> {
   const ids = getGuestFavoriteIds();

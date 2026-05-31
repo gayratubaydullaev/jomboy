@@ -3,7 +3,8 @@
     "metaTitle": "{{siteName}} – Doʻkon",
     "metaDescription": "Oʻzbekiston boʻylab xaridlar – {{siteName}} markazida.",
     "ogLocaleUz": "uz_Latn",
-    "ogLocaleRu": "ru_RU"
+    "ogLocaleRu": "ru_RU",
+    "ogLocaleEn": "en_US"
   },
   "telegramApp": {
     "metaTitle": "{{siteName}} — Telegram",
@@ -142,6 +143,10 @@
       "toastStatusError": "Holat oʻzgartirilmadi",
       "toastPaid": "Toʻlov belgilandi",
       "toastPaidError": "Toʻlov belgilanmadi",
+      "exportExcel": "Excel yuklab olish",
+      "exportExcelLoading": "Yuklanmoqda…",
+      "exportExcelOk": "Buyurtmalar yuklab olindi",
+      "exportExcelError": "Eksport amalga oshmadi",
       "paymentStatus": {
         "PENDING": "Kutilmoqda",
         "PAID": "Toʻlangan",
@@ -670,7 +675,10 @@
     "toastError": "Xatolik yuz berdi",
     "ariaLabel": "Sevimlilar",
     "titleAdd": "Sevimlilarga qoʻshish",
-    "titleRemove": "Sevimlilardan olib tashlash"
+    "titleRemove": "Sevimlilardan olib tashlash",
+    "shareLink": "Roʻyxatni ulashish",
+    "shareCopied": "Havola nusxalandi",
+    "sharedViewHint": "Ulashilgan sevimlilar (faqat koʻrish)."
   },
   "account": {
     "metaTitle": "Shaxsiy kabinet",
@@ -1147,6 +1155,10 @@
       "description": "Platformadagi barcha buyurtmalar. Jami: {{total}}.",
       "emptyTitle": "Buyurtmalar yoʻq",
       "emptyDescription": "Hozircha roʻyxat boʻsh. Yangi buyurtmalar shu yerda paydo boʻladi.",
+      "exportExcel": "Excel yuklab olish",
+      "exportExcelLoading": "Yuklanmoqda…",
+      "exportExcelOk": "Buyurtmalar yuklab olindi",
+      "exportExcelError": "Eksport amalga oshmadi",
       "buyer": "Xaridor:",
       "seller": "Sotuvchi:"
     },
@@ -1427,6 +1439,8 @@
       "phSlug": "slug",
       "labelDesc": "Tavsif",
       "phDesc": "Ixtiyoriy",
+      "emptyTitle": "Toifalar yoʻq",
+      "emptyDescription": "Yuqoridagi formadan birinchi toifani qoʻshing.",
       "emptyHint": "Toifalar yoʻq. Yuqoridan qoʻshing."
     },
     "banners": {
@@ -1448,6 +1462,8 @@
       "labelEnds": "Shu sanadan keyin yopish (deaktivatsiya)",
       "submitAdd": "Qoʻshish",
       "listHeading": "Barcha bannerlar",
+      "emptyTitle": "Bannerlar yoʻq",
+      "emptyDescription": "Yuqoridagi formadan birinchi bannerni qoʻshing.",
       "emptyHint": "Bannerlar yoʻq. Yuqoridan qoʻshing."
     }
   }

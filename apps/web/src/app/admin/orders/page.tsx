@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/auth-context';
+import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,9 +13,10 @@ import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-heade
 import { DashboardPanel } from '@/components/dashboard/dashboard-panel';
 import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Download } from 'lucide-react';
 import { useTranslation } from '@/contexts/i18n-context';
 import { orderStatusLabel } from '@/lib/order-status-i18n';
+import { downloadBlob } from '@/lib/download-blob';
 
 type OrderRow = {
   id: string;
@@ -45,6 +47,7 @@ export default function AdminOrdersPage() {
   const { t, intlLocale } = useTranslation();
   const [data, setData] = useState<OrdersResponse | null>(null);
   const [page, setPage] = useState(1);
+  const [exporting, setExporting] = useState(false);
   const { isLoggedIn, isReady } = useAuth();
 
   useEffect(() => {
@@ -55,6 +58,22 @@ export default function AdminOrdersPage() {
       .then(setData)
       .catch(() => setData({ message: t('admin.common.errorGeneric') }));
   }, [isReady, isLoggedIn, page, t]);
+
+  const exportExcel = async () => {
+    if (!isReady || !isLoggedIn || exporting) return;
+    setExporting(true);
+    try {
+      const r = await apiFetch(`${API_URL}/admin/orders/export`);
+      if (!r.ok) throw new Error(t('admin.orders.exportExcelError'));
+      const blob = await r.blob();
+      downloadBlob(blob, `platform-buyurtmalar-${new Date().toISOString().slice(0, 10)}.xlsx`);
+      toast.success(t('admin.orders.exportExcelOk'));
+    } catch {
+      toast.error(t('admin.orders.exportExcelError'));
+    } finally {
+      setExporting(false);
+    }
+  };
 
   if (!isReady || !isLoggedIn) return <DashboardAuthGate />;
   if (!data) return <Skeleton className="h-24 w-full" />;
@@ -72,7 +91,19 @@ export default function AdminOrdersPage() {
         eyebrow={t('admin.common.platform')}
         title={t('admin.orders.title')}
         description={t('admin.orders.description', { total })}
-      />
+      >
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="min-h-[40px] touch-manipulation"
+          disabled={exporting}
+          onClick={() => void exportExcel()}
+        >
+          <Download className="h-4 w-4 mr-2" />
+          {exporting ? t('admin.orders.exportExcelLoading') : t('admin.orders.exportExcel')}
+        </Button>
+      </DashboardPageHeader>
       {errorMessage && orders.length === 0 && (
         <p className="mb-4 text-sm text-destructive">{errorMessage}</p>
       )}

@@ -6,6 +6,7 @@ import { UserRole } from '@prisma/client';
 import { Request } from 'express';
 import { AdminUsersService } from './admin-users.service';
 import { AdminSellersService } from './admin-sellers.service';
+import { buildOrdersExportBuffer } from '../orders/order-export.util';
 
 @Injectable()
 export class AdminService {
@@ -105,6 +106,26 @@ export class AdminService {
         tx.order.count(),
       ]);
       return { data, total, page: Math.max(1, Number(page) || 1), limit: take, totalPages: Math.ceil(total / take) };
+    });
+  }
+
+  async exportOrdersXlsx(req: Request): Promise<Buffer> {
+    const user = req.user as { id: string; role: string } | undefined;
+    const userId = user?.id ? String(user.id) : null;
+    const roleStr = user?.role ? String(user.role) : null;
+    return this.prisma.$transaction(async (tx) => {
+      if (userId) await tx.$executeRaw`SELECT set_config('app.current_user_id', ${userId}, true)`;
+      if (roleStr) await tx.$executeRaw`SELECT set_config('app.user_role', ${roleStr}, true)`;
+      const orders = await tx.order.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 5000,
+        include: {
+          items: { include: { product: { select: { title: true, sku: true } } } },
+          buyer: { select: { firstName: true, lastName: true, email: true, phone: true } },
+          seller: { select: { firstName: true, lastName: true } },
+        },
+      });
+      return buildOrdersExportBuffer(orders, { includeSeller: true });
     });
   }
 

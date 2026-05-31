@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/i18n/config';
+import { isLocale as isSupportedLocale } from '@/i18n/config';
 import { DEFAULT_LOCALE, LOCALE_COOKIE, htmlLang, intlLocaleTag, parseLocale } from '@/i18n/config';
 import type { Messages } from '@/i18n/dictionaries';
 import { messagesByLocale as dictionaries } from '@/i18n/dictionaries';
@@ -24,11 +25,11 @@ function readLocaleCookie(): Locale | null {
   const match = document.cookie.match(new RegExp(`(?:^|; )${LOCALE_COOKIE}=([^;]*)`));
   if (!match?.[1]) return null;
   const raw = decodeURIComponent(match[1]);
-  return isLocale(raw) ? raw : null;
+  return isSupportedLocale(raw) ? raw : null;
 }
 
 function isLocale(value: string): value is Locale {
-  return value === 'uz' || value === 'ru';
+  return isSupportedLocale(value);
 }
 
 function setLocaleCookie(next: Locale) {

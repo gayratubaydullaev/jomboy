@@ -13,9 +13,10 @@ import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-heade
 import { DashboardPanel } from '@/components/dashboard/dashboard-panel';
 import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Download } from 'lucide-react';
 import { useTranslation, type TranslateFn } from '@/contexts/i18n-context';
 import { orderStatusLabel } from '@/lib/order-status-i18n';
+import { downloadBlob } from '@/lib/download-blob';
 
 type ShippingAddr = { city?: string; district?: string; street?: string; house?: string; phone?: string; firstName?: string; lastName?: string };
 type OrderItemRow = {
@@ -83,6 +84,7 @@ function paymentMethodLabel(pm: string | undefined, t: TranslateFn): string {
 export default function SellerOrdersPage() {
   const { t, intlLocale } = useTranslation();
   const [data, setData] = useState<{ data: OrderRow[] } | null>(null);
+  const [exporting, setExporting] = useState(false);
   const { isLoggedIn, isReady } = useAuth();
   const currency = t('checkout.currency');
 
@@ -111,6 +113,22 @@ export default function SellerOrdersPage() {
       .catch((e) => toast.error(e?.message ?? t('seller.orders.toastPaidError')));
   };
 
+  const exportExcel = async () => {
+    if (!isReady || !isLoggedIn || exporting) return;
+    setExporting(true);
+    try {
+      const r = await apiFetch(`${API_URL}/orders/seller/export`);
+      if (!r.ok) throw new Error(t('seller.orders.exportExcelError'));
+      const blob = await r.blob();
+      downloadBlob(blob, `buyurtmalar-${new Date().toISOString().slice(0, 10)}.xlsx`);
+      toast.success(t('seller.orders.exportExcelOk'));
+    } catch {
+      toast.error(t('seller.orders.exportExcelError'));
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const isPickup = (o: OrderRow) => o.deliveryType === 'PICKUP';
   const isPrepaid = (o: OrderRow) => o.paymentMethod === 'CLICK' || o.paymentMethod === 'PAYME';
   const canShipOrDeliver = (o: OrderRow) => !isPrepaid(o) || o.paymentStatus === 'PAID';
@@ -128,7 +146,19 @@ export default function SellerOrdersPage() {
         eyebrow={t('seller.orders.eyebrow')}
         title={t('seller.orders.title')}
         description={t('seller.orders.description')}
-      />
+      >
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="min-h-[40px] touch-manipulation"
+          disabled={exporting}
+          onClick={() => void exportExcel()}
+        >
+          <Download className="h-4 w-4 mr-2" />
+          {exporting ? t('seller.orders.exportExcelLoading') : t('seller.orders.exportExcel')}
+        </Button>
+      </DashboardPageHeader>
       <DashboardPanel className="p-4 sm:p-5 md:p-6">
         {orders.length === 0 ? (
           <DashboardEmptyState

@@ -10,9 +10,10 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { API_URL } from '@/lib/utils';
 import { apiFetch, apiUpload } from '@/lib/api';
-import { Plus, Pencil, Trash2, Eye, EyeOff, Upload } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, Upload, ImageIcon } from 'lucide-react';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
+import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 import { useTranslation } from '@/contexts/i18n-context';
 
 type Banner = {
@@ -327,8 +328,14 @@ export default function AdminBannersPage() {
 
       <div className="space-y-3">
         <h2 className="font-semibold text-base sm:text-lg">{t('admin.banners.listHeading')}</h2>
-        {list.length === 0 && !loadError && <p className="text-muted-foreground">{t('admin.banners.emptyHint')}</p>}
-        {list.map((b) => (
+        {list.length === 0 && !loadError ? (
+          <DashboardEmptyState
+            icon={ImageIcon}
+            title={t('admin.banners.emptyTitle')}
+            description={t('admin.banners.emptyDescription')}
+          />
+        ) : (
+        list.map((b) => (
           <Card key={b.id}>
             <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
               <div className="relative w-full sm:w-32 h-20 sm:h-16 rounded-lg overflow-hidden bg-muted shrink-0">
@@ -392,7 +399,8 @@ export default function AdminBannersPage() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        ))
+        )}
       </div>
     </div>
   );

@@ -25,6 +25,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       <SelectContent align="end">
         <SelectItem value="uz">{t('language.uz')}</SelectItem>
         <SelectItem value="ru">{t('language.ru')}</SelectItem>
+        <SelectItem value="en">{t('language.en')}</SelectItem>
       </SelectContent>
     </Select>
   );

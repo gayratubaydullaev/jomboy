@@ -1,11 +1,17 @@
 import { cookies } from 'next/headers';
 import uz from '../../messages/uz.json';
 import ru from '../../messages/ru.json';
+import enPartial from '../../messages/en.json';
 import { LOCALE_COOKIE, parseLocale, type Locale } from './config';
 import { getMessageString, interpolate } from './resolve';
+import { deepMergeMessages } from './deep-merge';
+
+const enMessages = deepMergeMessages(uz, enPartial as Record<string, unknown>);
 
 export function getMessagesForLocale(locale: Locale): typeof uz {
-  return locale === 'ru' ? ru : uz;
+  if (locale === 'ru') return ru;
+  if (locale === 'en') return enMessages;
+  return uz;
 }
 
 export function getServerLocale(): Locale {

@@ -1,0 +1,161 @@
+{
+  "site": {
+    "metaTitle": "{{siteName}} – Shop",
+    "metaDescription": "Shop across Uzbekistan on {{siteName}}.",
+    "ogLocaleEn": "en_US"
+  },
+  "language": {
+    "label": "Language",
+    "uz": "Oʻzbekcha",
+    "ru": "Русский",
+    "en": "English"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "home": "Home",
+    "catalog": "Catalog",
+    "cart": "Cart",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "back": "Back",
+    "close": "Close"
+  },
+  "cookie": {
+    "dialogAria": "Cookie notice",
+    "intro": "This site uses ",
+    "cookieWord": "cookies",
+    "afterCookie": " for cart, sign-in, and security. ",
+    "details": "Learn more",
+    "outro": "By continuing you accept this.",
+    "accept": "Got it"
+  },
+  "home": {
+    "emptyTitle": "No products yet",
+    "goToCatalog": "Go to catalog",
+    "loadError": "Could not load products."
+  },
+  "common": {
+    "retry": "Try again"
+  },
+  "catalog": {
+    "title": "Catalog",
+    "metaTitle": "Catalog",
+    "metaDescription": "Browse products on {{siteName}}.",
+    "searchPlaceholder": "Search products…",
+    "filters": "Filters",
+    "sort": "Sort",
+    "empty": "No products found",
+    "loadMore": "Load more"
+  },
+  "cart": {
+    "title": "Cart",
+    "metaTitle": "Cart",
+    "emptyTitle": "Your cart is empty",
+    "emptyDescription": "Add items from the catalog.",
+    "goToCatalog": "Go to catalog",
+    "checkout": "Checkout",
+    "total": "Total",
+    "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "metaTitle": "Checkout",
+    "currency": "UZS",
+    "submit": "Place order",
+    "successTitle": "Order placed",
+    "delivery": "Delivery",
+    "pickup": "Pickup",
+    "errorGeneric": "Could not place order. Try again.",
+    "error502": "Payment service unavailable. Try again later.",
+    "errorEmptyCart": "Your cart is empty.",
+    "stockWarning": "Some items are out of stock."
+  },
+  "checkoutSuccess": {
+    "metaTitle": "Order confirmed"
+  },
+  "myOrders": {
+    "metaTitle": "My orders"
+  },
+  "orderGuestView": {
+    "metaTitle": "Order details"
+  },
+  "auth": {
+    "login": {
+      "metaTitle": "Sign in",
+      "metaDescription": "Sign in to your {{siteName}} account.",
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "noAccount": "No account?",
+      "register": "Register",
+      "invalidCredentials": "Invalid email or password",
+      "serverError": "Server error. Try again later."
+    },
+    "register": {
+      "metaTitle": "Register",
+      "metaDescription": "Create a {{siteName}} account.",
+      "title": "Register",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in"
+    }
+  },
+  "orderLookup": {
+    "title": "Track your order",
+    "metaTitle": "Order tracking",
+    "metaDescription": "Check order status by number and phone.",
+    "orderNumber": "Order number",
+    "phone": "Phone",
+    "submit": "Find order",
+    "backHome": "Back to home",
+    "errorRequired": "Enter order number and phone",
+    "errorNotFound": "Order not found",
+    "errorGeneric": "Something went wrong"
+  },
+  "product": {
+    "descriptionHeading": "Description",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "reviews": "Reviews",
+    "related": "Related products"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "metaTitle": "Favorites",
+    "emptyTitle": "No favorites yet",
+    "emptyDescription": "Save products you like.",
+    "shareLink": "Share list",
+    "shareCopied": "Link copied",
+    "sharedViewHint": "Shared favorites list (read-only)."
+  },
+  "offline": {
+    "banner": "You are offline. Some features may be unavailable.",
+    "backOnline": "Back online"
+  },
+  "becomeSeller": {
+    "metaTitle": "Become a seller"
+  },
+  "cookies": {
+    "metaTitle": "Cookie policy",
+    "metaDescription": "How {{siteName}} uses cookies."
+  },
+  "seller": {
+    "orders": {
+      "exportExcel": "Download Excel",
+      "exportExcelLoading": "Downloading…",
+      "exportExcelOk": "Orders downloaded",
+      "exportExcelError": "Export failed"
+    }
+  },
+  "admin": {
+    "orders": {
+      "exportExcel": "Download Excel",
+      "exportExcelLoading": "Downloading…",
+      "exportExcelOk": "Orders downloaded",
+      "exportExcelError": "Export failed"
+    }
+  }
+}

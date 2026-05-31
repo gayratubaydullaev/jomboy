@@ -28,7 +28,10 @@ describe('AuthProvider', () => {
   });
 
   it('probes session on mount and becomes ready', async () => {
-    vi.mocked(fetch).mockResolvedValue({ ok: true } as Response);
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ authenticated: true }),
+    } as Response);
     const { result } = renderHook(() => useAuth(), { wrapper });
     expect(result.current.isReady).toBe(false);
     await waitFor(() => expect(result.current.isReady).toBe(true));
@@ -36,18 +39,22 @@ describe('AuthProvider', () => {
     expect(result.current.token).toBeNull();
   });
 
-  it('falls back to users/me when refresh route fails', async () => {
-    vi.mocked(fetch).mockResolvedValue({ ok: false } as Response);
-    vi.mocked(apiFetch).mockResolvedValue({ ok: true } as Response);
+  it('reports logged out when status returns unauthenticated', async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ authenticated: false }),
+    } as Response);
     const { result } = renderHook(() => useAuth(), { wrapper });
     await waitFor(() => expect(result.current.isReady).toBe(true));
-    expect(result.current.isLoggedIn).toBe(true);
-    expect(apiFetch).toHaveBeenCalled();
+    expect(result.current.isLoggedIn).toBe(false);
+    expect(apiFetch).not.toHaveBeenCalled();
   });
 
   it('completeAuthSession delegates to api helper', async () => {
-    vi.mocked(fetch).mockResolvedValue({ ok: false } as Response);
-    vi.mocked(apiFetch).mockResolvedValue({ ok: false } as Response);
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ authenticated: false }),
+    } as Response);
     vi.mocked(completeAuthSession).mockResolvedValue(undefined);
     const { result } = renderHook(() => useAuth(), { wrapper });
     await waitFor(() => expect(result.current.isReady).toBe(true));
@@ -61,7 +68,10 @@ describe('AuthProvider', () => {
   });
 
   it('clearAuth clears session cookie and logged-in state', async () => {
-    vi.mocked(fetch).mockResolvedValue({ ok: true } as Response);
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ authenticated: true }),
+    } as Response);
     vi.mocked(syncSessionCookie).mockResolvedValue(undefined);
     const { result } = renderHook(() => useAuth(), { wrapper });
     await waitFor(() => expect(result.current.isLoggedIn).toBe(true));

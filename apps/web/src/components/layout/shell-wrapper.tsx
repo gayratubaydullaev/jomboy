@@ -6,6 +6,7 @@ import { BannerCarouselWrapper } from '@/components/layout/banner-carousel-wrapp
 import { MainContent } from '@/components/layout/main-content';
 import { Footer } from '@/components/layout/footer';
 import { BottomNav } from '@/components/layout/bottom-nav';
+import { OfflineBanner } from '@/components/layout/offline-banner';
 
 export function ShellWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ export function ShellWrapper({ children }: { children: React.ReactNode }) {
   }
   return (
     <div className="flex flex-col min-h-screen w-full max-w-full min-w-0">
+      <OfflineBanner />
       <Header />
       <BannerCarouselWrapper />
       <div className="flex-1 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0 flex flex-col min-w-0">

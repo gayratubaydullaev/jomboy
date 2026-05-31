@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -18,6 +18,7 @@ type SearchProduct = { id: string; title: string; slug: string; price: string; i
 export function HeaderSearch() {
   const router = useRouter();
   const { t } = useTranslation();
+  const listboxId = useId();
   const searchContainerRef = useRef<HTMLFormElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchSuggestions, setSearchSuggestions] = useState<SearchProduct[]>([]);
@@ -80,6 +81,8 @@ export function HeaderSearch() {
 
   const suggestionCount = searchSuggestions.length;
   const totalOptions = suggestionCount + (searchQuery.trim() && suggestionCount > 0 ? 1 : 0);
+  const currency = t('checkout.currency');
+  const showDropdown = searchOpen && (searchQuery.trim().length >= 2 || (!searchQuery.trim() && getRecentSearches().length > 0));
 
   const handleSearchKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -128,6 +131,11 @@ export function HeaderSearch() {
         )}
         <Input
           type="search"
+          role="combobox"
+          aria-expanded={showDropdown}
+          aria-controls={listboxId}
+          aria-autocomplete="list"
+          aria-activedescendant={highlightedIndex >= 0 ? `${listboxId}-opt-${highlightedIndex}` : undefined}
           placeholder={t('header.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -139,8 +147,13 @@ export function HeaderSearch() {
           autoComplete="off"
           className="pl-9 pr-9 h-9 md:h-12 w-full bg-muted/50 border-muted-foreground/20 text-sm md:text-base"
         />
-        {searchOpen && (
-          <div className="absolute left-0 right-0 top-full mt-1 rounded-xl border border-border bg-card shadow-xl z-50 overflow-hidden max-h-[min(70vh,400px)] overflow-y-auto">
+        {showDropdown && (
+          <div
+            id={listboxId}
+            role="listbox"
+            aria-label={t('header.searchPlaceholder')}
+            className="absolute left-0 right-0 top-full mt-1 rounded-xl border border-border bg-card shadow-xl z-50 overflow-hidden max-h-[min(70vh,400px)] overflow-y-auto"
+          >
             {searchQuery.trim() ? (
               <>
                 {searchSuggestions.length === 0 && !searchLoading && (
@@ -158,6 +171,9 @@ export function HeaderSearch() {
                 {searchSuggestions.map((p, i) => (
                   <Link
                     key={p.id}
+                    id={`${listboxId}-opt-${i}`}
+                    role="option"
+                    aria-selected={highlightedIndex === i}
                     href={`/product/${p.id}`}
                     onClick={() => setSearchOpen(false)}
                     className={cn(
@@ -172,13 +188,16 @@ export function HeaderSearch() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-foreground truncate text-sm">{p.title}</p>
-                      <p className="text-muted-foreground text-xs">{formatPrice(Number(p.price))} soʻm</p>
+                      <p className="text-muted-foreground text-xs">{formatPrice(Number(p.price))} {currency}</p>
                     </div>
                   </Link>
                 ))}
                 {searchQuery.trim() && searchSuggestions.length > 0 && (
                   <button
                     type="button"
+                    id={`${listboxId}-opt-${suggestionCount}`}
+                    role="option"
+                    aria-selected={highlightedIndex === suggestionCount}
                     onClick={() => openCatalogWithSearch(searchQuery)}
                     className={cn(
                       'w-full flex items-center justify-center gap-2 py-3 text-sm font-medium text-primary hover:bg-muted/80 transition-colors border-t border-border',

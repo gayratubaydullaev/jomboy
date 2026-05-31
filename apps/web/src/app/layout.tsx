@@ -20,26 +20,42 @@ import { TelegramBackHandlerProvider } from '@/contexts/telegram-back-handler-co
 import { TelegramWebAppAuth } from '@/components/telegram-webapp-auth';
 import { MergeGuestFavoritesOnLogin } from '@/components/merge-guest-favorites-on-login';
 import { SentryInit } from '@/components/sentry-init';
+import { SiteOrganizationJsonLd } from '@/components/seo/site-organization-json-ld';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-geist-sans' });
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteName = await getPublicSiteName();
   const locale = DEFAULT_LOCALE;
-  const ogLocale = locale === 'ru' ? serverT(locale, 'site.ogLocaleRu') : serverT(locale, 'site.ogLocaleUz');
+  const ogLocale =
+    locale === 'ru'
+      ? serverT(locale, 'site.ogLocaleRu')
+      : locale === 'en'
+        ? serverT(locale, 'site.ogLocaleEn')
+        : serverT(locale, 'site.ogLocaleUz');
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://myshop.uz';
   return {
     title: {
       default: serverT(locale, 'site.metaTitle', { siteName }),
       template: `%s | ${siteName}`,
     },
     description: serverT(locale, 'site.metaDescription', { siteName }),
+    alternates: {
+      canonical: base,
+      languages: {
+        uz: base,
+        ru: base,
+        en: base,
+        'x-default': base,
+      },
+    },
     openGraph: {
       type: 'website',
       locale: ogLocale,
-      url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://myshop.uz',
+      url: base,
       siteName,
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://myshop.uz'),
+    metadataBase: new URL(base),
     robots: { index: true, follow: true },
     icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
   };
@@ -67,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <TelegramWebAppAuth />
                     <MergeGuestFavoritesOnLogin />
                     <SentryInit />
+                    <SiteOrganizationJsonLd />
                     <CsrfPrefetch />
                     <PwaRegister />
                     <ShellWrapper>{children}</ShellWrapper>

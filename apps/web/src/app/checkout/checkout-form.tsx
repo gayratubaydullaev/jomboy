@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/auth-context';
 import { validateCheckoutAddress } from '@/lib/validations';
 import { useTranslation } from '@/contexts/i18n-context';
 import { isSafePaymentRedirectUrl } from '@/lib/safe-redirect';
+import { toast } from 'sonner';
 
 export function CheckoutForm({
   successPathPrefix = '/checkout',
@@ -268,7 +269,7 @@ export function CheckoutForm({
             ? err.message
             : t('checkout.errorGeneric');
       setFieldErrors([msg]);
-      alert(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

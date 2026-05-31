@@ -109,10 +109,16 @@ export function clickCallback(
   return request(server).post('/payments/click/callback').send(body);
 }
 
+function readSetCookieHeaders(headers: request.Response['headers']): string[] {
+  const raw = headers['set-cookie'];
+  if (!raw) return [];
+  return Array.isArray(raw) ? raw : [raw];
+}
+
 export async function registerBuyerE2e(
   server: ReturnType<INestApplication['getHttpServer']>,
   email: string,
-): Promise<{ accessToken: string; userId: string }> {
+): Promise<{ accessToken: string; userId: string; cookies: string[] }> {
   const res = await request(server)
     .post('/auth/register')
     .send({
@@ -123,7 +129,7 @@ export async function registerBuyerE2e(
     })
     .expect(201);
   const body = res.body as { accessToken: string; user: { id: string } };
-  return { accessToken: body.accessToken, userId: body.user.id };
+  return { accessToken: body.accessToken, userId: body.user.id, cookies: readSetCookieHeaders(res.headers) };
 }
 
 export async function loginE2e(
@@ -136,14 +142,14 @@ export async function loginE2e(
     throw new Error(`login failed with status ${res.status}`);
   }
   const body = res.body as { accessToken: string };
-  const cookies = (res.headers['set-cookie'] as string[] | undefined) ?? [];
+  const cookies = readSetCookieHeaders(res.headers);
   return { accessToken: body.accessToken, cookies };
 }
 
 export async function getCsrfE2e(server: ReturnType<INestApplication['getHttpServer']>) {
   const res = await request(server).get('/auth/csrf').expect(200);
   const csrfToken = (res.body as { csrfToken: string }).csrfToken;
-  const cookies = (res.headers['set-cookie'] as string[] | undefined) ?? [];
+  const cookies = readSetCookieHeaders(res.headers);
   return { csrfToken, cookies };
 }
 

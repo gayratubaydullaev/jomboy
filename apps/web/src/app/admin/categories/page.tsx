@@ -9,9 +9,10 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { API_URL } from '@/lib/utils';
 import { apiFetch } from '@/lib/api';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, FolderTree } from 'lucide-react';
 import { DashboardPageHeader } from '@/components/dashboard/dashboard-page-header';
 import { DashboardAuthGate } from '@/components/dashboard/dashboard-auth-gate';
+import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 import { useTranslation } from '@/contexts/i18n-context';
 
 type Category = {
@@ -159,6 +160,13 @@ export default function AdminCategoriesPage() {
           <CardTitle>{t('admin.categories.listTitle')}</CardTitle>
         </CardHeader>
         <CardContent>
+          {list.length === 0 ? (
+            <DashboardEmptyState
+              icon={FolderTree}
+              title={t('admin.categories.emptyTitle')}
+              description={t('admin.categories.emptyDescription')}
+            />
+          ) : (
           <ul className="space-y-2">
             {list.map((c) => (
               <li key={c.id} className="space-y-1">
@@ -221,7 +229,7 @@ export default function AdminCategoriesPage() {
               </li>
             ))}
           </ul>
-          {list.length === 0 && <p className="text-muted-foreground">{t('admin.categories.emptyHint')}</p>}
+          )}
         </CardContent>
       </Card>
     </div>

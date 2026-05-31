@@ -35,7 +35,11 @@ const nextConfig = {
     return [{ source: '/api-proxy/:path*', destination: `${apiServerUrl}/:path*` }];
   },
   async redirects() {
-    return [{ source: '/favicon.ico', destination: '/favicon.svg', permanent: false }];
+    return [
+      { source: '/favicon.ico', destination: '/favicon.svg', permanent: false },
+      { source: '/login', destination: '/auth/login', permanent: true },
+      { source: '/profile', destination: '/account', permanent: true },
+    ];
   },
   images: {
     remotePatterns: [
@@ -48,6 +52,9 @@ const nextConfig = {
   async headers() {
     const isProd = process.env.NODE_ENV === 'production';
     const apiConnect = apiServerUrl.replace(/\/$/, '');
+    const scriptSrc = isProd
+      ? "script-src 'self' 'unsafe-inline' https://telegram.org"
+      : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org";
     const securityHeaders = [
       { key: 'X-Frame-Options', value: 'DENY' },
       { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -57,7 +64,7 @@ const nextConfig = {
         key: 'Content-Security-Policy',
         value: [
           "default-src 'self'",
-          "script-src 'self' 'unsafe-inline'",
+          scriptSrc,
           "style-src 'self' 'unsafe-inline'",
           `connect-src 'self' ${apiConnect}`,
           "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com",

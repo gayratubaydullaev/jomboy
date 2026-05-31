@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Query, UseGuards, Delete, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Query, UseGuards, Delete, Req, Res } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -144,6 +144,17 @@ export class AdminController {
   @ApiOperation({ summary: 'List all orders' })
   getOrders(@Req() req: Request, @Query('page') page?: number, @Query('limit') limit?: number) {
     return this.admin.getOrders(req, page ?? 1, limit ?? 20);
+  }
+
+  @Get('orders/export')
+  @RequireModeratorPermission('canViewOrders')
+  @ApiOperation({ summary: 'Export all orders as Excel' })
+  async exportOrders(@Req() req: Request, @Res() res: Response) {
+    const buffer = await this.admin.exportOrdersXlsx(req);
+    const filename = `platform-buyurtmalar-${new Date().toISOString().slice(0, 10)}.xlsx`;
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(buffer);
   }
 
   @Get('sellers')

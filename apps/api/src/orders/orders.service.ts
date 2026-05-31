@@ -9,6 +9,7 @@ import { CreateOrderDto, DeliveryType } from './dto/create-order.dto';
 import { OrderStatus } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import { normalizePagination, paginatedResponse, emptyPaginatedResponse } from '@myshopuz/shared';
+import { buildOrdersExportBuffer } from './order-export.util';
 
 @Injectable()
 export class OrdersService {
@@ -312,6 +313,28 @@ export class OrdersService {
       this.prisma.order.count({ where }),
     ]);
     return paginatedResponse(data, total, p, take);
+  }
+
+  async exportSellerOrdersXlsx(sellerId: string, status?: OrderStatus): Promise<Buffer> {
+    const shop = await this.prisma.shop.findUnique({
+      where: { userId: sellerId },
+      select: { id: true },
+    });
+    if (!shop) {
+      return buildOrdersExportBuffer([]);
+    }
+    const where: { sellerId: string; status?: OrderStatus } = { sellerId };
+    if (status) where.status = status;
+    const orders = await this.prisma.order.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      take: 5000,
+      include: {
+        items: { include: { product: { select: { title: true, sku: true } } } },
+        buyer: { select: { firstName: true, lastName: true, email: true, phone: true } },
+      },
+    });
+    return buildOrdersExportBuffer(orders);
   }
 
   async findOne(id: string, userId: string, role: string) {

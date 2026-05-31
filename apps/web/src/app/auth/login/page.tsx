@@ -86,9 +86,10 @@ function LoginForm() {
                 if (pollRef.current) clearInterval(pollRef.current);
                 pollRef.current = null;
                 setTgWaiting(false);
-                void completeAuthSession(res.accessToken);
-                router.push(next);
-                router.refresh();
+                void completeAuthSession(res.accessToken).then(() => {
+                  router.push(next);
+                  router.refresh();
+                });
               }
             })
             .catch(() => {});
@@ -119,9 +120,9 @@ function LoginForm() {
         if (!r.ok) return Promise.reject(res);
         return res;
       })
-      .then((data) => {
+      .then(async (data) => {
         if (data.accessToken) {
-          void completeAuthSession(data.accessToken);
+          await completeAuthSession(data.accessToken);
           router.push(next);
           router.refresh();
         }

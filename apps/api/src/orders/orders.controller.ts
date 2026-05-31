@@ -96,6 +96,22 @@ export class OrdersController {
     return this.orders.findSellerOrders(userId, pageNum, limitNum, statusFilter);
   }
 
+  @Get('seller/export')
+  @Roles(UserRole.SELLER)
+  @ApiOperation({ summary: 'Export seller orders as Excel' })
+  async exportSellerOrders(
+    @CurrentUser('id') userId: string,
+    @Res() res: Response,
+    @Query('status') status?: string,
+  ) {
+    const statusFilter = status && Object.values(OrderStatus).includes(status as OrderStatus) ? (status as OrderStatus) : undefined;
+    const buffer = await this.orders.exportSellerOrdersXlsx(userId, statusFilter);
+    const filename = `buyurtmalar-${new Date().toISOString().slice(0, 10)}.xlsx`;
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(buffer);
+  }
+
   @Get('guest-lookup')
   @Public()
   @Throttle({ default: { limit: 10, ttl: 60000 } })

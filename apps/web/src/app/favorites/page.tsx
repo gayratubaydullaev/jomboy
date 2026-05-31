@@ -2,11 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product/product-card';
 import { API_URL } from '@/lib/utils';
 import { apiFetch, apiGetJson } from '@/lib/api';
-import { getGuestFavoriteIds, removeGuestFavorite } from '@/lib/guest-favorites';
+import {
+  buildGuestFavoritesShareUrl,
+  decodeGuestFavoritesShareParam,
+  getGuestFavoriteIds,
+  removeGuestFavorite,
+} from '@/lib/guest-favorites';
 import { useAuth } from '@/contexts/auth-context';
 import { useTranslation } from '@/contexts/i18n-context';
 import { type ApiProduct, apiProductToCardProduct } from '@/types/api';
@@ -14,6 +22,17 @@ import { type ApiProduct, apiProductToCardProduct } from '@/types/api';
 interface FavItem {
   id: string;
   product: ApiProduct;
+}
+
+async function fetchProductPublic(id: string): Promise<ApiProduct | null> {
+  try {
+    const r = await apiFetch(`${API_URL}/products/${id}`);
+    if (!r.ok) return null;
+    const p = (await r.json()) as ApiProduct;
+    return p?.id ? p : null;
+  } catch {
+    return null;
+  }
 }
 
 async function fetchProductOrNull(id: string): Promise<ApiProduct | null> {
@@ -29,6 +48,12 @@ async function fetchProductOrNull(id: string): Promise<ApiProduct | null> {
     removeGuestFavorite(id);
     return null;
   }
+}
+
+async function loadSharedFavorites(ids: string[]): Promise<FavItem[]> {
+  if (ids.length === 0) return [];
+  const products = await Promise.all(ids.map((id) => fetchProductPublic(id)));
+  return products.filter((p): p is ApiProduct => p != null).map((p) => ({ id: p.id, product: p }));
 }
 
 async function loadGuestFavorites(): Promise<FavItem[]> {
@@ -55,6 +80,9 @@ const FavoritesSkeleton = () => (
 export default function FavoritesPage() {
   const { t } = useTranslation();
   const { isLoggedIn, isReady } = useAuth();
+  const searchParams = useSearchParams();
+  const sharedIds = decodeGuestFavoritesShareParam(searchParams.get('shared'));
+  const isSharedView = sharedIds.length > 0;
   const [mounted, setMounted] = useState(false);
   const [list, setList] = useState<FavItem[] | null>(null);
 
@@ -64,6 +92,10 @@ export default function FavoritesPage() {
 
   useEffect(() => {
     if (!mounted || !isReady) return;
+    if (isSharedView && !isLoggedIn) {
+      loadSharedFavorites(sharedIds).then(setList).catch(() => setList([]));
+      return;
+    }
     if (isLoggedIn) {
       apiGetJson<FavItem[]>(`${API_URL}/favorites`)
         .then(setList)
@@ -71,7 +103,7 @@ export default function FavoritesPage() {
     } else {
       loadGuestFavorites().then(setList).catch(() => setList([]));
     }
-  }, [mounted, isReady, isLoggedIn]);
+  }, [mounted, isReady, isLoggedIn, isSharedView, sharedIds.join(',')]);
 
   useEffect(() => {
     if (!mounted || isLoggedIn) return;
@@ -97,7 +129,28 @@ export default function FavoritesPage() {
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-8">
-      <h1 className="text-2xl font-bold mb-6">{t('favorites.title')}</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <h1 className="text-2xl font-bold">{t('favorites.title')}</h1>
+        {!isLoggedIn && !isSharedView && list.length > 0 && (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={async () => {
+              const url = buildGuestFavoritesShareUrl();
+              if (!url) return;
+              try {
+                await navigator.clipboard.writeText(url);
+                toast.success(t('favorites.shareCopied'));
+              } catch {
+                toast.error(t('common.retry'));
+              }
+            }}
+          >
+            {t('favorites.shareLink')}
+          </Button>
+        )}
+      </div>
       {list.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">{t('favorites.empty')}</p>
@@ -108,7 +161,8 @@ export default function FavoritesPage() {
         </div>
       ) : (
         <>
-          {!isLoggedIn && <p className="text-muted-foreground text-sm mb-4">{t('favorites.guestBanner')}</p>}
+          {!isLoggedIn && !isSharedView && <p className="text-muted-foreground text-sm mb-4">{t('favorites.guestBanner')}</p>}
+          {isSharedView && <p className="text-muted-foreground text-sm mb-4">{t('favorites.sharedViewHint')}</p>}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1 md:gap-4">
             {list.map(({ product }) => (
               <ProductCard

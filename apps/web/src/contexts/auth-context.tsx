@@ -24,13 +24,10 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 async function probeSession(): Promise<boolean> {
-  const refreshRes = await fetch('/api/auth/session/refresh', {
-    method: 'POST',
-    credentials: 'include',
-  });
-  if (refreshRes.ok) return true;
-  const meRes = await apiFetch(`${API_URL}/users/me`);
-  return meRes.ok;
+  const res = await fetch('/api/auth/session/status', { credentials: 'include' });
+  if (!res.ok) return false;
+  const data = (await res.json().catch(() => ({}))) as { authenticated?: boolean; ok?: boolean };
+  return data.authenticated === true || data.ok === true;
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

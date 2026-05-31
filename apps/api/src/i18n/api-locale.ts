@@ -4,6 +4,7 @@ export const DEFAULT_API_LOCALE: ApiLocale = 'uz';
 
 export function parseApiLocale(raw: string | undefined | null): ApiLocale {
   if (raw === 'ru' || raw === 'uz') return raw;
+  if (raw === 'en') return DEFAULT_API_LOCALE;
   return DEFAULT_API_LOCALE;
 }
 

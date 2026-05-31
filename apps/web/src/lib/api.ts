@@ -43,7 +43,8 @@ async function tryRefreshSession(): Promise<boolean> {
     method: 'POST',
     credentials: 'include',
   });
-  if (refreshRes.ok) return true;
+  const refreshData = (await refreshRes.json().catch(() => ({}))) as { ok?: boolean };
+  if (refreshRes.ok && refreshData.ok === true) return true;
   const res = await fetch(`${API_URL}/auth/refresh`, { method: 'POST', credentials: 'include' });
   if (!res.ok) return false;
   const data = (await res.json()) as { accessToken?: string };
@@ -129,6 +130,11 @@ export async function syncSessionCookie(accessToken: string | null): Promise<voi
     method: 'POST',
     credentials: 'include',
     headers: { Authorization: `Bearer ${accessToken}` },
+  }).then(async (res) => {
+    if (!res.ok) {
+      const body = (await res.json().catch(() => ({}))) as { message?: string };
+      throw new Error(body.message ?? 'Session sync failed');
+    }
   });
 }
 

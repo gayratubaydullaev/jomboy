@@ -77,7 +77,7 @@ export function Header() {
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full hover:bg-muted/60" asChild>
-                <Link href={hasUser ? '/profile' : '/login'} title={t('header.profile')}>
+                <Link href={hasUser ? '/account' : '/auth/login'} title={t('header.profile')}>
                   <User className="h-7 w-7" />
                 </Link>
               </Button>

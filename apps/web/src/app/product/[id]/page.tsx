@@ -22,6 +22,9 @@ import { ProductShareBtn } from '@/components/product/product-share-btn';
 import { Separator } from '@/components/ui/separator';
 import { API_URL, formatPrice } from '@/lib/utils';
 import { generateTopProductIds } from '@/lib/server-fetch';
+import { buildProductMetadata } from '@/lib/metadata';
+import { buildBreadcrumbJsonLd, buildProductJsonLd, getSiteUrl } from '@/lib/json-ld';
+import { JsonLd } from '@/components/seo/json-ld';
 import { ChevronLeft, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
@@ -58,7 +61,13 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
     return { title: id };
   }
   const desc = typeof product.description === 'string' ? product.description.slice(0, 160) : undefined;
-  return { title: product.title as string, description: desc };
+  const imageUrl = (product.images as { url: string }[] | undefined)?.[0]?.url ?? null;
+  return buildProductMetadata({
+    title: product.title as string,
+    description: desc,
+    pathname: `/product/${id}`,
+    imageUrl,
+  });
 }
 
 export default async function ProductPage(props: { params: Promise<{ id: string }> }) {
@@ -85,7 +94,39 @@ export default async function ProductPage(props: { params: Promise<{ id: string 
     ? Math.round((reviews.reduce((s, r) => s + r.rating, 0) / reviews.length) * 10) / 10
     : null);
 
+  const siteUrl = getSiteUrl();
+  const productUrl = `${siteUrl}/product/${id}`;
+  const category = product.category as { name: string; slug: string } | null | undefined;
+  const breadcrumbItems = [
+    { name: getMessageString(dict, 'nav.home') ?? 'Home', url: siteUrl },
+    { name: getMessageString(dict, 'catalog.breadcrumbCatalog') ?? 'Catalog', url: `${siteUrl}/catalog` },
+  ];
+  if (category?.name) {
+    breadcrumbItems.push({
+      name: category.name,
+      url: `${siteUrl}/catalog?category=${encodeURIComponent(category.slug)}`,
+    });
+  }
+  breadcrumbItems.push({ name: product.title as string, url: productUrl });
+  const imageUrls = ((product.images as { url: string }[] | undefined) ?? []).map((img) => img.url).filter(Boolean);
+  const structuredData = [
+    buildProductJsonLd({
+      name: product.title as string,
+      description: typeof product.description === 'string' ? product.description.slice(0, 500) : undefined,
+      imageUrls,
+      price,
+      inStock: stock > 0,
+      sku: product.sku as string | null | undefined,
+      url: productUrl,
+      avgRating,
+      reviewsCount,
+    }),
+    buildBreadcrumbJsonLd(breadcrumbItems),
+  ];
+
   return (
+    <>
+      <JsonLd data={structuredData} />
     <div className="min-h-screen flex flex-col bg-muted/50 overflow-x-hidden">
       <main className="flex-1 pb-[calc(7rem+env(safe-area-inset-bottom,0px))] md:pb-12">
         <div className="w-full max-w-full min-w-0 px-4 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-6">
@@ -275,5 +316,6 @@ export default async function ProductPage(props: { params: Promise<{ id: string 
         </div>
       </main>
     </div>
+    </>
   );
 }

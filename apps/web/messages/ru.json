@@ -3,7 +3,8 @@
     "metaTitle": "{{siteName}} – Магазин",
     "metaDescription": "Покупки по Узбекистану на площадке {{siteName}}.",
     "ogLocaleUz": "uz_Latn",
-    "ogLocaleRu": "ru_RU"
+    "ogLocaleRu": "ru_RU",
+    "ogLocaleEn": "en_US"
   },
   "telegramApp": {
     "metaTitle": "{{siteName}} — Telegram",
@@ -142,6 +143,10 @@
       "toastStatusError": "Не удалось изменить статус",
       "toastPaid": "Оплата отмечена",
       "toastPaidError": "Не удалось отметить оплату",
+      "exportExcel": "Скачать Excel",
+      "exportExcelLoading": "Загрузка…",
+      "exportExcelOk": "Заказы скачаны",
+      "exportExcelError": "Не удалось экспортировать",
       "paymentStatus": {
         "PENDING": "Ожидает",
         "PAID": "Оплачен",
@@ -670,7 +675,10 @@
     "toastError": "Произошла ошибка",
     "ariaLabel": "Избранное",
     "titleAdd": "Добавить в избранное",
-    "titleRemove": "Удалить из избранного"
+    "titleRemove": "Удалить из избранного",
+    "shareLink": "Поделиться списком",
+    "shareCopied": "Ссылка скопирована",
+    "sharedViewHint": "Общий список избранного (только просмотр)."
   },
   "account": {
     "metaTitle": "Личный кабинет",
@@ -1147,6 +1155,10 @@
       "description": "Все заказы на платформе. Всего: {{total}}.",
       "emptyTitle": "Заказов нет",
       "emptyDescription": "Список пока пуст. Новые заказы появятся здесь.",
+      "exportExcel": "Скачать Excel",
+      "exportExcelLoading": "Загрузка…",
+      "exportExcelOk": "Заказы скачаны",
+      "exportExcelError": "Не удалось экспортировать",
       "buyer": "Покупатель:",
       "seller": "Продавец:"
     },
@@ -1427,6 +1439,8 @@
       "phSlug": "slug",
       "labelDesc": "Описание",
       "phDesc": "Необязательно",
+      "emptyTitle": "Категорий нет",
+      "emptyDescription": "Добавьте первую категорию в форме выше.",
       "emptyHint": "Категорий нет. Добавьте выше."
     },
     "banners": {
@@ -1448,6 +1462,8 @@
       "labelEnds": "Деактивация после (дата и время)",
       "submitAdd": "Добавить",
       "listHeading": "Все баннеры",
+      "emptyTitle": "Баннеров нет",
+      "emptyDescription": "Добавьте первый баннер в форме выше.",
       "emptyHint": "Баннеров нет. Добавьте выше."
     }
   }

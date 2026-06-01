@@ -1,0 +1,502 @@
+[
+  {
+    "p": "admin.sellers.thOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.sellers.thRevenue",
+    "uz": "Daromad",
+    "ru": "Выручка"
+  },
+  {
+    "p": "admin.sellers.platformDefault",
+    "uz": "Platforma",
+    "ru": "Платформа"
+  },
+  {
+    "p": "admin.sellers.editCommissionTitle",
+    "uz": "Komissiyani oʻzgartirish",
+    "ru": "Изменить комиссию"
+  },
+  {
+    "p": "admin.sellers.emptyTitle",
+    "uz": "Sotuvchilar yoʻq",
+    "ru": "Продавцов нет"
+  },
+  {
+    "p": "admin.sellers.emptyDescription",
+    "uz": "Hozircha roʻyxat boʻsh.",
+    "ru": "Список пока пуст."
+  },
+  {
+    "p": "admin.sellers.dialogTitle",
+    "uz": "Komissiya %",
+    "ru": "Комиссия %"
+  },
+  {
+    "p": "admin.sellers.dialogDescription",
+    "uz": "Sotuvchi: {{firstName}} {{lastName}}. Boʻsh qoldirsangiz, platforma foizi qoʻllanadi.",
+    "ru": "Продавец: {{firstName}} {{lastName}}. Если пусто — действует процент платформы."
+  },
+  {
+    "p": "admin.sellers.labelPercent",
+    "uz": "Foiz (0–100 yoki boʻsh)",
+    "ru": "Процент (0–100 или пусто)"
+  },
+  {
+    "p": "admin.sellers.phPlatformDefault",
+    "uz": "Platforma default",
+    "ru": "По умолчанию платформы"
+  },
+  {
+    "p": "admin.sellerApplications.title",
+    "uz": "Sotuvchi arizalari",
+    "ru": "Заявки продавцов"
+  },
+  {
+    "p": "admin.sellerApplications.description",
+    "uz": "Yangi sotuvchilar uchun arizalarni koʻrib chiqing.",
+    "ru": "Рассмотрите заявки новых продавцов."
+  },
+  {
+    "p": "admin.sellerApplications.filterApproved",
+    "uz": "Qabul qilingan",
+    "ru": "Одобренные"
+  },
+  {
+    "p": "admin.sellerApplications.filterRejected",
+    "uz": "Rad etilgan",
+    "ru": "Отклонённые"
+  },
+  {
+    "p": "admin.sellerApplications.emptyTitle",
+    "uz": "Arizalar yoʻq",
+    "ru": "Заявок нет"
+  },
+  {
+    "p": "admin.sellerApplications.emptyDescription",
+    "uz": "Tanlangan filtr boʻyicha natija topilmadi.",
+    "ru": "По выбранному фильтру ничего не найдено."
+  },
+  {
+    "p": "admin.sellerApplications.status.PENDING",
+    "uz": "Kutilmoqda",
+    "ru": "Ожидает"
+  },
+  {
+    "p": "admin.sellerApplications.status.APPROVED",
+    "uz": "Qabul qilindi",
+    "ru": "Одобрено"
+  },
+  {
+    "p": "admin.sellerApplications.status.REJECTED",
+    "uz": "Rad etildi",
+    "ru": "Отклонено"
+  },
+  {
+    "p": "admin.sellerApplications.legalBlockTitle",
+    "uz": "Yuridik maʼlumotlar",
+    "ru": "Юридические данные"
+  },
+  {
+    "p": "admin.sellerApplications.messagePrefix",
+    "uz": "Xabar:",
+    "ru": "Сообщение:"
+  },
+  {
+    "p": "admin.sellerApplications.reasonPrefix",
+    "uz": "Sabab:",
+    "ru": "Причина:"
+  },
+  {
+    "p": "admin.pendingShopUpdates.title",
+    "uz": "Doʻkon oʻzgarishlari",
+    "ru": "Изменения магазина"
+  },
+  {
+    "p": "admin.pendingShopUpdates.description",
+    "uz": "Sotuvchilar nom, slug, tavsif yoki yuridik maʼlumotlarni oʻzgartirganda soʻrovlar shu yerda. Tasdiqlang yoki rad eting.",
+    "ru": "Когда продавец меняет название, slug, описание или юр. данные, запросы появляются здесь. Одобрите или отклоните."
+  },
+  {
+    "p": "admin.pendingShopUpdates.backHome",
+    "uz": "← Bosh sahifa",
+    "ru": "← Главная"
+  },
+  {
+    "p": "admin.pendingShopUpdates.emptyTitle",
+    "uz": "Kutilayotgan soʻrovlar yoʻq",
+    "ru": "Нет ожидающих запросов"
+  },
+  {
+    "p": "admin.pendingShopUpdates.emptyDescription",
+    "uz": "Yangi oʻzgartirishlar kelganda ular shu yerda chiqadi.",
+    "ru": "Новые изменения появятся здесь."
+  },
+  {
+    "p": "admin.reviews.title",
+    "uz": "Sharhlar (moderatsiya)",
+    "ru": "Отзывы (модерация)"
+  },
+  {
+    "p": "admin.reviews.description",
+    "uz": "Foydalanuvchi sharhlarini koʻrib chiqing va tasdiqlang.",
+    "ru": "Просматривайте и одобряйте отзывы пользователей."
+  },
+  {
+    "p": "admin.reviews.listTitle",
+    "uz": "Sharhlar ({{total}})",
+    "ru": "Отзывы ({{total}})"
+  },
+  {
+    "p": "admin.reviews.emptyTitle",
+    "uz": "Sharhlar yoʻq",
+    "ru": "Отзывов нет"
+  },
+  {
+    "p": "admin.reviews.emptyDescription",
+    "uz": "Tanlangan filtr boʻyicha natija topilmadi.",
+    "ru": "По фильтру ничего не найдено."
+  },
+  {
+    "p": "admin.reviews.product",
+    "uz": "Tovar:",
+    "ru": "Товар:"
+  },
+  {
+    "p": "admin.reviews.sellerReply",
+    "uz": "Sotuvchi javobi:",
+    "ru": "Ответ продавца:"
+  },
+  {
+    "p": "admin.reviews.badgeApproved",
+    "uz": "Tasdiqlangan",
+    "ru": "Одобрено"
+  },
+  {
+    "p": "admin.reviews.badgePending",
+    "uz": "Kutilmoqda",
+    "ru": "Ожидает"
+  },
+  {
+    "p": "admin.products.title",
+    "uz": "Moderatsiya (tovarlar)",
+    "ru": "Модерация (товары)"
+  },
+  {
+    "p": "admin.products.description",
+    "uz": "Yangi va oʻzgartirilgan tovarlarni tasdiqlang yoki rad eting.",
+    "ru": "Одобряйте или отклоняйте новые и изменённые товары."
+  },
+  {
+    "p": "admin.products.listTitle",
+    "uz": "Tovarlar ({{total}})",
+    "ru": "Товары ({{total}})"
+  },
+  {
+    "p": "admin.products.emptyTitle",
+    "uz": "Tovarlar yoʻq",
+    "ru": "Товаров нет"
+  },
+  {
+    "p": "admin.products.emptyDescription",
+    "uz": "Filtr yoki API javobiga koʻra roʻyxat boʻsh. Kutilayotganlar uchun «Kutilmoqda»ni tanlang.",
+    "ru": "Список пуст по фильтру или ответу API. Для ожидающих выберите «Ожидает»."
+  },
+  {
+    "p": "admin.products.noImage",
+    "uz": "Rasm yoʻq",
+    "ru": "Нет фото"
+  },
+  {
+    "p": "admin.products.moderated",
+    "uz": "Tasdiqlangan",
+    "ru": "Одобрено"
+  },
+  {
+    "p": "admin.payouts.title",
+    "uz": "Komissiya hisobi",
+    "ru": "Учёт комиссии"
+  },
+  {
+    "p": "admin.payouts.description",
+    "uz": "Sotuvchilardan komissiya qabul qilish va qoldiqni kuzatish.",
+    "ru": "Приём комиссии от продавцов и контроль остатков."
+  },
+  {
+    "p": "admin.payouts.howTitle",
+    "uz": "Qanday ishlaydi",
+    "ru": "Как это работает"
+  },
+  {
+    "p": "admin.payouts.how1",
+    "uz": "Savdolar — toʻlangan buyurtmalar boʻyicha jami summa (sotuvchi oladi).",
+    "ru": "Продажи — общая сумма по оплаченным заказам (получает продавец)."
+  },
+  {
+    "p": "admin.payouts.how2",
+    "uz": "Bizning komissiyamiz — platforma ulushi (foiz savdolardan).",
+    "ru": "Наша комиссия — доля платформы (процент от продаж)."
+  },
+  {
+    "p": "admin.payouts.how3",
+    "uz": "Sotuvchi komissiyani bizga naqd yoki karta orqali toʻlaydi. Siz «Qayd etish» tugmasi orqali sotuvchidan qabul qilingan summani (naqd/karta) kiritasiz.",
+    "ru": "Продавец платит комиссию наличными или картой. Кнопка «Записать платёж» — внесите сумму, полученную от продавца."
+  },
+  {
+    "p": "admin.payouts.how4",
+    "uz": "Qoldiq — sotuvchi qancha toʻlashi kerak (yoki ortiqcha toʻlangan boʻlsa — uning hisobida).",
+    "ru": "Остаток — сколько продавец должен платформе (или переплата на его счёте)."
+  },
+  {
+    "p": "admin.payouts.thSeller",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "admin.payouts.thOrdersTitle",
+    "uz": "Toʻlangan buyurtmalar soni",
+    "ru": "Число оплаченных заказов"
+  },
+  {
+    "p": "admin.payouts.thSalesTitle",
+    "uz": "Savdolar jami",
+    "ru": "Продажи всего"
+  },
+  {
+    "p": "admin.payouts.thSellerGetsTitle",
+    "uz": "Sotuvchiga tegishli (savdo − komissiya)",
+    "ru": "Доля продавца (продажа − комиссия)"
+  },
+  {
+    "p": "admin.payouts.thOurCommissionTitle",
+    "uz": "Platforma ulushi",
+    "ru": "Доля платформы"
+  },
+  {
+    "p": "admin.payouts.thPaidTitle",
+    "uz": "Sotuvchi bizga allaqachon toʻlagan",
+    "ru": "Уже оплачено продавцом"
+  },
+  {
+    "p": "admin.payouts.thBalanceTitle",
+    "uz": "Qolgan qarz yoki sotuvchi hisobida",
+    "ru": "Остаток долга или на счёте продавца"
+  },
+  {
+    "p": "admin.payouts.balanceFootnote",
+    "uz": "Qoldiq — sotuvchilar platformaga qancha toʻlashi kerak (yoki manfiy boʻlsa, sotuvchilar hisobida ortiqcha).",
+    "ru": "Остаток — сколько продавцы должны платформе (отрицательное значение — переплата на их счетах)."
+  },
+  {
+    "p": "admin.payouts.emptyTitle",
+    "uz": "Maʼlumot yoʻq",
+    "ru": "Нет данных"
+  },
+  {
+    "p": "admin.payouts.emptyDescription",
+    "uz": "Sotuvchilar boʻyicha komissiya jadvali hozircha boʻsh.",
+    "ru": "Таблица комиссий по продавцам пока пуста."
+  },
+  {
+    "p": "admin.payouts.recordDialogBody",
+    "uz": "Sotuvchi sizga naqd yoki karta orqali komissiya toʻladi — shu summani kiriting. Qoldiq shuncha kamayadi. Ortiqcha toʻlsa, sotuvchi hisobiga yoziladi. {{firstName}} {{lastName}}",
+    "ru": "Продавец платит комиссию наличными или картой — введите сумму. Остаток уменьшится. Переплата зачислится на счёт продавца. {{firstName}} {{lastName}}"
+  },
+  {
+    "p": "admin.payouts.creditTitle",
+    "uz": "Sotuvchi hisobida (ortiqcha toʻlov)",
+    "ru": "На счёте продавца (переплата)"
+  },
+  {
+    "p": "admin.payouts.notePlaceholder",
+    "uz": "Masalan: naqd toʻlov",
+    "ru": "Например: наличные"
+  },
+  {
+    "p": "admin.payouts.amountPlaceholder",
+    "uz": "0",
+    "ru": "0"
+  },
+  {
+    "p": "admin.categories.title",
+    "uz": "Toifalar",
+    "ru": "Категории"
+  },
+  {
+    "p": "admin.categories.description",
+    "uz": "Katalog ierarxiyasi: asosiy va ostkategoriyalar.",
+    "ru": "Иерархия каталога: родительские и дочерние категории."
+  },
+  {
+    "p": "admin.categories.newTitle",
+    "uz": "Yangi toifa",
+    "ru": "Новая категория"
+  },
+  {
+    "p": "admin.categories.labelParent",
+    "uz": "Ostkategoriya (asosiy uchun boʻsh)",
+    "ru": "Родитель (пусто — корневая)"
+  },
+  {
+    "p": "admin.categories.optionRoot",
+    "uz": "— Asosiy toifa —",
+    "ru": "— Корневая категория —"
+  },
+  {
+    "p": "admin.categories.listTitle",
+    "uz": "Barcha toifalar",
+    "ru": "Все категории"
+  },
+  {
+    "p": "admin.categories.labelName",
+    "uz": "Nomi",
+    "ru": "Название"
+  },
+  {
+    "p": "admin.categories.phName",
+    "uz": "Nomi",
+    "ru": "Название"
+  },
+  {
+    "p": "admin.categories.labelSlug",
+    "uz": "Slug",
+    "ru": "Slug"
+  },
+  {
+    "p": "admin.categories.phSlug",
+    "uz": "slug",
+    "ru": "slug"
+  },
+  {
+    "p": "admin.categories.labelDesc",
+    "uz": "Tavsif",
+    "ru": "Описание"
+  },
+  {
+    "p": "admin.categories.phDesc",
+    "uz": "Ixtiyoriy",
+    "ru": "Необязательно"
+  },
+  {
+    "p": "admin.categories.emptyTitle",
+    "uz": "Toifalar yoʻq",
+    "ru": "Категорий нет"
+  },
+  {
+    "p": "admin.categories.emptyDescription",
+    "uz": "Yuqoridagi formadan birinchi toifani qoʻshing.",
+    "ru": "Добавьте первую категорию в форме выше."
+  },
+  {
+    "p": "admin.categories.emptyHint",
+    "uz": "Toifalar yoʻq. Yuqoridan qoʻshing.",
+    "ru": "Категорий нет. Добавьте выше."
+  },
+  {
+    "p": "admin.banners.imageAlt",
+    "uz": "Banner rasmi",
+    "ru": "Изображение баннера"
+  },
+  {
+    "p": "admin.banners.title",
+    "uz": "Bannerlar",
+    "ru": "Баннеры"
+  },
+  {
+    "p": "admin.banners.description",
+    "uz": "Bosh sahifa karuseli: yaratish, tahrirlash, oʻchirish va koʻrsatishni boshqarish.",
+    "ru": "Карусель главной: создание, редактирование, удаление и отображение."
+  },
+  {
+    "p": "admin.banners.newTitle",
+    "uz": "Yangi banner",
+    "ru": "Новый баннер"
+  },
+  {
+    "p": "admin.banners.labelImage",
+    "uz": "Rasm",
+    "ru": "Изображение"
+  },
+  {
+    "p": "admin.banners.phImageUrl",
+    "uz": "https://... yoki yuklang",
+    "ru": "https://... или загрузите"
+  },
+  {
+    "p": "admin.banners.labelHref",
+    "uz": "Havola (href)",
+    "ru": "Ссылка (href)"
+  },
+  {
+    "p": "admin.banners.phHref",
+    "uz": "/catalog",
+    "ru": "/catalog"
+  },
+  {
+    "p": "admin.banners.labelExternal",
+    "uz": "Tashqi havola (yangi oynada)",
+    "ru": "Внешняя ссылка (новое окно)"
+  },
+  {
+    "p": "admin.banners.labelTitle",
+    "uz": "Sarlavha (ixtiyoriy)",
+    "ru": "Заголовок (необязательно)"
+  },
+  {
+    "p": "admin.banners.phTitle",
+    "uz": "Banner sarlavhasi",
+    "ru": "Заголовок баннера"
+  },
+  {
+    "p": "admin.banners.labelSort",
+    "uz": "Tartib (sortOrder)",
+    "ru": "Порядок (sortOrder)"
+  },
+  {
+    "p": "admin.banners.labelDisplaySeconds",
+    "uz": "Vaqt (sekund) — har bir slayd qancha koʻrsatilsin (1–60)",
+    "ru": "Время (сек.) — длительность слайда (1–60)"
+  },
+  {
+    "p": "admin.banners.phDisplaySeconds",
+    "uz": "5 (default)",
+    "ru": "5 (по умолчанию)"
+  },
+  {
+    "p": "admin.banners.labelStarts",
+    "uz": "Koʻrsatishdan boshlash (sana va vaqt)",
+    "ru": "Показ с (дата и время)"
+  },
+  {
+    "p": "admin.banners.labelEnds",
+    "uz": "Shu sanadan keyin yopish (deaktivatsiya)",
+    "ru": "Деактивация после (дата и время)"
+  },
+  {
+    "p": "admin.banners.submitAdd",
+    "uz": "Qoʻshish",
+    "ru": "Добавить"
+  },
+  {
+    "p": "admin.banners.listHeading",
+    "uz": "Barcha bannerlar",
+    "ru": "Все баннеры"
+  },
+  {
+    "p": "admin.banners.emptyTitle",
+    "uz": "Bannerlar yoʻq",
+    "ru": "Баннеров нет"
+  },
+  {
+    "p": "admin.banners.emptyDescription",
+    "uz": "Yuqoridagi formadan birinchi bannerni qoʻshing.",
+    "ru": "Добавьте первый баннер в форме выше."
+  },
+  {
+    "p": "admin.banners.emptyHint",
+    "uz": "Bannerlar yoʻq. Yuqoridan qoʻshing.",
+    "ru": "Баннеров нет. Добавьте выше."
+  }
+]

@@ -1,0 +1,3726 @@
+[
+  [
+    " — избранное гостя отображается здесь.",
+    "favorites.emptyGuestNote"
+  ],
+  [
+    " ({{title}})",
+    "seller.products.list.titlePart"
+  ],
+  [
+    " введите номер заказа и телефон.",
+    "checkoutSuccess.footerHintAfter"
+  ],
+  [
+    " для корзины, входа и безопасности. ",
+    "cookie.afterCookie"
+  ],
+  [
+    " Копировать",
+    "seller.products.list.copy"
+  ],
+  [
+    " Скопировано",
+    "seller.products.list.copied"
+  ],
+  [
+    "—",
+    "chat.lastMessageEmpty"
+  ],
+  [
+    "— Корневая категория —",
+    "admin.categories.optionRoot"
+  ],
+  [
+    "— ожидается оплата",
+    "seller.orders.suffixAwaitPayment"
+  ],
+  [
+    ".",
+    "product.loginAfter"
+  ],
+  [
+    "... и ещё {{count}}",
+    "seller.products.list.moreTitles"
+  ],
+  [
+    "(внешняя)",
+    "admin.ui.externalShort"
+  ],
+  [
+    "{{amount}} {{currency}}",
+    "admin.common.currencySuffix"
+  ],
+  [
+    "{{amount}} сум",
+    "admin.common.amountSom"
+  ],
+  [
+    "{{count}} новых уведомлений",
+    "dashboard.notifications.bellAriaUnread"
+  ],
+  [
+    "{{count}} отзывов",
+    "product.reviewsMany"
+  ],
+  [
+    "{{current}} / {{total}}",
+    "admin.common.pageSlash"
+  ],
+  [
+    "{{date}}: {{amount}} {{currency}}, заказов: {{orders}}",
+    "seller.stats.chartTooltip"
+  ],
+  [
+    "{{n}} дн.",
+    "chat.timeDays"
+  ],
+  [
+    "{{n}} звёзд",
+    "product.starLabel"
+  ],
+  [
+    "{{n}} мин",
+    "chat.timeMins"
+  ],
+  [
+    "{{n}} ч",
+    "chat.timeHours"
+  ],
+  [
+    "{{orders}}",
+    "admin.stats.summaryOrdersValue"
+  ],
+  [
+    "{{productName}} — копировать ссылку",
+    "share.ariaCopy"
+  ],
+  [
+    "{{siteName}} – Магазин",
+    "site.metaTitle"
+  ],
+  [
+    "{{siteName}} — главная",
+    "header.logoAria"
+  ],
+  [
+    "{{siteName}} — Telegram",
+    "telegramApp.metaTitle"
+  ],
+  [
+    "/catalog",
+    "admin.banners.phHref"
+  ],
+  [
+    "••••••••",
+    "auth.login.placeholderPassword"
+  ],
+  [
+    "© {{year}} {{siteName}}. Все права защищены.",
+    "footer.rights"
+  ],
+  [
+    "← Главная",
+    "orderLookup.backHome"
+  ],
+  [
+    "← Каталог",
+    "cart.backToCatalog"
+  ],
+  [
+    "← Корзина",
+    "checkout.backToCart"
+  ],
+  [
+    "← На главную",
+    "cookies.backHome"
+  ],
+  [
+    "← Профиль",
+    "myOrders.backProfile"
+  ],
+  [
+    "+ Добавить вариант",
+    "seller.products.form.btnAddVariantShort"
+  ],
+  [
+    "+ Добавить строку варианта",
+    "seller.products.form.btnAddVariantRow"
+  ],
+  [
+    "+ Добавить тип варианта",
+    "seller.products.form.btnAddOptionRow"
+  ],
+  [
+    "+ Добавить характеристику",
+    "seller.products.form.btnAddSpec"
+  ],
+  [
+    "+{{amount}} {{currency}} (на счёте)",
+    "seller.stats.creditBalance"
+  ],
+  [
+    "+998 90 123 45 67",
+    "checkout.phonePlaceholder"
+  ],
+  [
+    "+998...",
+    "seller.settings.phPhone"
+  ],
+  [
+    "+ещё {{count}}",
+    "myOrders.moreItems"
+  ],
+  [
+    "💳 Оплата получена",
+    "seller.orders.markPaid"
+  ],
+  [
+    "0",
+    "admin.payouts.amountPlaceholder"
+  ],
+  [
+    "1 отзыв",
+    "product.reviewsOne"
+  ],
+  [
+    "1) Откройте бота в Telegram и отправьте /code — получите 6 символов.\n2) Введите код ниже и нажмите «Подключить».",
+    "admin.settings.telegramSteps"
+  ],
+  [
+    "1) Откройте бота Oline Bozor в Telegram и отправьте /code.",
+    "seller.settings.telegramStep1"
+  ],
+  [
+    "100000",
+    "admin.settings.phMinPayout"
+  ],
+  [
+    "123456789",
+    "admin.settings.phChatId"
+  ],
+  [
+    "2) Введите 6-символьный код ниже.",
+    "seller.settings.telegramStep2"
+  ],
+  [
+    "30 дн.",
+    "seller.stats.days30"
+  ],
+  [
+    "5",
+    "admin.settings.phCommission"
+  ],
+  [
+    "5 (по умолчанию)",
+    "admin.banners.phDisplaySeconds"
+  ],
+  [
+    "7 дн.",
+    "seller.stats.days7"
+  ],
+  [
+    "90 дн.",
+    "seller.stats.days90"
+  ],
+  [
+    "Админ",
+    "account.roleAdmin"
+  ],
+  [
+    "Админ отключил чат на платформе",
+    "seller.settings.chatAdminOff"
+  ],
+  [
+    "Админ Telegram — полные уведомления о заказах",
+    "admin.settings.telegramCardTitle"
+  ],
+  [
+    "Админ Telegram отключён",
+    "admin.ui.telegramDisconnected"
+  ],
+  [
+    "Админ Telegram подключён",
+    "admin.ui.telegramLinked"
+  ],
+  [
+    "Админ-панель",
+    "account.adminPanel"
+  ],
+  [
+    "Администратор платформы отключил чат. Включить нельзя — дождитесь действий админа.",
+    "seller.settings.chatOffHint"
+  ],
+  [
+    "Адрес (где забрать):",
+    "myOrders.pickupAddressFrom"
+  ],
+  [
+    "Адрес доставки",
+    "checkout.addressTitleDelivery"
+  ],
+  [
+    "Адрес не указан",
+    "checkoutSuccess.addressNotShown"
+  ],
+  [
+    "Адрес самовывоза",
+    "seller.settings.pickupTitle"
+  ],
+  [
+    "Адрес самовывоза:",
+    "checkoutSuccess.pickupAddressLabel"
+  ],
+  [
+    "Адрес:",
+    "seller.orders.address"
+  ],
+  [
+    "Аккаунт",
+    "footer.account"
+  ],
+  [
+    "Аккаунт привязан к Telegram — вы будете получать уведомления о заказах",
+    "account.telegramLinked"
+  ],
+  [
+    "Активен",
+    "admin.users.detail.shopActive"
+  ],
+  [
+    "Аналитика",
+    "admin.nav.stats"
+  ],
+  [
+    "Артикул или внутренний код — для учёта",
+    "seller.products.form.skuHint"
+  ],
+  [
+    "Баннер добавлен",
+    "admin.ui.bannerAdded"
+  ],
+  [
+    "Баннер показан",
+    "admin.ui.bannerShown"
+  ],
+  [
+    "Баннер скрыт",
+    "admin.ui.bannerHidden"
+  ],
+  [
+    "Баннер сохранён",
+    "admin.ui.bannerSaved"
+  ],
+  [
+    "Баннер удалён",
+    "admin.ui.bannerDeleted"
+  ],
+  [
+    "Баннеров нет",
+    "admin.banners.emptyTitle"
+  ],
+  [
+    "Баннеров нет. Добавьте выше.",
+    "admin.banners.emptyHint"
+  ],
+  [
+    "Баннеры",
+    "admin.nav.banners"
+  ],
+  [
+    "Баннеры главной страницы",
+    "admin.home.tiles.banners.desc"
+  ],
+  [
+    "Безопасная оплата",
+    "product.trustPay"
+  ],
+  [
+    "Безопасность (CSRF) — токен передаётся через cookie, чтобы защитить запросы от поддельных сайтов.",
+    "cookies.howCsrf"
+  ],
+  [
+    "Блокировка, роли",
+    "admin.home.tiles.users.desc"
+  ],
+  [
+    "Быстрый просмотр",
+    "productCard.quickView"
+  ],
+  [
+    "Быстрый просмотр: {{title}}",
+    "productCard.quickViewDialogTitle"
+  ],
+  [
+    "В каждом варианте укажите хотя бы одно значение",
+    "seller.products.form.toastVariantValues"
+  ],
+  [
+    "В какой единице цена — шт., кг, м², м, л. Например для стройки или продуктов.",
+    "seller.products.form.unitHint"
+  ],
+  [
+    "В каталог",
+    "home.goToCatalog"
+  ],
+  [
+    "В корзину",
+    "product.addToCart"
+  ],
+  [
+    "В настройках браузера можно удалить или ограничить cookie. Если cookie отключены, корзина (в анонимном режиме), автоматический вход и часть функций безопасности могут работать неполно.",
+    "cookies.manageBody"
+  ],
+  [
+    "В обработку",
+    "seller.orders.processing"
+  ],
+  [
+    "в течение 14 дней",
+    "product.trustReturnHint"
+  ],
+  [
+    "Вам может понравиться",
+    "product.relatedTitle"
+  ],
+  [
+    "Вам начислено",
+    "seller.stats.sellerShare"
+  ],
+  [
+    "Вариант",
+    "seller.orders.tableVariant"
+  ],
+  [
+    "Вариант товара и цена",
+    "product.modalDesc"
+  ],
+  [
+    "Варианты (необязательно)",
+    "seller.products.form.labelVariants"
+  ],
+  [
+    "Ваш ответ:",
+    "seller.reviews.yourReply"
+  ],
+  [
+    "Ваш отзыв",
+    "product.writeReview"
+  ],
+  [
+    "Ваша доля — ваш процент от продаж (продажа − комиссия).",
+    "seller.stats.howYours"
+  ],
+  [
+    "Введите 0–100 или оставьте пустым (платформа %)",
+    "admin.ui.commissionPercentHint"
+  ],
+  [
+    "Введите корректную цену (положительное число)",
+    "seller.products.form.toastPriceInvalid"
+  ],
+  [
+    "Введите название товара",
+    "seller.products.form.toastTitleRequired"
+  ],
+  [
+    "Введите не менее 2 символов — появится список товаров.",
+    "header.searchHintMinChars"
+  ],
+  [
+    "Введите номер заказа и телефон.",
+    "orderLookup.errorRequired"
+  ],
+  [
+    "Введите номер телефона для связи.",
+    "checkout.hintPickupPhone"
+  ],
+  [
+    "Введите описание",
+    "seller.products.form.toastDescRequired"
+  ],
+  [
+    "Введите сумму",
+    "admin.ui.enterAmount"
+  ],
+  [
+    "Введите email и пароль",
+    "auth.login.description"
+  ],
+  [
+    "Влево",
+    "seller.products.form.ariaImageLeft"
+  ],
+  [
+    "Внешняя ссылка (новое окно)",
+    "admin.banners.labelExternal"
+  ],
+  [
+    "Возврат",
+    "seller.orders.paymentStatus.REFUNDED"
+  ],
+  [
+    "войдите",
+    "orderLookup.footerLogin"
+  ],
+  [
+    "Войдите в аккаунт",
+    "auth.login.metaDescription"
+  ],
+  [
+    "Войдите в аккаунт, чтобы посмотреть заказы.",
+    "myOrders.loginPrompt"
+  ],
+  [
+    "Войдите в аккаунт, чтобы продолжить.",
+    "dashboard.authGate.message"
+  ],
+  [
+    "Войдите, чтобы добавить в избранное",
+    "auth.login.reasonFavorites"
+  ],
+  [
+    "Войдите, чтобы оформить заказ",
+    "auth.login.reasonCheckout"
+  ],
+  [
+    "Войти",
+    "dashboard.authGate.login"
+  ],
+  [
+    "Войти через Telegram",
+    "auth.login.telegramButton"
+  ],
+  [
+    "Вопросы",
+    "cookies.questionsTitle"
+  ],
+  [
+    "Вперёд",
+    "dashboard.notificationsPage.next"
+  ],
+  [
+    "Вправо",
+    "seller.products.form.ariaImageRight"
+  ],
+  [
+    "Время (сек.) — длительность слайда (1–60)",
+    "admin.banners.labelDisplaySeconds"
+  ],
+  [
+    "Время вышло. Попробуйте снова.",
+    "auth.login.telegramTimeout"
+  ],
+  [
+    "Все",
+    "dashboard.notifications.seeAll"
+  ],
+  [
+    "Всё — учёт комиссии",
+    "admin.stats.payoutsLink"
+  ],
+  [
+    "Все баннеры",
+    "admin.banners.listHeading"
+  ],
+  [
+    "Все ваши заказы",
+    "myOrders.subtitle"
+  ],
+  [
+    "Все заказы",
+    "admin.orders.title"
+  ],
+  [
+    "Все заказы (полный сайт)",
+    "telegramApp.ordersFullSite"
+  ],
+  [
+    "Все заказы на платформе. Всего: {{total}}.",
+    "admin.orders.description"
+  ],
+  [
+    "Все категории",
+    "admin.categories.listTitle"
+  ],
+  [
+    "Все новые заказы и изменения статуса с полными данными (покупатель, продавец, адрес, оплата, товары) отправляются в этот чат. Подключение: отправьте /code боту и введите код ниже; или укажите Chat ID вручную; или задайте ADMIN_TELEGRAM_CHAT_ID в .env.",
+    "admin.settings.telegramCardHint"
+  ],
+  [
+    "Все отзывы",
+    "product.reviewsViewAll"
+  ],
+  [
+    "Все результаты: «{{query}}» — Enter",
+    "header.allResults"
+  ],
+  [
+    "Все товары",
+    "header.allProducts"
+  ],
+  [
+    "Все характеристики",
+    "product.specsAll"
+  ],
+  [
+    "Всего: {{total}}.",
+    "dashboard.notificationsPage.totalSuffix"
+  ],
+  [
+    "Вход",
+    "auth.login.metaTitle"
+  ],
+  [
+    "Вход (auth) — чтобы распознать вас после входа и безопасно хранить токен обновления (например, refreshToken).",
+    "cookies.howAuth"
+  ],
+  [
+    "Вход через Telegram не настроен.",
+    "auth.login.telegramNotConfigured"
+  ],
+  [
+    "Вход через Telegram не настроен. (Проверьте настройки сервера.)",
+    "auth.login.telegramNotConfiguredHint"
+  ],
+  [
+    "Вход…",
+    "auth.login.submitLoading"
+  ],
+  [
+    "Вчера",
+    "chat.timeYesterday"
+  ],
+  [
+    "Вы можете посмотреть заказы на странице «Мои заказы».",
+    "checkoutSuccess.hintOrders"
+  ],
+  [
+    "Вы просматриваете товары этого магазина. Чтобы увидеть все товары, сбросьте фильтры в каталоге.",
+    "catalog.shopHint"
+  ],
+  [
+    "Вы уже написали {{reviewCount}} отзыв(ов) по этому товару (покупок: {{purchaseCount}}). Чтобы написать ещё, купите товар снова.",
+    "product.reviewQuota"
+  ],
+  [
+    "Вы уже продавец",
+    "becomeSeller.approvedTitle"
+  ],
+  [
+    "Выберите",
+    "seller.settings.legalSelect"
+  ],
+  [
+    "Выберите вариант",
+    "product.pickVariant"
+  ],
+  [
+    "Выберите вариант товара и добавьте в корзину",
+    "productCard.variantModalSrDesc"
+  ],
+  [
+    "Выберите категорию",
+    "seller.products.form.toastCategoryRequiredEdit"
+  ],
+  [
+    "Выберите категорию (подкатегорию)",
+    "seller.products.form.toastCategoryRequired"
+  ],
+  [
+    "Выберите подкатегорию",
+    "seller.products.form.optPickSub"
+  ],
+  [
+    "Выйти",
+    "dashboard.footer.logout"
+  ],
+  [
+    "Выручка",
+    "admin.home.statRevenue"
+  ],
+  [
+    "Выручка (сум)",
+    "admin.users.detail.statsRevenue"
+  ],
+  [
+    "г",
+    "seller.products.form.unitG"
+  ],
+  [
+    "Главная",
+    "seller.nav.home"
+  ],
+  [
+    "Главная админ-панели",
+    "admin.nav.homeAria"
+  ],
+  [
+    "Главная продавца",
+    "seller.nav.homeAria"
+  ],
+  [
+    "Главное",
+    "seller.products.form.btnSetMainImage"
+  ],
+  [
+    "Главное изображение обновлено",
+    "seller.products.form.toastMainImageOk"
+  ],
+  [
+    "Главное меню",
+    "admin.nav.mainMenuAria"
+  ],
+  [
+    "Главный админ",
+    "admin.users.list.roles.ADMIN"
+  ],
+  [
+    "Город",
+    "seller.settings.labelCity"
+  ],
+  [
+    "Город *",
+    "checkout.city"
+  ],
+  [
+    "Город, улица и дом обязательны. Телефон тоже обязателен.",
+    "checkout.hintDeliveryFields"
+  ],
+  [
+    "Гостевой аккаунт — привяжите Telegram для полного профиля",
+    "account.guestBadge"
+  ],
+  [
+    "Гость",
+    "seller.home.guest"
+  ],
+  [
+    "Гость ({{phone}})",
+    "seller.home.guestWithPhone"
+  ],
+  [
+    "Готов (самовывоз)",
+    "seller.orders.readyPickup"
+  ],
+  [
+    "Готов к самовывозу",
+    "myOrders.pickupShipped"
+  ],
+  [
+    "Готовится",
+    "myOrders.status.PROCESSING"
+  ],
+  [
+    "График продаж",
+    "seller.stats.chartAria"
+  ],
+  [
+    "Да",
+    "admin.common.yes"
+  ],
+  [
+    "Дата",
+    "admin.ui.date"
+  ],
+  [
+    "Деактивация после (дата и время)",
+    "admin.banners.labelEnds"
+  ],
+  [
+    "Для каждой комбинации (например S–Чёрный) остаток и необязательное фото.",
+    "seller.products.form.variantGridHint"
+  ],
+  [
+    "Добавить",
+    "admin.ui.add"
+  ],
+  [
+    "Добавить в избранное",
+    "favorites.titleAdd"
+  ],
+  [
+    "Добавить в корзину",
+    "product.addToCartLong"
+  ],
+  [
+    "Добавить товар",
+    "seller.nav.addProduct"
+  ],
+  [
+    "Добавление...",
+    "product.adding"
+  ],
+  [
+    "Добавленные товары:",
+    "seller.products.list.addedTitles"
+  ],
+  [
+    "Добавлено",
+    "product.added"
+  ],
+  [
+    "Добавлено в избранное",
+    "favorites.toastAdded"
+  ],
+  [
+    "Добавлено в корзину",
+    "product.toastAdded"
+  ],
+  [
+    "Добавлено: {{count}}",
+    "seller.products.list.importAdded"
+  ],
+  [
+    "Добавьте бота в личный чат, группу или канал — получайте уведомления о новых заказах и статусах. Управлять заказом можно через бота.",
+    "seller.settings.telegramHint"
+  ],
+  [
+    "Добавьте первую категорию в форме выше.",
+    "admin.categories.emptyDescription"
+  ],
+  [
+    "Добавьте первый баннер в форме выше.",
+    "admin.banners.emptyDescription"
+  ],
+  [
+    "Добавьте первый товар или импортируйте из Excel.",
+    "seller.products.list.emptyDescription"
+  ],
+  [
+    "Документов: {{count}}",
+    "admin.ui.documentsCount"
+  ],
+  [
+    "Документы (фото)",
+    "seller.settings.labelDocs"
+  ],
+  [
+    "Доля платформы",
+    "admin.payouts.thOurCommissionTitle"
+  ],
+  [
+    "Доля продавца (продажа − комиссия)",
+    "admin.payouts.thSellerGetsTitle"
+  ],
+  [
+    "Дом",
+    "seller.settings.labelHouse"
+  ],
+  [
+    "Дом *",
+    "checkout.house"
+  ],
+  [
+    "Дополнительная информация или вопрос",
+    "becomeSeller.adminMessagePlaceholder"
+  ],
+  [
+    "Дополнительно о заказе",
+    "checkout.notesPlaceholder"
+  ],
+  [
+    "Допустимы только .xlsx или .xls",
+    "seller.products.form.toastImportExt"
+  ],
+  [
+    "Допустимы только файлы .xlsx или .xls",
+    "seller.products.list.toastImportExt"
+  ],
+  [
+    "Доставка",
+    "seller.orders.delivery"
+  ],
+  [
+    "Доставка курьером",
+    "admin.settings.deliveryCourier"
+  ],
+  [
+    "Доставлен",
+    "seller.orders.delivered"
+  ],
+  [
+    "Доступно только {{count}} шт.",
+    "cart.onlyAvailable"
+  ],
+  [
+    "Ед.",
+    "seller.orders.tableUnit"
+  ],
+  [
+    "Единица (необязательно)",
+    "seller.products.form.labelUnit"
+  ],
+  [
+    "Если вы оформили заказ без входа, введите номер заказа и телефон, указанный при оформлении.",
+    "orderLookup.description"
+  ],
+  [
+    "Если вы оформили заказ без входа, укажите номер заказа и телефон в разделе «Просмотр заказа гостя».",
+    "myOrders.guestHint"
+  ],
+  [
+    "Если вы потеряли ссылку, на странице ",
+    "checkoutSuccess.footerHintBefore"
+  ],
+  [
+    "Если есть варианты, остаток считается по ним",
+    "seller.products.form.stockHintVariants"
+  ],
+  [
+    "Если у вас есть аккаунт,",
+    "orderLookup.footerLoginHint"
+  ],
+  [
+    "Если у вас есть вопросы по политике cookie или персональным данным, обратитесь в раздел",
+    "cookies.questionsBefore"
+  ],
+  [
+    "Если чат включён, покупатели могут написать вам о товаре. Если выключить — новые сообщения не принимаются (старые переписки видны).",
+    "seller.settings.chatOnHint"
+  ],
+  [
+    "Если чат включён, покупатели могут писать продавцам. Если выключить — все чаты на платформе будут отключены. Продавец может включать/выключать чат в настройках магазина.",
+    "admin.settings.chatHint"
+  ],
+  [
+    "Заблокирован",
+    "admin.common.blocked"
+  ],
+  [
+    "Заблокировать",
+    "admin.ui.block"
+  ],
+  [
+    "Забран",
+    "seller.orders.deliveredPickup"
+  ],
+  [
+    "Заголовок (необязательно)",
+    "admin.banners.labelTitle"
+  ],
+  [
+    "Заголовок баннера",
+    "admin.banners.phTitle"
+  ],
+  [
+    "Заголовок сайта, шапка и футер. Если пусто — отображается Oline Bozor.",
+    "admin.settings.siteNameHint"
+  ],
+  [
+    "Загружено документов: {{count}}",
+    "seller.settings.toastDocsUploaded"
+  ],
+  [
+    "Загружено изображений: {{count}}",
+    "seller.products.form.toastImagesUploaded"
+  ],
+  [
+    "Загрузите хотя бы одно изображение",
+    "seller.products.form.toastImageRequired"
+  ],
+  [
+    "Загрузить",
+    "seller.products.form.btnVariantUpload"
+  ],
+  [
+    "Загрузить фото",
+    "admin.ui.uploadPhoto"
+  ],
+  [
+    "Загрузить Excel",
+    "seller.products.list.uploadExcel"
+  ],
+  [
+    "Загрузка данных…",
+    "seller.products.form.editLoadingDesc"
+  ],
+  [
+    "Загрузка категорий...",
+    "header.categoriesLoading"
+  ],
+  [
+    "Загрузка товаров через Excel",
+    "seller.products.list.excelTitle"
+  ],
+  [
+    "Загрузка...",
+    "seller.products.list.downloading"
+  ],
+  [
+    "Загрузка…",
+    "seller.orders.exportExcelLoading"
+  ],
+  [
+    "Заказ",
+    "telegramApp.lookup"
+  ],
+  [
+    "Заказ ещё не загрузился. Проверьте заказ по номеру и телефону.",
+    "checkoutSuccess.loadFailed"
+  ],
+  [
+    "Заказ не найден",
+    "orderGuestView.notFoundTitle"
+  ],
+  [
+    "Заказ не найден. Проверьте номер и телефон.",
+    "orderLookup.errorNotFound"
+  ],
+  [
+    "Заказ принят",
+    "checkoutSuccess.metaTitle"
+  ],
+  [
+    "Заказ №{{number}}",
+    "orderGuestView.title"
+  ],
+  [
+    "Заказ:",
+    "seller.orders.toastStatusPrefix"
+  ],
+  [
+    "Заказов нет",
+    "admin.orders.emptyTitle"
+  ],
+  [
+    "Заказы",
+    "seller.nav.orders"
+  ],
+  [
+    "Заказы вашего магазина — обновляйте статус и отмечайте оплату.",
+    "seller.orders.description"
+  ],
+  [
+    "Заказы скачаны",
+    "seller.orders.exportExcelOk"
+  ],
+  [
+    "Заказы, модерация и настройки — в одной панели.",
+    "admin.home.headerDescription"
+  ],
+  [
+    "Заказы:",
+    "seller.stats.summaryOrdersLabel"
+  ],
+  [
+    "Закрыть",
+    "nav.close"
+  ],
+  [
+    "Закрыть меню",
+    "seller.nav.closeMenu"
+  ],
+  [
+    "Записать платёж",
+    "admin.ui.recordPayment"
+  ],
+  [
+    "Запрос отклонён",
+    "admin.ui.rejectRequest"
+  ],
+  [
+    "Запросы на статус продавца",
+    "admin.home.tiles.sellerApplications.desc"
+  ],
+  [
+    "Запрошено",
+    "admin.ui.requested"
+  ],
+  [
+    "Запрошено: «{{name}}» (slug: {{slug}})",
+    "admin.ui.shopRequested"
+  ],
+  [
+    "Зарегистрироваться",
+    "auth.register.submit"
+  ],
+  [
+    "Заявка на рассмотрении",
+    "becomeSeller.pendingTitle"
+  ],
+  [
+    "Заявка одобрена",
+    "admin.ui.applicationApproved"
+  ],
+  [
+    "Заявка отклонена",
+    "becomeSeller.rejectedTitle"
+  ],
+  [
+    "Заявки продавцов",
+    "admin.nav.sellerApplications"
+  ],
+  [
+    "Заявок нет",
+    "admin.sellerApplications.emptyTitle"
+  ],
+  [
+    "Значение",
+    "seller.products.form.phSpecValue"
+  ],
+  [
+    "Значения через запятую",
+    "seller.products.form.phOptionValues"
+  ],
+  [
+    "и просмотрите все заказы.",
+    "orderLookup.footerLoginAfter"
+  ],
+  [
+    "Иерархия каталога: родительские и дочерние категории.",
+    "admin.categories.description"
+  ],
+  [
+    "Избранное",
+    "header.favorites"
+  ],
+  [
+    "Избранное пусто.",
+    "favorites.emptyPrefix"
+  ],
+  [
+    "Изменения (название, описание, юр. данные) ожидают одобрения: «{{name}}» (slug: {{slug}})",
+    "seller.settings.pendingChanges"
+  ],
+  [
+    "Изменения магазина",
+    "admin.home.tiles.pendingShop.label"
+  ],
+  [
+    "Изменения магазинов",
+    "admin.nav.pendingShopUpdates"
+  ],
+  [
+    "Изменения названия, slug и описания применяются после одобрения админом. Адрес и чат обновляются сразу.",
+    "seller.settings.infoHint"
+  ],
+  [
+    "Изменения приняты",
+    "admin.ui.approveChanges"
+  ],
+  [
+    "Изменить комиссию",
+    "admin.sellers.editCommissionTitle"
+  ],
+  [
+    "Изображение",
+    "admin.banners.labelImage"
+  ],
+  [
+    "Изображение {{index}}",
+    "product.imageAlt"
+  ],
+  [
+    "Изображение {{n}}",
+    "productCard.imageDotAria"
+  ],
+  [
+    "Изображение баннера",
+    "admin.banners.imageAlt"
+  ],
+  [
+    "Изображение варианта загружено",
+    "seller.products.form.toastVariantImageOk"
+  ],
+  [
+    "Изображение загружено",
+    "admin.ui.imageUploaded"
+  ],
+  [
+    "Изображение не загружено",
+    "seller.products.form.toastVariantImageFail"
+  ],
+  [
+    "Изображение товара",
+    "seller.products.form.imageAlt"
+  ],
+  [
+    "Изображения",
+    "seller.products.form.cardImagesTitle"
+  ],
+  [
+    "Изображения и информация о товаре",
+    "productCard.quickViewDialogDesc"
+  ],
+  [
+    "или по email",
+    "auth.login.dividerEmail"
+  ],
+  [
+    "или URL",
+    "admin.ui.orUrl"
+  ],
+  [
+    "Импорт не выполнен",
+    "seller.products.list.importFailedGeneric"
+  ],
+  [
+    "Имя",
+    "auth.register.firstName"
+  ],
+  [
+    "Имя (необязательно)",
+    "checkout.firstNameOptional"
+  ],
+  [
+    "Имя *",
+    "checkout.firstNamePickup"
+  ],
+  [
+    "ИНН",
+    "seller.settings.labelInn"
+  ],
+  [
+    "ИНН:",
+    "catalog.shopLegalInn"
+  ],
+  [
+    "Интерфейс на узбекском или русском",
+    "account.languageDesc"
+  ],
+  [
+    "Информация",
+    "seller.settings.infoCardTitle"
+  ],
+  [
+    "Информация об использовании cookie на сайте.",
+    "cookies.metaDescription"
+  ],
+  [
+    "ИП",
+    "catalog.shopLegalFormIp"
+  ],
+  [
+    "ИП (индивидуальный предприниматель)",
+    "seller.settings.legalIp"
+  ],
+  [
+    "История и статус",
+    "account.ordersDesc"
+  ],
+  [
+    "Итого",
+    "admin.ui.total"
+  ],
+  [
+    "Итого (выбранный период):",
+    "admin.stats.summaryTotal"
+  ],
+  [
+    "Итого за период:",
+    "seller.stats.summaryTotalLabel"
+  ],
+  [
+    "Итого:",
+    "seller.orders.total"
+  ],
+  [
+    "К списку",
+    "admin.ui.backToUsers"
+  ],
+  [
+    "К списку товаров",
+    "seller.products.form.linkProductList"
+  ],
+  [
+    "К товару",
+    "product.reviewsPageBack"
+  ],
+  [
+    "Кабинет продавца",
+    "seller.metaTitle"
+  ],
+  [
+    "Как сайт использует cookie?",
+    "cookies.howTitle"
+  ],
+  [
+    "Как это работает",
+    "seller.stats.howTitle"
+  ],
+  [
+    "Какие действия может выполнять модератор. Если все права включены — полный доступ (товары, отзывы, заявки, изменения магазина).",
+    "admin.users.detail.moderatorHint"
+  ],
+  [
+    "Какие способы оплаты показывать покупателям",
+    "admin.settings.paymentHint"
+  ],
+  [
+    "Какие способы показывать покупателям",
+    "admin.settings.deliveryHint"
+  ],
+  [
+    "Карта",
+    "admin.ui.card"
+  ],
+  [
+    "Карта при доставке",
+    "seller.orders.paymentMethod.CARD_ON_DELIVERY"
+  ],
+  [
+    "Карта при получении",
+    "admin.settings.paymentCardDelivery"
+  ],
+  [
+    "Картой при получении",
+    "checkout.payCardOnDelivery"
+  ],
+  [
+    "Карусель главной: создание, редактирование, удаление и отображение.",
+    "admin.banners.description"
+  ],
+  [
+    "Каталог",
+    "telegramApp.catalog"
+  ],
+  [
+    "Каталог и настройки",
+    "admin.nav.catalogSettings"
+  ],
+  [
+    "Категории",
+    "admin.nav.categories"
+  ],
+  [
+    "Категорий нет",
+    "admin.categories.emptyTitle"
+  ],
+  [
+    "Категорий нет. Добавьте выше.",
+    "admin.categories.emptyHint"
+  ],
+  [
+    "Категория",
+    "catalog.filterCategory"
+  ],
+  [
+    "Категория *",
+    "seller.products.form.labelCategory"
+  ],
+  [
+    "Категория добавлена",
+    "admin.ui.categoryAdded"
+  ],
+  [
+    "Категория сохранена",
+    "admin.ui.categorySaved"
+  ],
+  [
+    "Категория удалена",
+    "admin.ui.categoryDeleted"
+  ],
+  [
+    "кг",
+    "seller.products.form.unitKg"
+  ],
+  [
+    "Когда появятся события, они отобразятся здесь.",
+    "dashboard.notificationsPage.emptyDescription"
+  ],
+  [
+    "Когда продавец меняет название, slug, описание или юр. данные, запросы появляются здесь. Одобрите или отклоните.",
+    "admin.pendingShopUpdates.description"
+  ],
+  [
+    "Код",
+    "seller.settings.labelCode"
+  ],
+  [
+    "Кол-во",
+    "seller.orders.tableQty"
+  ],
+  [
+    "Комиссия",
+    "admin.ui.commission"
+  ],
+  [
+    "Комиссия — доля маркетплейса. Её вы платите платформе наличными или картой.",
+    "seller.stats.howCommission"
+  ],
+  [
+    "Комиссия (%)",
+    "admin.settings.labelCommission"
+  ],
+  [
+    "Комиссия (всего)",
+    "admin.stats.commissionTotal"
+  ],
+  [
+    "Комиссия (маркетплейс)",
+    "seller.stats.commission"
+  ],
+  [
+    "Комиссия %",
+    "admin.sellers.thCommission"
+  ],
+  [
+    "Комиссия и минимальный платёж",
+    "admin.settings.commissionCard"
+  ],
+  [
+    "Комиссия получена",
+    "admin.ui.recordTitle"
+  ],
+  [
+    "Комиссия сохранена",
+    "admin.ui.commissionSaved"
+  ],
+  [
+    "Комиссия, оплата",
+    "admin.home.tiles.settings.desc"
+  ],
+  [
+    "Комиссия, способы оплаты, доставка и Telegram.",
+    "admin.settings.description"
+  ],
+  [
+    "Комментарий (необязательно)",
+    "checkout.notes"
+  ],
+  [
+    "Контактные данные",
+    "checkout.addressTitlePickup"
+  ],
+  [
+    "Контакты",
+    "footer.contact"
+  ],
+  [
+    "Корзина",
+    "header.cart"
+  ],
+  [
+    "Корзина — добавленные товары сохраняются в корзине (для анонимных пользователей через идентификатор сессии в cookie).",
+    "cookies.howCart"
+  ],
+  [
+    "Корзина пуста",
+    "cart.empty"
+  ],
+  [
+    "Корзина пуста или данные неверны. Проверьте корзину и попробуйте снова.",
+    "checkout.errorEmptyCart"
+  ],
+  [
+    "Коробка",
+    "seller.products.form.unitQuti"
+  ],
+  [
+    "Кратко о магазине",
+    "becomeSeller.descriptionPlaceholder"
+  ],
+  [
+    "Кратко о товаре: материал, размеры, инструкция",
+    "seller.products.form.phDesc"
+  ],
+  [
+    "Купить",
+    "product.buyNow"
+  ],
+  [
+    "л",
+    "seller.products.form.unitL"
+  ],
+  [
+    "Личный кабинет",
+    "account.metaTitle"
+  ],
+  [
+    "Логотип магазина",
+    "seller.settings.shopLogoAlt"
+  ],
+  [
+    "м",
+    "seller.products.form.unitM"
+  ],
+  [
+    "м²",
+    "seller.products.form.unitM2"
+  ],
+  [
+    "Магазин",
+    "footer.shop"
+  ],
+  [
+    "Магазин внутри Telegram. Каталог, корзина и заказы — на полном сайте по кнопке ниже.",
+    "telegramApp.description"
+  ],
+  [
+    "Магазин через Telegram",
+    "telegramApp.metaDescription"
+  ],
+  [
+    "Магазин, чат, адрес",
+    "seller.home.cardSettingsHint"
+  ],
+  [
+    "Магазин:",
+    "checkout.pickupShop"
+  ],
+  [
+    "Магазины и комиссия",
+    "admin.home.tiles.sellers.desc"
+  ],
+  [
+    "Магазины, процент комиссии, товары и заказы.",
+    "admin.sellers.description"
+  ],
+  [
+    "Макс",
+    "catalog.placeholderMax"
+  ],
+  [
+    "Мало на складе — {{count}} шт.",
+    "product.stockLow"
+  ],
+  [
+    "Мин",
+    "catalog.placeholderMin"
+  ],
+  [
+    "Минимальный платёж (сум)",
+    "admin.settings.labelMinPayout"
+  ],
+  [
+    "мл",
+    "seller.products.form.unitMl"
+  ],
+  [
+    "Модератор",
+    "admin.users.list.roles.ADMIN_MODERATOR"
+  ],
+  [
+    "Модерация (товары)",
+    "admin.home.tiles.products.label"
+  ],
+  [
+    "Модерация отзывов",
+    "admin.home.tiles.reviews.desc"
+  ],
+  [
+    "Модерация товаров",
+    "admin.users.detail.permissions.canModerateProducts"
+  ],
+  [
+    "Модерация: {{count}}",
+    "admin.stats.moderationHint"
+  ],
+  [
+    "Мои заказы",
+    "telegramApp.ordersTitle"
+  ],
+  [
+    "Мои чаты",
+    "chat.tabBuyer"
+  ],
+  [
+    "Мой магазин",
+    "seller.nav.viewShop"
+  ],
+  [
+    "На главную",
+    "becomeSeller.backHome"
+  ],
+  [
+    "На модерации — после одобрения админом появится в каталоге",
+    "seller.products.list.moderationPending"
+  ],
+  [
+    "На сайт",
+    "seller.nav.backToSite"
+  ],
+  [
+    "на сайте.",
+    "cookies.questionsAfter"
+  ],
+  [
+    "На складе",
+    "seller.orders.tableStock"
+  ],
+  [
+    "На складе: {{count}} шт.",
+    "product.stockIn"
+  ],
+  [
+    "На счёте продавца (переплата)",
+    "admin.payouts.creditTitle"
+  ],
+  [
+    "Навигация",
+    "product.breadcrumbNav"
+  ],
+  [
+    "Навигация кабинета продавца",
+    "seller.nav.navAria"
+  ],
+  [
+    "Навигация панели администратора",
+    "admin.nav.panelAria"
+  ],
+  [
+    "Нажмите кнопку в Telegram...",
+    "account.telegramLinkWaiting"
+  ],
+  [
+    "Нажмите Start в Telegram, затем вернитесь в это окно…",
+    "auth.login.telegramWaiting"
+  ],
+  [
+    "Назад",
+    "dashboard.notificationsPage.prev"
+  ],
+  [
+    "Название",
+    "seller.products.form.phSpecKey"
+  ],
+  [
+    "Название (размер, цвет...)",
+    "seller.products.form.phOptionName"
+  ],
+  [
+    "Название магазина",
+    "seller.settings.placeholderName"
+  ],
+  [
+    "Название магазина *",
+    "becomeSeller.shopName"
+  ],
+  [
+    "Название магазина:",
+    "becomeSeller.shopNameLabel"
+  ],
+  [
+    "Название маркетплейса",
+    "admin.settings.siteNameCard"
+  ],
+  [
+    "Название товара *",
+    "seller.products.form.labelTitle"
+  ],
+  [
+    "Название, описание и категория",
+    "seller.products.form.cardMainSubtitle"
+  ],
+  [
+    "Название, описание, адрес самовывоза, чат и юридические данные.",
+    "seller.settings.description"
+  ],
+  [
+    "Название, цена, фото и необязательные варианты — затем в списке.",
+    "seller.products.form.newDescription"
+  ],
+  [
+    "Название:",
+    "admin.users.detail.shopName"
+  ],
+  [
+    "Название/описание — подтверждение",
+    "admin.home.tiles.pendingShop.desc"
+  ],
+  [
+    "Найти другой заказ",
+    "orderLookup.searchAnother"
+  ],
+  [
+    "Найти заказ",
+    "telegramApp.ordersLookupCard"
+  ],
+  [
+    "Наличные",
+    "seller.orders.paymentMethod.CASH"
+  ],
+  [
+    "Написать продавцу",
+    "product.chatWriteSeller"
+  ],
+  [
+    "Напишите ответ...",
+    "seller.reviews.placeholderReply"
+  ],
+  [
+    "Напишите сообщение...",
+    "chat.placeholderWrite"
+  ],
+  [
+    "Например 150000",
+    "seller.products.form.phCompare"
+  ],
+  [
+    "Например 99900",
+    "seller.products.form.phPrice"
+  ],
+  [
+    "Например: ИП Иванов И.И.",
+    "becomeSeller.legalNamePlaceholder"
+  ],
+  [
+    "Например: ИП Иванов Иван Иванович",
+    "seller.settings.placeholderLegalName"
+  ],
+  [
+    "Например: Материал — Хлопок, Вес — 200 г",
+    "seller.products.form.specsHint"
+  ],
+  [
+    "Например: Мой магазин",
+    "becomeSeller.shopNamePlaceholder"
+  ],
+  [
+    "Например: Мужская рубашка, M",
+    "seller.products.form.phTitle"
+  ],
+  [
+    "Например: наличные",
+    "admin.payouts.notePlaceholder"
+  ],
+  [
+    "Например: Размер — S, M, L или Цвет — Чёрный, Белый. Общий остаток для товара.",
+    "seller.products.form.variantsHint"
+  ],
+  [
+    "Например: KOYL-001",
+    "seller.products.form.phSku"
+  ],
+  [
+    "например: ORD-ABC123-00001",
+    "orderLookup.placeholderOrderNumber"
+  ],
+  [
+    "Настройки",
+    "seller.nav.settingsSection"
+  ],
+  [
+    "Настройки магазина",
+    "seller.nav.shopSettings"
+  ],
+  [
+    "Настройки магазина сохранены",
+    "seller.settings.toastShopSaved"
+  ],
+  [
+    "Настройки платформы",
+    "admin.nav.settings"
+  ],
+  [
+    "Настройки сохранены",
+    "admin.ui.settingsSaved"
+  ],
+  [
+    "Начало",
+    "admin.ui.starts"
+  ],
+  [
+    "Наша комиссия — доля платформы (процент от продаж).",
+    "admin.payouts.how2"
+  ],
+  [
+    "Не загружено: {{count}}",
+    "seller.products.form.toastImagesPartial"
+  ],
+  [
+    "Не найдено",
+    "admin.ui.notFound"
+  ],
+  [
+    "Не удалось добавить баннер",
+    "admin.ui.bannerAddFailed"
+  ],
+  [
+    "Не удалось добавить в корзину",
+    "product.toastAddFailed"
+  ],
+  [
+    "Не удалось добавить категорию",
+    "admin.ui.categoryAddFailed"
+  ],
+  [
+    "Не удалось загрузить каталог",
+    "errors.catalogTitle"
+  ],
+  [
+    "Не удалось загрузить каталог. Попробуйте снова.",
+    "catalog.loadError"
+  ],
+  [
+    "Не удалось загрузить товар",
+    "errors.productTitle"
+  ],
+  [
+    "Не удалось загрузить товары.",
+    "home.loadError"
+  ],
+  [
+    "Не удалось изменить",
+    "seller.settings.toastChatError"
+  ],
+  [
+    "Не удалось изменить статус",
+    "seller.orders.toastStatusError"
+  ],
+  [
+    "Не удалось отметить оплату",
+    "seller.orders.toastPaidError"
+  ],
+  [
+    "Не удалось отправить",
+    "seller.reviews.toastReplyError"
+  ],
+  [
+    "Не удалось отправить отзыв. Попробуйте позже.",
+    "product.reviewSubmitError"
+  ],
+  [
+    "Не удалось скачать",
+    "seller.products.list.downloadError"
+  ],
+  [
+    "Не удалось сохранить",
+    "admin.common.saveFailed"
+  ],
+  [
+    "Не удалось сохранить комиссию",
+    "admin.ui.commissionSaveFailed"
+  ],
+  [
+    "Не удалось сохранить настройки",
+    "admin.ui.settingsSaveFailed"
+  ],
+  [
+    "Не удалось сохранить платёж",
+    "admin.ui.payoutSaveFailed"
+  ],
+  [
+    "Не удалось сохранить роль",
+    "admin.common.roleSaveFailed"
+  ],
+  [
+    "Не удалось сохранить товар",
+    "seller.products.form.toastProductCreateFailed"
+  ],
+  [
+    "Не удалось удалить",
+    "admin.ui.deleteFailed"
+  ],
+  [
+    "Не удалось экспортировать",
+    "seller.orders.exportExcelError"
+  ],
+  [
+    "Не указано",
+    "product.notShown"
+  ],
+  [
+    "Неактивен",
+    "admin.users.detail.shopInactive"
+  ],
+  [
+    "Неверный или просроченный код",
+    "seller.settings.toastTelegramCodeError"
+  ],
+  [
+    "Неверный email или пароль.",
+    "auth.login.invalidCredentials"
+  ],
+  [
+    "Неверный ID или нет прав на просмотр.",
+    "admin.users.detail.emptyDescription"
+  ],
+  [
+    "Недавние запросы",
+    "header.recentSearches"
+  ],
+  [
+    "Некоторых товаров нет в наличии или недостаточно выбранного количества. Обновите корзину или уменьшите количество перед заказом.",
+    "cart.stockBanner"
+  ],
+  [
+    "Некоторых товаров нет в наличии или недостаточно количества. Перейдите в корзину, обновите количество или удалите товар.",
+    "checkout.stockWarning"
+  ],
+  [
+    "Нельзя отметить до оплаты Click/Payme",
+    "seller.orders.disabledAwaitPayment"
+  ],
+  [
+    "Необязательно",
+    "admin.ui.optional"
+  ],
+  [
+    "Нет",
+    "admin.common.no"
+  ],
+  [
+    "Нет аккаунта?",
+    "auth.login.noAccount"
+  ],
+  [
+    "Нет в наличии",
+    "cart.outOfStock"
+  ],
+  [
+    "Нет данных",
+    "admin.stats.noRows"
+  ],
+  [
+    "Нет данных или загрузка",
+    "seller.stats.noData"
+  ],
+  [
+    "Нет изображения",
+    "product.noImage"
+  ],
+  [
+    "Нет ожидающих запросов",
+    "admin.pendingShopUpdates.emptyTitle"
+  ],
+  [
+    "Нет отзывов",
+    "product.reviewsNone"
+  ],
+  [
+    "Нет подкатегорий",
+    "header.noSubcategories"
+  ],
+  [
+    "Нет сообщений. Напишите первое.",
+    "chat.noMessagesYet"
+  ],
+  [
+    "Нет товаров",
+    "seller.products.list.emptyTitle"
+  ],
+  [
+    "Нет уведомлений",
+    "dashboard.notifications.empty"
+  ],
+  [
+    "Нет фото",
+    "admin.products.noImage"
+  ],
+  [
+    "Неуспешно",
+    "seller.orders.paymentStatus.FAILED"
+  ],
+  [
+    "Низкие цены",
+    "footer.lowPrices"
+  ],
+  [
+    "Ничего не найдено.",
+    "header.noResults"
+  ],
+  [
+    "Новая категория",
+    "admin.categories.newTitle"
+  ],
+  [
+    "Новинка",
+    "productCard.badgeNew"
+  ],
+  [
+    "Новые изменения появятся здесь.",
+    "admin.pendingShopUpdates.emptyDescription"
+  ],
+  [
+    "Новый баннер",
+    "admin.banners.newTitle"
+  ],
+  [
+    "Новый товар",
+    "seller.nav.addProductShort"
+  ],
+  [
+    "Номер дома",
+    "seller.settings.phHouse"
+  ],
+  [
+    "Номер заказа",
+    "orderLookup.labelOrderNumber"
+  ],
+  [
+    "Номер ИНН",
+    "seller.settings.placeholderInn"
+  ],
+  [
+    "Номер ОГРН",
+    "seller.settings.placeholderOgrn"
+  ],
+  [
+    "Нужно хотя бы одно изображение",
+    "seller.products.form.toastImageRequiredEdit"
+  ],
+  [
+    "Обновите корзину (нет в наличии)",
+    "cart.checkoutDisabled"
+  ],
+  [
+    "Обновите цену, остаток, фото и статус.",
+    "seller.products.form.editDescription"
+  ],
+  [
+    "Общая сумма:",
+    "checkoutSuccess.grandTotal"
+  ],
+  [
+    "Общий список избранного (только просмотр).",
+    "favorites.sharedViewHint"
+  ],
+  [
+    "ОГРН",
+    "seller.settings.labelOgrn"
+  ],
+  [
+    "ОГРН:",
+    "catalog.shopLegalOgrn"
+  ],
+  [
+    "Одно или несколько",
+    "seller.products.form.uploadMultiHint"
+  ],
+  [
+    "Одобрение заявок продавцов",
+    "admin.users.detail.permissions.canApproveSellerApplications"
+  ],
+  [
+    "Одобрение изменений магазина",
+    "admin.users.detail.permissions.canApproveShopUpdates"
+  ],
+  [
+    "Одобренные",
+    "admin.sellerApplications.filterApproved"
+  ],
+  [
+    "Одобрено",
+    "admin.ui.approved"
+  ],
+  [
+    "Одобрено — видно в каталоге",
+    "seller.products.list.moderationOk"
+  ],
+  [
+    "Одобрить",
+    "admin.ui.approve"
+  ],
+  [
+    "Одобряйте или отклоняйте новые и изменённые товары.",
+    "admin.products.description"
+  ],
+  [
+    "Ожидает",
+    "seller.orders.paymentStatus.PENDING"
+  ],
+  [
+    "Ожидает модерации:",
+    "admin.stats.moderationPending"
+  ],
+  [
+    "Ожидают подтверждения: {{count}}",
+    "seller.home.pendingConfirm"
+  ],
+  [
+    "Окончание",
+    "admin.ui.ends"
+  ],
+  [
+    "ООО",
+    "catalog.shopLegalFormOoo"
+  ],
+  [
+    "ООО (общество с ограниченной ответственностью)",
+    "seller.settings.legalOoo"
+  ],
+  [
+    "Операция не выполнена",
+    "admin.common.actionFailed"
+  ],
+  [
+    "Описание",
+    "seller.settings.placeholderDesc"
+  ],
+  [
+    "Описание (необязательно)",
+    "becomeSeller.description"
+  ],
+  [
+    "Описание *",
+    "seller.products.form.labelDesc"
+  ],
+  [
+    "Описание не указано.",
+    "catalog.shopNoDescription"
+  ],
+  [
+    "Описание:",
+    "admin.users.detail.shopDesc"
+  ],
+  [
+    "Описание: {{text}}",
+    "admin.ui.descriptionLine"
+  ],
+  [
+    "Оплата отмечена",
+    "seller.orders.toastPaid"
+  ],
+  [
+    "Оплачен",
+    "seller.orders.paymentStatus.PAID"
+  ],
+  [
+    "Оплачено",
+    "seller.stats.paid"
+  ],
+  [
+    "Оплачено нам",
+    "admin.stats.thPaidToUs"
+  ],
+  [
+    "Оплачено платформе",
+    "seller.stats.paidToPlatform"
+  ],
+  [
+    "Оплачено: {{count}}",
+    "admin.stats.paidHint"
+  ],
+  [
+    "Основная информация",
+    "seller.products.form.cardMainTitle"
+  ],
+  [
+    "Основная навигация",
+    "nav.main"
+  ],
+  [
+    "Основное меню",
+    "seller.nav.mainMenuAria"
+  ],
+  [
+    "Остаток",
+    "seller.products.form.labelStock"
+  ],
+  [
+    "Остаток — сколько нужно доплатить платформе (или переплата на вашем счёте).",
+    "seller.stats.howBalance"
+  ],
+  [
+    "Остаток — сколько продавец должен платформе (или переплата на его счёте).",
+    "admin.payouts.how4"
+  ],
+  [
+    "Остаток — сколько продавцы должны платформе (отрицательное значение — переплата на их счетах).",
+    "admin.payouts.balanceFootnote"
+  ],
+  [
+    "Остаток (продавцы)",
+    "admin.stats.balanceSellers"
+  ],
+  [
+    "Остаток долга или на счёте продавца",
+    "admin.payouts.thBalanceTitle"
+  ],
+  [
+    "Остаток и фото по вариантам",
+    "seller.products.form.labelVariantGrid"
+  ],
+  [
+    "Остаток к оплате",
+    "seller.stats.balanceDue"
+  ],
+  [
+    "Остаток комиссии: {{amount}} {{currency}}",
+    "seller.home.balanceHint"
+  ],
+  [
+    "Остаток:",
+    "seller.products.list.stock"
+  ],
+  [
+    "Ответ отправлен",
+    "seller.reviews.toastReplySent"
+  ],
+  [
+    "Ответ продавца:",
+    "product.sellerReply"
+  ],
+  [
+    "Отвечайте на отзывы покупателей.",
+    "seller.reviews.description"
+  ],
+  [
+    "Отзыв одобрен",
+    "admin.ui.reviewApproved"
+  ],
+  [
+    "Отзыв отклонён",
+    "admin.ui.reviewRejected"
+  ],
+  [
+    "Отзыв сохранён",
+    "product.reviewSaved"
+  ],
+  [
+    "Отзыв удалён",
+    "admin.ui.reviewDeleted"
+  ],
+  [
+    "Отзывов нет",
+    "admin.reviews.emptyTitle"
+  ],
+  [
+    "Отзывы",
+    "seller.nav.reviews"
+  ],
+  [
+    "Отзывы ({{count}})",
+    "admin.stats.reviewsLink"
+  ],
+  [
+    "Отзывы ({{total}})",
+    "admin.reviews.listTitle"
+  ],
+  [
+    "Отзывы (модерация)",
+    "admin.reviews.title"
+  ],
+  [
+    "Отзывы на модерации",
+    "admin.home.statPendingReviews"
+  ],
+  [
+    "Отзывы по товарам ({{count}})",
+    "seller.reviews.cardTitle"
+  ],
+  [
+    "Отклонённые",
+    "admin.sellerApplications.filterRejected"
+  ],
+  [
+    "Отклонено",
+    "admin.sellerApplications.status.REJECTED"
+  ],
+  [
+    "Отклонить",
+    "admin.ui.reject"
+  ],
+  [
+    "Отключить",
+    "seller.settings.disconnect"
+  ],
+  [
+    "Откройте панель магазина и добавьте товары.",
+    "becomeSeller.approvedHint"
+  ],
+  [
+    "Открыть",
+    "admin.ui.open"
+  ],
+  [
+    "Открыть меню",
+    "seller.nav.openMenu"
+  ],
+  [
+    "Открыть полный сайт",
+    "telegramApp.openFullSite"
+  ],
+  [
+    "Отмена",
+    "seller.products.form.btnCancel"
+  ],
+  [
+    "Отменён",
+    "myOrders.status.CANCELLED"
+  ],
+  [
+    "Отменить",
+    "seller.orders.cancel"
+  ],
+  [
+    "Отметить все прочитанными",
+    "dashboard.notifications.markAllRead"
+  ],
+  [
+    "Отправить",
+    "product.submitReview"
+  ],
+  [
+    "Отправить заявку",
+    "becomeSeller.submit"
+  ],
+  [
+    "Отправить ответ",
+    "seller.reviews.submitReply"
+  ],
+  [
+    "Отправка...",
+    "seller.reviews.submitting"
+  ],
+  [
+    "Отправка…",
+    "auth.register.submitLoading"
+  ],
+  [
+    "Отправлен",
+    "seller.orders.shipped"
+  ],
+  [
+    "Оформить заказ",
+    "cart.checkout"
+  ],
+  [
+    "Оформление заказа",
+    "checkout.title"
+  ],
+  [
+    "Ошибка",
+    "checkout.errorGeneric"
+  ],
+  [
+    "Ошибка в кабинете продавца",
+    "errors.sellerTitle"
+  ],
+  [
+    "Ошибка в личном кабинете",
+    "errors.accountTitle"
+  ],
+  [
+    "Ошибка в панели администратора",
+    "errors.adminTitle"
+  ],
+  [
+    "Ошибка загрузки изображения",
+    "seller.products.form.toastVariantImageErr"
+  ],
+  [
+    "Ошибка загрузки файла",
+    "seller.products.list.toastFileErr"
+  ],
+  [
+    "Ошибка записи платежа",
+    "admin.ui.payoutRecordErr"
+  ],
+  [
+    "Ошибка на странице оформления",
+    "errors.checkoutTitle"
+  ],
+  [
+    "Ошибка отключения",
+    "seller.settings.toastTelegramDisconnectError"
+  ],
+  [
+    "Ошибка подключения к серверу.",
+    "auth.login.serverError"
+  ],
+  [
+    "Ошибка подключения к API.",
+    "admin.common.apiConnectShort"
+  ],
+  [
+    "Ошибка подключения к API. Запустите сервер (pnpm run dev).",
+    "admin.common.apiConnectError"
+  ],
+  [
+    "Ошибка при добавлении",
+    "product.toastAddError"
+  ],
+  [
+    "Ошибка при добавлении. Попробуйте снова.",
+    "product.toastAddRetry"
+  ],
+  [
+    "Ошибка при отправке заявки",
+    "becomeSeller.submitError"
+  ],
+  [
+    "Ошибка при отправке сообщения",
+    "chat.sendError"
+  ],
+  [
+    "Ошибка сети. Попробуйте снова.",
+    "header.networkError"
+  ],
+  [
+    "Ошибка скачивания шаблона",
+    "seller.products.list.toastTemplateErr"
+  ],
+  [
+    "Ошибка сохранения",
+    "seller.settings.toastShopSaveError"
+  ],
+  [
+    "Ошибка сохранения. Проверьте, что API доступен.",
+    "admin.common.saveErrorHint"
+  ],
+  [
+    "Ошибка удаления",
+    "admin.ui.categoryDeleteErr"
+  ],
+  [
+    "Ошибки скопированы",
+    "seller.products.list.toastErrorsCopied"
+  ],
+  [
+    "Ошибки:",
+    "seller.products.list.errorsTitle"
+  ],
+  [
+    "Ошибок: {{count}}",
+    "seller.products.list.importFailed"
+  ],
+  [
+    "Пакет",
+    "seller.products.form.unitPaket"
+  ],
+  [
+    "Панель",
+    "dashboard.notificationsPage.defaultEyebrow"
+  ],
+  [
+    "Панель администратора",
+    "admin.metaTitle"
+  ],
+  [
+    "Пароль",
+    "auth.login.labelPassword"
+  ],
+  [
+    "Пароль (не менее 8 символов)",
+    "auth.register.passwordPlaceholder"
+  ],
+  [
+    "Первое фото — главное. Нужно минимум одно (до 10).",
+    "seller.products.form.cardImagesHint"
+  ],
+  [
+    "Первый заказ появится здесь. Обновляйте товары в каталоге.",
+    "seller.orders.emptyDescription"
+  ],
+  [
+    "Первый отзыв появится здесь.",
+    "seller.reviews.emptyDescription"
+  ],
+  [
+    "Перейти в каталог",
+    "cart.goToCatalog"
+  ],
+  [
+    "Перейти в корзину",
+    "product.goToCart"
+  ],
+  [
+    "Платёж записан",
+    "admin.ui.payoutRecorded"
+  ],
+  [
+    "Платёж обрабатывается, подождите…",
+    "checkoutSuccess.sessionPending"
+  ],
+  [
+    "Платформа",
+    "admin.common.platform"
+  ],
+  [
+    "По выбранному фильтру ничего не найдено.",
+    "admin.sellerApplications.emptyDescription"
+  ],
+  [
+    "По запросу ничего не найдено. Попробуйте другие слова.",
+    "catalog.emptySearch"
+  ],
+  [
+    "По продавцам (учёт комиссии)",
+    "admin.stats.sellersSection"
+  ],
+  [
+    "По релевантности",
+    "catalog.sortRelevance"
+  ],
+  [
+    "По Узбекистану",
+    "product.trustDeliveryHint"
+  ],
+  [
+    "По умолчанию платформы",
+    "admin.sellers.phPlatformDefault"
+  ],
+  [
+    "По фильтру или странице ничего не найдено.",
+    "admin.users.list.emptyDescription"
+  ],
+  [
+    "По фильтру ничего не найдено.",
+    "admin.reviews.emptyDescription"
+  ],
+  [
+    "Повторите пароль",
+    "auth.register.passwordConfirm"
+  ],
+  [
+    "Повторить",
+    "common.retry"
+  ],
+  [
+    "Подайте заявку на магазин — после одобрения админом вы станете продавцом",
+    "account.becomeSellerDesc"
+  ],
+  [
+    "Подайте заявку на открытие магазина. После одобрения администратором вы станете продавцом и сможете добавлять товары.",
+    "becomeSeller.intro"
+  ],
+  [
+    "Подать заявку",
+    "becomeSeller.formTitle"
+  ],
+  [
+    "Поделиться списком",
+    "favorites.shareLink"
+  ],
+  [
+    "Поделиться: {{productName}}",
+    "share.shareTitle"
+  ],
+  [
+    "Подкатегорий нет. Сначала админ создаёт категории.",
+    "seller.products.form.optNoSubs"
+  ],
+  [
+    "Подключение...",
+    "seller.settings.linking"
+  ],
+  [
+    "Подключить",
+    "seller.settings.link"
+  ],
+  [
+    "Подробнее",
+    "cookie.details"
+  ],
+  [
+    "Подтвердить",
+    "seller.orders.confirm"
+  ],
+  [
+    "Подтверждён",
+    "myOrders.status.CONFIRMED"
+  ],
+  [
+    "Подтверждение товаров",
+    "admin.home.tiles.products.desc"
+  ],
+  [
+    "Позже по номеру и телефону",
+    "checkoutSuccess.linkLookup"
+  ],
+  [
+    "Поиск",
+    "header.search"
+  ],
+  [
+    "Поиск товаров...",
+    "header.searchPlaceholder"
+  ],
+  [
+    "Поиск...",
+    "orderLookup.submitLoading"
+  ],
+  [
+    "Пока нет заказов",
+    "seller.orders.emptyTitle"
+  ],
+  [
+    "Пока нет заказов.",
+    "seller.home.noOrdersLine"
+  ],
+  [
+    "Пока нет отзывов",
+    "seller.reviews.emptyTitle"
+  ],
+  [
+    "Пока нет отзывов. Напишите первый.",
+    "product.reviewsEmpty"
+  ],
+  [
+    "Пока нет товаров",
+    "home.emptyTitle"
+  ],
+  [
+    "Пока нет чатов.",
+    "chat.empty"
+  ],
+  [
+    "Показ с (дата и время)",
+    "admin.banners.labelStarts"
+  ],
+  [
+    "Показать",
+    "admin.ui.show"
+  ],
+  [
+    "Показать заказ",
+    "orderLookup.submit"
+  ],
+  [
+    "Показать пароль",
+    "auth.passwordShow"
+  ],
+  [
+    "Покупатели могут написать вам через кнопку «Написать продавцу» на странице товара.",
+    "chat.emptySellerHint"
+  ],
+  [
+    "Покупатель",
+    "account.roleBuyer"
+  ],
+  [
+    "Покупатель:",
+    "seller.orders.buyer"
+  ],
+  [
+    "Покупателям",
+    "footer.forBuyers"
+  ],
+  [
+    "Покупки по Узбекистану на площадке {{siteName}}.",
+    "site.metaDescription"
+  ],
+  [
+    "Покупок: {{purchases}}, отзывов: {{reviews}}. Можно написать ещё {{remaining}}.",
+    "product.purchaseStats"
+  ],
+  [
+    "Политика cookie",
+    "footer.cookiePolicy"
+  ],
+  [
+    "Полное наименование",
+    "admin.ui.fullName"
+  ],
+  [
+    "Полное наименование (ИП или ООО)",
+    "seller.settings.labelLegalName"
+  ],
+  [
+    "Полное наименование (ИП/ООО)",
+    "becomeSeller.legalName"
+  ],
+  [
+    "Полное наименование, ОГРН, ИНН и фото документов (например, свидетельство о регистрации)",
+    "seller.settings.legalHint"
+  ],
+  [
+    "Полное наименование:",
+    "catalog.shopLegalName"
+  ],
+  [
+    "Полный сайт",
+    "telegramApp.fullSite"
+  ],
+  [
+    "Получено от продавцов",
+    "admin.stats.receivedFromSellers"
+  ],
+  [
+    "Пользователей нет",
+    "admin.users.list.emptyTitle"
+  ],
+  [
+    "Пользователи",
+    "admin.nav.users"
+  ],
+  [
+    "Пользователь",
+    "admin.users.detail.loadingTitle"
+  ],
+  [
+    "Пользователь заблокирован",
+    "admin.ui.userBlocked"
+  ],
+  [
+    "Пользователь не найден",
+    "admin.users.detail.emptyTitle"
+  ],
+  [
+    "Пользователь разблокирован",
+    "admin.ui.userUnblocked"
+  ],
+  [
+    "Помощь",
+    "footer.help"
+  ],
+  [
+    "Понятно",
+    "cookie.accept"
+  ],
+  [
+    "Порядок",
+    "admin.ui.sort"
+  ],
+  [
+    "Порядок (sortOrder)",
+    "admin.banners.labelSort"
+  ],
+  [
+    "После одобрения мы сообщим вам. Обновите страницу или зайдите позже.",
+    "becomeSeller.pendingHint"
+  ],
+  [
+    "Последнее обновление:",
+    "cookies.updated"
+  ],
+  [
+    "Последние заказы",
+    "seller.home.recentOrders"
+  ],
+  [
+    "Посмотреть заказ позже (ссылка)",
+    "checkoutSuccess.linkSaveOrder"
+  ],
+  [
+    "Права модератора",
+    "admin.users.detail.moderatorTitle"
+  ],
+  [
+    "Права обновлены",
+    "admin.ui.permissionsUpdated"
+  ],
+  [
+    "Предыдущее изображение",
+    "productCard.imagePrevAria"
+  ],
+  [
+    "При необходимости отправьте заявку снова через форму ниже.",
+    "becomeSeller.rejectedHint"
+  ],
+  [
+    "Привет, {{name}}!",
+    "telegramApp.greeting"
+  ],
+  [
+    "Привяжите Telegram — полный профиль и уведомления о заказах",
+    "account.telegramGuest"
+  ],
+  [
+    "Привяжите Telegram и получайте уведомления о заказах",
+    "account.telegramPrompt"
+  ],
+  [
+    "Привязано",
+    "account.telegramLinkedStatus"
+  ],
+  [
+    "Привязать Telegram",
+    "account.telegramLink"
+  ],
+  [
+    "Приём комиссии от продавцов и контроль остатков.",
+    "admin.payouts.description"
+  ],
+  [
+    "Принимать чат — покупатели могут писать",
+    "seller.settings.chatToggleLabel"
+  ],
+  [
+    "Причина",
+    "admin.ui.reason"
+  ],
+  [
+    "Причина отклонения (необязательно)",
+    "admin.ui.rejectPlaceholder"
+  ],
+  [
+    "Причина:",
+    "admin.sellerApplications.reasonPrefix"
+  ],
+  [
+    "Проверка заказа",
+    "checkoutSuccess.footerLookup"
+  ],
+  [
+    "Проверьте сервер и попробуйте снова.",
+    "checkout.error502"
+  ],
+  [
+    "Проверьте статус по номеру заказа и телефону.",
+    "telegramApp.ordersLookupHint"
+  ],
+  [
+    "Продавец",
+    "account.roleSeller"
+  ],
+  [
+    "Продавец отключил сообщения",
+    "product.chatSellerOffHint"
+  ],
+  [
+    "Продавец платит комиссию наличными или картой — введите сумму. Остаток уменьшится. Переплата зачислится на счёт продавца. {{firstName}} {{lastName}}",
+    "admin.payouts.recordDialogBody"
+  ],
+  [
+    "Продавец платит комиссию наличными или картой. Кнопка «Записать платёж» — внесите сумму, полученную от продавца.",
+    "admin.payouts.how3"
+  ],
+  [
+    "Продавец получает",
+    "admin.stats.thSellerGets"
+  ],
+  [
+    "Продавец свяжется с вами",
+    "checkout.pickupContactSeller"
+  ],
+  [
+    "Продавец свяжется с вами (адрес не указан в настройках магазина)",
+    "myOrders.pickupNoAddressHint"
+  ],
+  [
+    "Продавец свяжется с вами по адресу.",
+    "checkoutSuccess.pickupSellerWillContact"
+  ],
+  [
+    "Продавец сейчас не принимает новые сообщения. Старые сообщения сохранены.",
+    "chat.sellerPausedNew"
+  ],
+  [
+    "Продавец сейчас не принимает сообщения",
+    "product.chatDisabledTitle"
+  ],
+  [
+    "Продавец:",
+    "myOrders.seller"
+  ],
+  [
+    "Продавец: {{firstName}} {{lastName}} — {{email}}",
+    "admin.ui.sellerLine"
+  ],
+  [
+    "Продавец: {{firstName}} {{lastName}}. Если пусто — действует процент платформы.",
+    "admin.sellers.dialogDescription"
+  ],
+  [
+    "Продавцов нет",
+    "admin.sellers.emptyTitle"
+  ],
+  [
+    "Продавцы",
+    "admin.nav.sellers"
+  ],
+  [
+    "Продажи",
+    "admin.ui.sales"
+  ],
+  [
+    "Продажи — общая сумма по оплаченным заказам (получает продавец).",
+    "admin.payouts.how1"
+  ],
+  [
+    "Продажи — сумма оплаченных заказов (покупатель платит вам).",
+    "seller.stats.howSales"
+  ],
+  [
+    "Продажи (всего)",
+    "seller.stats.totalSales"
+  ],
+  [
+    "Продажи (по дням)",
+    "seller.stats.chartTitleDaily"
+  ],
+  [
+    "Продажи (последние дни)",
+    "seller.stats.chartTitle"
+  ],
+  [
+    "Продажи / статистика",
+    "seller.home.cardRevenueHint"
+  ],
+  [
+    "Продажи всего",
+    "admin.payouts.thSalesTitle"
+  ],
+  [
+    "Продажи, ваша сумма и комиссия маркетплейса.",
+    "seller.stats.description"
+  ],
+  [
+    "Продажи, комиссия, получено от продавца",
+    "admin.home.tiles.payouts.desc"
+  ],
+  [
+    "Продолжая, вы это принимаете.",
+    "cookie.outro"
+  ],
+  [
+    "Произошла ошибка",
+    "favorites.toastError"
+  ],
+  [
+    "Произошла ошибка. Попробуйте снова.",
+    "orderLookup.errorGeneric"
+  ],
+  [
+    "Просматривайте и одобряйте отзывы пользователей.",
+    "admin.reviews.description"
+  ],
+  [
+    "Просмотр",
+    "admin.ui.view"
+  ],
+  [
+    "Просмотр заказа гостя",
+    "myOrders.guestLookup"
+  ],
+  [
+    "Просмотр, блокировка и назначение ролей.",
+    "admin.users.list.descriptionSuper"
+  ],
+  [
+    "Профиль",
+    "telegramApp.profile"
+  ],
+  [
+    "Профиль и заказы",
+    "account.metaDescription"
+  ],
+  [
+    "Профиль не найден или нет доступа.",
+    "admin.users.detail.notFoundDescription"
+  ],
+  [
+    "Профиль, роль и (для продавца) статистика.",
+    "admin.users.detail.headerDescription"
+  ],
+  [
+    "Процент (0–100 или пусто)",
+    "admin.sellers.labelPercent"
+  ],
+  [
+    "Район и квартал",
+    "seller.settings.labelDistrict"
+  ],
+  [
+    "Рассмотрите заявки новых продавцов.",
+    "admin.sellerApplications.description"
+  ],
+  [
+    "Регистрация",
+    "footer.register"
+  ],
+  [
+    "Регистрация, лицензия и другие документы",
+    "seller.settings.docsHint"
+  ],
+  [
+    "Регистрация:",
+    "admin.users.detail.registered"
+  ],
+  [
+    "Редактирование товара",
+    "seller.products.form.editTitle"
+  ],
+  [
+    "Редактировать",
+    "seller.products.list.edit"
+  ],
+  [
+    "Режим гостя. После входа избранное сохранится в аккаунте.",
+    "favorites.guestBanner"
+  ],
+  [
+    "Результат импорта",
+    "seller.products.list.importDialogTitle"
+  ],
+  [
+    "рекламируйте.",
+    "seller.home.noOrdersPromote"
+  ],
+  [
+    "Родитель (пусто — корневая)",
+    "admin.categories.labelParent"
+  ],
+  [
+    "Роль изменена: {{role}}",
+    "admin.ui.roleChanged"
+  ],
+  [
+    "Русский",
+    "language.ru"
+  ],
+  [
+    "Сайт использует ",
+    "cookie.intro"
+  ],
+  [
+    "Самовывоз",
+    "seller.orders.pickup"
+  ],
+  [
+    "Светлая тема",
+    "dashboard.footer.themeLight"
+  ],
+  [
+    "Сейчас",
+    "chat.timeJustNow"
+  ],
+  [
+    "Сейчас нет в наличии",
+    "product.stockOut"
+  ],
+  [
+    "Сейчас: «{{name}}» (slug: {{slug}})",
+    "admin.ui.shopNow"
+  ],
+  [
+    "Скачайте шаблон, заполните и загрузите файл. Slug категорий указаны на листе «Категории».",
+    "seller.products.list.excelHint"
+  ],
+  [
+    "Скачать шаблон",
+    "seller.products.list.downloadTemplate"
+  ],
+  [
+    "Скачать Excel",
+    "seller.orders.exportExcel"
+  ],
+  [
+    "Скидка −{{percent}}%",
+    "productCard.badgeDiscount"
+  ],
+  [
+    "Скопируйте ссылку (Ctrl+C):",
+    "share.copyPrompt"
+  ],
+  [
+    "Скрыт",
+    "admin.ui.hidden"
+  ],
+  [
+    "Скрыть",
+    "admin.ui.hide"
+  ],
+  [
+    "Скрыть пароль",
+    "auth.passwordHide"
+  ],
+  [
+    "Следующее изображение",
+    "productCard.imageNextAria"
+  ],
+  [
+    "Смотреть →",
+    "admin.ui.seeArrow"
+  ],
+  [
+    "Смотреть все товары →",
+    "header.viewAllProducts"
+  ],
+  [
+    "Сначала новые",
+    "catalog.sortNew"
+  ],
+  [
+    "Снять блокировку",
+    "admin.ui.unblock"
+  ],
+  [
+    "Создайте новый аккаунт",
+    "auth.register.metaDescription"
+  ],
+  [
+    "Создано вариантов: {{count}}. Укажите остаток для каждого.",
+    "seller.products.form.toastVariantsCreated"
+  ],
+  [
+    "Создано заказов: {{count}} (отдельно по каждому продавцу).",
+    "checkoutSuccess.hintMultiple"
+  ],
+  [
+    "Создать все комбинации",
+    "seller.products.form.btnGenerateVariants"
+  ],
+  [
+    "Сообщение",
+    "admin.ui.messageLabel"
+  ],
+  [
+    "Сообщение администратору (необязательно)",
+    "becomeSeller.adminMessage"
+  ],
+  [
+    "Сообщение:",
+    "admin.sellerApplications.messagePrefix"
+  ],
+  [
+    "Сообщения",
+    "seller.nav.messages"
+  ],
+  [
+    "Сообщения администратора и системы.",
+    "admin.notifications.description"
+  ],
+  [
+    "Сортировка",
+    "catalog.sortLabel"
+  ],
+  [
+    "Сохранение...",
+    "seller.products.form.btnSaving"
+  ],
+  [
+    "Сохранение…",
+    "admin.ui.saving"
+  ],
+  [
+    "Сохранённые товары",
+    "favorites.metaDescription"
+  ],
+  [
+    "Сохранить",
+    "seller.products.form.btnSave"
+  ],
+  [
+    "Сохранить адрес",
+    "seller.settings.saveAddress"
+  ],
+  [
+    "Сохранить все настройки",
+    "admin.settings.saveAll"
+  ],
+  [
+    "Сохранить юридические данные",
+    "seller.settings.saveLegal"
+  ],
+  [
+    "Список заказов",
+    "admin.home.tiles.orders.desc"
+  ],
+  [
+    "Список заказов доступен покупателям. Для заказов магазина откройте кабинет продавца.",
+    "myOrders.forbidden"
+  ],
+  [
+    "Список пока пуст.",
+    "admin.sellers.emptyDescription"
+  ],
+  [
+    "Список пока пуст. Новые заказы появятся здесь.",
+    "admin.orders.emptyDescription"
+  ],
+  [
+    "Список пуст по фильтру или ответу API. Для ожидающих выберите «Ожидает».",
+    "admin.products.emptyDescription"
+  ],
+  [
+    "Список товаров, импорт из Excel и редактирование.",
+    "seller.products.list.description"
+  ],
+  [
+    "Способ оплаты",
+    "checkout.paymentTitle"
+  ],
+  [
+    "Способ получения",
+    "checkout.deliveryMethodTitle"
+  ],
+  [
+    "Способы оплаты",
+    "footer.paymentMethods"
+  ],
+  [
+    "Ссылка (href)",
+    "admin.banners.labelHref"
+  ],
+  [
+    "Ссылка неверна или срок действия истёк. Войдите и откройте «Мои заказы».",
+    "orderGuestView.notFoundHint"
+  ],
+  [
+    "Ссылка неверна, товар удалён или принадлежит другому магазину.",
+    "seller.products.form.editWrongShopDesc"
+  ],
+  [
+    "Ссылка скопирована",
+    "favorites.shareCopied"
+  ],
+  [
+    "Старая цена — для расчёта скидки % (необязательно)",
+    "seller.products.form.compareHint"
+  ],
+  [
+    "Статистика",
+    "seller.nav.stats"
+  ],
+  [
+    "Статистика и комиссия",
+    "seller.stats.title"
+  ],
+  [
+    "Статистика и отчёты",
+    "admin.home.tiles.stats.desc"
+  ],
+  [
+    "Статистика платформы, график продаж и комиссия по продавцам.",
+    "admin.stats.description"
+  ],
+  [
+    "Статус:",
+    "admin.users.detail.shopState"
+  ],
+  [
+    "Стать продавцом",
+    "footer.becomeSeller"
+  ],
+  [
+    "Страница {{current}} / {{total}}",
+    "admin.common.pageOf"
+  ],
+  [
+    "Страница {{page}} из {{totalPages}}",
+    "dashboard.notificationsPage.pageOf"
+  ],
+  [
+    "Строка",
+    "seller.products.list.rowPrefix"
+  ],
+  [
+    "Строка {{row}}{{titlePart}}: {{message}}",
+    "seller.products.list.errorLine"
+  ],
+  [
+    "сум",
+    "checkout.currency"
+  ],
+  [
+    "Сумма",
+    "seller.orders.tableSum"
+  ],
+  [
+    "Сумма (сум)",
+    "admin.ui.amountSomLabel"
+  ],
+  [
+    "Таблица комиссий по продавцам пока пуста.",
+    "admin.payouts.emptyDescription"
+  ],
+  [
+    "Тел.:",
+    "account.tel"
+  ],
+  [
+    "Телефон",
+    "orderLookup.labelPhone"
+  ],
+  [
+    "Телефон (необязательно)",
+    "account.phoneOptional"
+  ],
+  [
+    "Телефон *",
+    "checkout.phone"
+  ],
+  [
+    "Телефон для связи",
+    "seller.settings.labelPhone"
+  ],
+  [
+    "Телефон:",
+    "seller.orders.phone"
+  ],
+  [
+    "Тема",
+    "dashboard.footer.themeLoading"
+  ],
+  [
+    "Тёмная тема",
+    "dashboard.footer.themeDark"
+  ],
+  [
+    "Товар",
+    "seller.orders.tableProduct"
+  ],
+  [
+    "Товар активен (виден в каталоге)",
+    "seller.products.form.labelActive"
+  ],
+  [
+    "Товар добавлен",
+    "seller.products.form.toastProductCreated"
+  ],
+  [
+    "Товар не найден",
+    "seller.products.form.editNotFoundTitle"
+  ],
+  [
+    "Товар не найден или нет доступа к странице.",
+    "seller.products.form.editNotFoundDesc"
+  ],
+  [
+    "Товар одобрен",
+    "admin.ui.productApproved"
+  ],
+  [
+    "Товар отклонён",
+    "admin.ui.productRejected"
+  ],
+  [
+    "Товар сохранён",
+    "seller.products.form.toastProductSaved"
+  ],
+  [
+    "Товар:",
+    "seller.reviews.productLabel"
+  ],
+  [
+    "Товаров нет",
+    "admin.products.emptyTitle"
+  ],
+  [
+    "Товары",
+    "seller.nav.products"
+  ],
+  [
+    "Товары ({{count}})",
+    "admin.stats.productsLink"
+  ],
+  [
+    "Товары ({{total}})",
+    "admin.products.listTitle"
+  ],
+  [
+    "Товары (модерация)",
+    "admin.nav.productsModeration"
+  ],
+  [
+    "Товары и заказы",
+    "seller.metaDescription"
+  ],
+  [
+    "Товары на модерации",
+    "admin.home.statPendingProducts"
+  ],
+  [
+    "Товары, заказы, настройки магазина",
+    "account.sellerPanelDesc"
+  ],
+  [
+    "Только подкатегория (не корневая)",
+    "seller.products.form.hintSubOnly"
+  ],
+  [
+    "Только просмотр. Роли и блокировка — для главного администратора.",
+    "admin.users.list.descriptionModerator"
+  ],
+  [
+    "Торговый центр",
+    "pwa.description"
+  ],
+  [
+    "Уведомление о cookie",
+    "cookie.dialogAria"
+  ],
+  [
+    "Уведомления",
+    "dashboard.notifications.bellAria"
+  ],
+  [
+    "Уведомления в Telegram",
+    "seller.settings.telegramTitle"
+  ],
+  [
+    "Уведомления о заказах и магазине.",
+    "seller.notifications.description"
+  ],
+  [
+    "Уведомления о системе и заказах.",
+    "dashboard.notificationsPage.defaultDescription"
+  ],
+  [
+    "Увеличить",
+    "product.increaseQty"
+  ],
+  [
+    "Удаление и управление cookie",
+    "cookies.manageTitle"
+  ],
+  [
+    "Удалено из избранного",
+    "favorites.toastRemoved"
+  ],
+  [
+    "Удалить",
+    "seller.products.form.ariaRemove"
+  ],
+  [
+    "Удалить баннер?",
+    "admin.ui.confirmDeleteBanner"
+  ],
+  [
+    "Удалить из избранного",
+    "favorites.titleRemove"
+  ],
+  [
+    "Удалить из корзины",
+    "cart.removeTitle"
+  ],
+  [
+    "Удалить?",
+    "admin.ui.confirmDeleteCategory"
+  ],
+  [
+    "Уже есть аккаунт?",
+    "auth.register.hasAccount"
+  ],
+  [
+    "Уже оплачено продавцом",
+    "admin.payouts.thPaidTitle"
+  ],
+  [
+    "Укажите название магазина, описание и юридические данные. После одобрения вы станете продавцом.",
+    "becomeSeller.formDescription"
+  ],
+  [
+    "Укажите, откуда покупатель заберёт заказ",
+    "seller.settings.pickupHint"
+  ],
+  [
+    "Улица",
+    "seller.settings.labelStreet"
+  ],
+  [
+    "Улица *",
+    "checkout.street"
+  ],
+  [
+    "Уменьшить",
+    "product.decreaseQty"
+  ],
+  [
+    "Управление",
+    "seller.nav.management"
+  ],
+  [
+    "Управление каталогом",
+    "admin.home.tiles.categories.desc"
+  ],
+  [
+    "Управление платформой",
+    "account.adminPanelDesc"
+  ],
+  [
+    "Управляйте магазином, заказами и статистикой отсюда.",
+    "seller.home.description"
+  ],
+  [
+    "Успешно добавлено товаров: {{count}}",
+    "seller.products.list.toastImportOk"
+  ],
+  [
+    "Участник с:",
+    "account.memberSince"
+  ],
+  [
+    "Учёт комиссии",
+    "admin.nav.payouts"
+  ],
+  [
+    "Фамилия",
+    "auth.register.lastName"
+  ],
+  [
+    "Фамилия (необязательно)",
+    "checkout.lastNameOptional"
+  ],
+  [
+    "Фамилия *",
+    "checkout.lastNamePickup"
+  ],
+  [
+    "ФИО / Email",
+    "admin.sellers.thName"
+  ],
+  [
+    "Форма",
+    "seller.settings.labelForm"
+  ],
+  [
+    "Форма (ИП / ООО)",
+    "becomeSeller.legalForm"
+  ],
+  [
+    "Форма:",
+    "catalog.shopLegalForm"
+  ],
+  [
+    "Фото варианта",
+    "seller.products.form.labelVariantImage"
+  ],
+  [
+    "Характеристики",
+    "product.specsBlockTitle"
+  ],
+  [
+    "Характеристики (необязательно)",
+    "seller.products.form.labelSpecs"
+  ],
+  [
+    "Характеристики и описание",
+    "product.specsLink"
+  ],
+  [
+    "Цена",
+    "seller.orders.tablePrice"
+  ],
+  [
+    "Цена ({{currency}}) *",
+    "seller.products.form.labelPrice"
+  ],
+  [
+    "Цена (сум)",
+    "catalog.filterPrice"
+  ],
+  [
+    "Цена для сравнения ({{currency}})",
+    "seller.products.form.labelCompare"
+  ],
+  [
+    "Цена и наличие",
+    "seller.products.form.cardPriceTitle"
+  ],
+  [
+    "Цена сравнения не может быть ниже основной",
+    "seller.products.form.toastCompareInvalid"
+  ],
+  [
+    "Цена, остаток и необязательные варианты",
+    "seller.products.form.cardPriceSubtitle"
+  ],
+  [
+    "Чат",
+    "chat.roomFallback"
+  ],
+  [
+    "Чат включён",
+    "seller.settings.toastChatOn"
+  ],
+  [
+    "Чат выключен",
+    "seller.settings.toastChatOff"
+  ],
+  [
+    "Чат отключён администратором платформы",
+    "chat.placeholderAdminOff"
+  ],
+  [
+    "Чат покупатель–продавец",
+    "admin.settings.chatCard"
+  ],
+  [
+    "Чат покупатель–продавец включён",
+    "admin.settings.chatEnabled"
+  ],
+  [
+    "Чат с покупателями",
+    "seller.settings.chatTitle"
+  ],
+  [
+    "Чат с продавцами",
+    "account.chatDesc"
+  ],
+  [
+    "Чаты магазина",
+    "chat.tabSeller"
+  ],
+  [
+    "Через Telegram-бота",
+    "auth.login.telegramSection"
+  ],
+  [
+    "Число (например, от @userinfobot). Если пусто — только код или .env.",
+    "admin.settings.chatIdHint"
+  ],
+  [
+    "Число оплаченных заказов",
+    "admin.payouts.thOrdersTitle"
+  ],
+  [
+    "Что забираете и в каком магазине:",
+    "checkout.pickupSummaryTitle"
+  ],
+  [
+    "Что такое cookie?",
+    "cookies.whatTitle"
+  ],
+  [
+    "Что-то пошло не так",
+    "errors.title"
+  ],
+  [
+    "Чтобы оставить отзыв,",
+    "product.loginPrompt"
+  ],
+  [
+    "Чтобы оставить отзыв, сначала купите этот товар.",
+    "product.mustBuyFirst"
+  ],
+  [
+    "Шаблон скачан",
+    "seller.products.list.toastTemplateOk"
+  ],
+  [
+    "шт.",
+    "seller.orders.unitPiece"
+  ],
+  [
+    "Шт.",
+    "seller.products.form.unitDona"
+  ],
+  [
+    "Шт. (по умолчанию)",
+    "seller.products.form.unitDefault"
+  ],
+  [
+    "Эта страница работает как Telegram Mini App. Откройте через бота или перейдите на полный сайт.",
+    "telegramApp.outsideHint"
+  ],
+  [
+    "Юридические данные",
+    "catalog.shopLegalTitle"
+  ],
+  [
+    "Юридические данные (ИП / ООО)",
+    "seller.settings.legalCardTitle"
+  ],
+  [
+    "Юридические данные (необязательно)",
+    "becomeSeller.legalSection"
+  ],
+  [
+    "Язык",
+    "language.label"
+  ],
+  [
+    "Язык сайта",
+    "account.languageTitle"
+  ],
+  [
+    "AB12CD",
+    "seller.settings.phTelegramCode"
+  ],
+  [
+    "BozorUZ",
+    "pwa.name"
+  ],
+  [
+    "Chat ID админа Telegram (необязательно)",
+    "admin.settings.labelChatId"
+  ],
+  [
+    "Click",
+    "seller.orders.paymentMethod.CLICK"
+  ],
+  [
+    "Click и Payme только для заказа из одного магазина. Выберите оплату при получении или сократите корзину до одного магазина.",
+    "checkout.singleShopPaymentHint"
+  ],
+  [
+    "Click, Payme",
+    "product.trustPayHint"
+  ],
+  [
+    "cookie",
+    "cookie.cookieWord"
+  ],
+  [
+    "Cookie — это небольшие текстовые файлы, которые сайт сохраняет в вашем браузере. Они нужны для корректной работы, безопасности и удобства.",
+    "cookies.whatBody"
+  ],
+  [
+    "Email",
+    "auth.login.labelEmail"
+  ],
+  [
+    "Email (необязательно)",
+    "checkout.email"
+  ],
+  [
+    "Email подтверждён:",
+    "admin.users.detail.emailVerified"
+  ],
+  [
+    "Email:",
+    "admin.users.detail.email"
+  ],
+  [
+    "email@example.com",
+    "checkout.emailPlaceholder"
+  ],
+  [
+    "en_US",
+    "site.ogLocaleEn"
+  ],
+  [
+    "https://... или загрузите",
+    "admin.banners.phImageUrl"
+  ],
+  [
+    "name@example.com",
+    "auth.login.placeholderEmail"
+  ],
+  [
+    "Oʻzbekcha",
+    "language.uz"
+  ],
+  [
+    "Oline Bozor",
+    "telegramApp.title"
+  ],
+  [
+    "Oline Bozor — Telegram",
+    "telegramApp.titleWithTelegram"
+  ],
+  [
+    "Payme",
+    "seller.orders.paymentMethod.PAYME"
+  ],
+  [
+    "ru_RU",
+    "site.ogLocaleRu"
+  ],
+  [
+    "SKU",
+    "seller.orders.tableSku"
+  ],
+  [
+    "SKU (необязательно)",
+    "seller.products.form.labelSku"
+  ],
+  [
+    "slug",
+    "admin.categories.phSlug"
+  ],
+  [
+    "Slug",
+    "admin.ui.slug"
+  ],
+  [
+    "Slug:",
+    "admin.users.detail.shopSlug"
+  ],
+  [
+    "Telegram",
+    "account.telegram"
+  ],
+  [
+    "Telegram отключён",
+    "seller.settings.toastTelegramDisconnected"
+  ],
+  [
+    "Telegram подключён",
+    "seller.settings.telegramLinked"
+  ],
+  [
+    "URL или загрузить",
+    "seller.products.form.phVariantImage"
+  ],
+  [
+    "uz_Latn",
+    "site.ogLocaleUz"
+  ]
+]

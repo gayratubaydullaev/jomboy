@@ -1,0 +1,1002 @@
+[
+  {
+    "p": "admin.ui.userUnblocked",
+    "uz": "Foydalanuvchi blokdan chiqarildi",
+    "ru": "Пользователь разблокирован"
+  },
+  {
+    "p": "admin.ui.roleChanged",
+    "uz": "Rol oʻzgartirildi: {{role}}",
+    "ru": "Роль изменена: {{role}}"
+  },
+  {
+    "p": "admin.ui.permissionsUpdated",
+    "uz": "Huquqlar yangilandi",
+    "ru": "Права обновлены"
+  },
+  {
+    "p": "admin.ui.commissionSaved",
+    "uz": "Komissiya saqlandi",
+    "ru": "Комиссия сохранена"
+  },
+  {
+    "p": "admin.ui.commissionSaveFailed",
+    "uz": "Komissiya saqlanmadi",
+    "ru": "Не удалось сохранить комиссию"
+  },
+  {
+    "p": "admin.ui.payoutRecorded",
+    "uz": "Toʻlov qayd etildi",
+    "ru": "Платёж записан"
+  },
+  {
+    "p": "admin.ui.payoutSaveFailed",
+    "uz": "Toʻlov saqlanmadi",
+    "ru": "Не удалось сохранить платёж"
+  },
+  {
+    "p": "admin.ui.settingsSaved",
+    "uz": "Sozlamalar saqlandi",
+    "ru": "Настройки сохранены"
+  },
+  {
+    "p": "admin.ui.settingsSaveFailed",
+    "uz": "Sozlamalar saqlanmadi",
+    "ru": "Не удалось сохранить настройки"
+  },
+  {
+    "p": "admin.ui.telegramLinked",
+    "uz": "Admin Telegram ulandi",
+    "ru": "Админ Telegram подключён"
+  },
+  {
+    "p": "admin.ui.telegramDisconnected",
+    "uz": "Admin Telegram uzildi",
+    "ru": "Админ Telegram отключён"
+  },
+  {
+    "p": "admin.ui.telegramCodeInvalid",
+    "uz": "Kod notoʻgʻri yoki muddati tugagan",
+    "ru": "Неверный или просроченный код"
+  },
+  {
+    "p": "admin.ui.telegramDisconnectErr",
+    "uz": "Uzishda xatolik",
+    "ru": "Ошибка отключения"
+  },
+  {
+    "p": "admin.ui.categoryAdded",
+    "uz": "Toifa qoʻshildi",
+    "ru": "Категория добавлена"
+  },
+  {
+    "p": "admin.ui.categoryAddFailed",
+    "uz": "Toifa qoʻshilmadi",
+    "ru": "Не удалось добавить категорию"
+  },
+  {
+    "p": "admin.ui.categorySaved",
+    "uz": "Toifa saqlandi",
+    "ru": "Категория сохранена"
+  },
+  {
+    "p": "admin.ui.categorySaveErr",
+    "uz": "Saqlashda xatolik",
+    "ru": "Ошибка сохранения"
+  },
+  {
+    "p": "admin.ui.categoryDeleted",
+    "uz": "Toifa oʻchirildi",
+    "ru": "Категория удалена"
+  },
+  {
+    "p": "admin.ui.categoryDeleteErr",
+    "uz": "Oʻchirishda xatolik",
+    "ru": "Ошибка удаления"
+  },
+  {
+    "p": "admin.ui.confirmDeleteCategory",
+    "uz": "Oʻchirishni xohlaysizmi?",
+    "ru": "Удалить?"
+  },
+  {
+    "p": "admin.ui.imageUploaded",
+    "uz": "Rasm yuklandi",
+    "ru": "Изображение загружено"
+  },
+  {
+    "p": "admin.ui.imageUploadFailed",
+    "uz": "Rasm yuklanmadi",
+    "ru": "Изображение не загружено"
+  },
+  {
+    "p": "admin.ui.imageUploadErr",
+    "uz": "Rasm yuklashda xatolik",
+    "ru": "Ошибка загрузки изображения"
+  },
+  {
+    "p": "admin.ui.bannerAdded",
+    "uz": "Banner qoʻshildi",
+    "ru": "Баннер добавлен"
+  },
+  {
+    "p": "admin.ui.bannerAddFailed",
+    "uz": "Banner qoʻshilmadi",
+    "ru": "Не удалось добавить баннер"
+  },
+  {
+    "p": "admin.ui.bannerSaved",
+    "uz": "Banner saqlandi",
+    "ru": "Баннер сохранён"
+  },
+  {
+    "p": "admin.ui.bannerDeleted",
+    "uz": "Banner oʻchirildi",
+    "ru": "Баннер удалён"
+  },
+  {
+    "p": "admin.ui.bannerDeleteErr",
+    "uz": "Oʻchirishda xatolik",
+    "ru": "Ошибка удаления"
+  },
+  {
+    "p": "admin.ui.bannerHidden",
+    "uz": "Banner yashirildi",
+    "ru": "Баннер скрыт"
+  },
+  {
+    "p": "admin.ui.bannerShown",
+    "uz": "Banner koʻrsatildi",
+    "ru": "Баннер показан"
+  },
+  {
+    "p": "admin.ui.bannerToggleErr",
+    "uz": "Oʻzgartirish amalga oshmadi",
+    "ru": "Не удалось изменить"
+  },
+  {
+    "p": "admin.ui.confirmDeleteBanner",
+    "uz": "Bannerni oʻchirishni xohlaysizmi?",
+    "ru": "Удалить баннер?"
+  },
+  {
+    "p": "admin.ui.enterAmount",
+    "uz": "Summani kiriting",
+    "ru": "Введите сумму"
+  },
+  {
+    "p": "admin.ui.commissionPercentHint",
+    "uz": "0–100 orasida kiriting yoki boʻsh qoldiring (platforma %)",
+    "ru": "Введите 0–100 или оставьте пустым (платформа %)"
+  },
+  {
+    "p": "admin.ui.commissionSaveErr",
+    "uz": "Saqlashda xatolik",
+    "ru": "Ошибка сохранения"
+  },
+  {
+    "p": "admin.ui.payoutRecordErr",
+    "uz": "Toʻlovni saqlashda xatolik",
+    "ru": "Ошибка записи платежа"
+  },
+  {
+    "p": "admin.ui.cancelShort",
+    "uz": "Bekor",
+    "ru": "Отмена"
+  },
+  {
+    "p": "admin.ui.hide",
+    "uz": "Yashirish",
+    "ru": "Скрыть"
+  },
+  {
+    "p": "admin.ui.show",
+    "uz": "Koʻrsatish",
+    "ru": "Показать"
+  },
+  {
+    "p": "admin.ui.externalShort",
+    "uz": "(tashqi)",
+    "ru": "(внешняя)"
+  },
+  {
+    "p": "admin.ui.hidden",
+    "uz": "Yashirin",
+    "ru": "Скрыт"
+  },
+  {
+    "p": "admin.ui.sort",
+    "uz": "Tartib",
+    "ru": "Порядок"
+  },
+  {
+    "p": "admin.ui.starts",
+    "uz": "Boshlash",
+    "ru": "Начало"
+  },
+  {
+    "p": "admin.ui.ends",
+    "uz": "Tugash",
+    "ru": "Окончание"
+  },
+  {
+    "p": "admin.notifications.title",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "admin.notifications.description",
+    "uz": "Admin va tizim xabarlari.",
+    "ru": "Сообщения администратора и системы."
+  },
+  {
+    "p": "admin.orders.title",
+    "uz": "Barcha buyurtmalar",
+    "ru": "Все заказы"
+  },
+  {
+    "p": "admin.orders.description",
+    "uz": "Platformadagi barcha buyurtmalar. Jami: {{total}}.",
+    "ru": "Все заказы на платформе. Всего: {{total}}."
+  },
+  {
+    "p": "admin.orders.emptyTitle",
+    "uz": "Buyurtmalar yoʻq",
+    "ru": "Заказов нет"
+  },
+  {
+    "p": "admin.orders.emptyDescription",
+    "uz": "Hozircha roʻyxat boʻsh. Yangi buyurtmalar shu yerda paydo boʻladi.",
+    "ru": "Список пока пуст. Новые заказы появятся здесь."
+  },
+  {
+    "p": "admin.orders.exportExcel",
+    "uz": "Excel yuklab olish",
+    "ru": "Скачать Excel"
+  },
+  {
+    "p": "admin.orders.exportExcelLoading",
+    "uz": "Yuklanmoqda…",
+    "ru": "Загрузка…"
+  },
+  {
+    "p": "admin.orders.exportExcelOk",
+    "uz": "Buyurtmalar yuklab olindi",
+    "ru": "Заказы скачаны"
+  },
+  {
+    "p": "admin.orders.exportExcelError",
+    "uz": "Eksport amalga oshmadi",
+    "ru": "Не удалось экспортировать"
+  },
+  {
+    "p": "admin.orders.buyer",
+    "uz": "Xaridor:",
+    "ru": "Покупатель:"
+  },
+  {
+    "p": "admin.orders.seller",
+    "uz": "Sotuvchi:",
+    "ru": "Продавец:"
+  },
+  {
+    "p": "admin.home.headerTitle",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "admin.home.headerDescription",
+    "uz": "Buyurtmalar, moderatsiya va sozlamalar — bitta paneldan.",
+    "ru": "Заказы, модерация и настройки — в одной панели."
+  },
+  {
+    "p": "admin.home.statUsers",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.home.statProducts",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "admin.home.statOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.home.statRevenue",
+    "uz": "Daromad",
+    "ru": "Выручка"
+  },
+  {
+    "p": "admin.home.statPendingProducts",
+    "uz": "Tovarlar kutilmoqda",
+    "ru": "Товары на модерации"
+  },
+  {
+    "p": "admin.home.statPendingReviews",
+    "uz": "Sharhlar kutilmoqda",
+    "ru": "Отзывы на модерации"
+  },
+  {
+    "p": "admin.home.managementSection",
+    "uz": "Boshqaruv",
+    "ru": "Управление"
+  },
+  {
+    "p": "admin.home.catalogSection",
+    "uz": "Katalog va sozlamalar",
+    "ru": "Каталог и настройки"
+  },
+  {
+    "p": "admin.home.tiles.users.label",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.home.tiles.users.desc",
+    "uz": "Bloklash, rollar",
+    "ru": "Блокировка, роли"
+  },
+  {
+    "p": "admin.home.tiles.sellers.label",
+    "uz": "Sotuvchilar",
+    "ru": "Продавцы"
+  },
+  {
+    "p": "admin.home.tiles.sellers.desc",
+    "uz": "Doʻkonlar va komissiya",
+    "ru": "Магазины и комиссия"
+  },
+  {
+    "p": "admin.home.tiles.sellerApplications.label",
+    "uz": "Sotuvchi arizalari",
+    "ru": "Заявки продавцов"
+  },
+  {
+    "p": "admin.home.tiles.sellerApplications.desc",
+    "uz": "Sotuvchi bo‘lish so‘rovlari",
+    "ru": "Запросы на статус продавца"
+  },
+  {
+    "p": "admin.home.tiles.orders.label",
+    "uz": "Barcha buyurtmalar",
+    "ru": "Все заказы"
+  },
+  {
+    "p": "admin.home.tiles.orders.desc",
+    "uz": "Buyurtmalar roʻyxati",
+    "ru": "Список заказов"
+  },
+  {
+    "p": "admin.home.tiles.products.label",
+    "uz": "Moderatsiya (tovarlar)",
+    "ru": "Модерация (товары)"
+  },
+  {
+    "p": "admin.home.tiles.products.desc",
+    "uz": "Tovarlarni tasdiqlash",
+    "ru": "Подтверждение товаров"
+  },
+  {
+    "p": "admin.home.tiles.reviews.label",
+    "uz": "Sharhlar",
+    "ru": "Отзывы"
+  },
+  {
+    "p": "admin.home.tiles.reviews.desc",
+    "uz": "Sharhlar moderatsiyasi",
+    "ru": "Модерация отзывов"
+  },
+  {
+    "p": "admin.home.tiles.pendingShop.label",
+    "uz": "Do‘kon o‘zgarishlari",
+    "ru": "Изменения магазина"
+  },
+  {
+    "p": "admin.home.tiles.pendingShop.desc",
+    "uz": "Nomi/tavsif — tasdiqlash",
+    "ru": "Название/описание — подтверждение"
+  },
+  {
+    "p": "admin.home.tiles.stats.label",
+    "uz": "Analitika",
+    "ru": "Аналитика"
+  },
+  {
+    "p": "admin.home.tiles.stats.desc",
+    "uz": "Statistika va hisobotlar",
+    "ru": "Статистика и отчёты"
+  },
+  {
+    "p": "admin.home.tiles.payouts.label",
+    "uz": "Komissiya hisobi",
+    "ru": "Учёт комиссии"
+  },
+  {
+    "p": "admin.home.tiles.payouts.desc",
+    "uz": "Savdolar, komissiya, sotuvchidan qabul qilingan",
+    "ru": "Продажи, комиссия, получено от продавца"
+  },
+  {
+    "p": "admin.home.tiles.settings.label",
+    "uz": "Platforma sozlamalari",
+    "ru": "Настройки платформы"
+  },
+  {
+    "p": "admin.home.tiles.settings.desc",
+    "uz": "Komissiya, toʻlovlar",
+    "ru": "Комиссия, оплата"
+  },
+  {
+    "p": "admin.home.tiles.categories.label",
+    "uz": "Toifalar",
+    "ru": "Категории"
+  },
+  {
+    "p": "admin.home.tiles.categories.desc",
+    "uz": "Kategoriyalar boshqaruvi",
+    "ru": "Управление каталогом"
+  },
+  {
+    "p": "admin.home.tiles.banners.label",
+    "uz": "Bannerlar",
+    "ru": "Баннеры"
+  },
+  {
+    "p": "admin.home.tiles.banners.desc",
+    "uz": "Bosh sahifa bannerlari",
+    "ru": "Баннеры главной страницы"
+  },
+  {
+    "p": "admin.users.list.title",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.users.list.descriptionSuper",
+    "uz": "Koʻrish, bloklash va rol berish.",
+    "ru": "Просмотр, блокировка и назначение ролей."
+  },
+  {
+    "p": "admin.users.list.descriptionModerator",
+    "uz": "Faqat koʻrish. Rol va bloklash — bosh admin uchun.",
+    "ru": "Только просмотр. Роли и блокировка — для главного администратора."
+  },
+  {
+    "p": "admin.users.list.emptyTitle",
+    "uz": "Foydalanuvchilar yoʻq",
+    "ru": "Пользователей нет"
+  },
+  {
+    "p": "admin.users.list.emptyDescription",
+    "uz": "Filtr yoki sahifa boʻyicha natija topilmadi.",
+    "ru": "По фильтру или странице ничего не найдено."
+  },
+  {
+    "p": "admin.users.list.roles.BUYER",
+    "uz": "Xaridor",
+    "ru": "Покупатель"
+  },
+  {
+    "p": "admin.users.list.roles.SELLER",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "admin.users.list.roles.ADMIN",
+    "uz": "Bosh admin",
+    "ru": "Главный админ"
+  },
+  {
+    "p": "admin.users.list.roles.ADMIN_MODERATOR",
+    "uz": "Moderator",
+    "ru": "Модератор"
+  },
+  {
+    "p": "admin.users.detail.loadingTitle",
+    "uz": "Foydalanuvchi",
+    "ru": "Пользователь"
+  },
+  {
+    "p": "admin.users.detail.loadingDescription",
+    "uz": "Maʼlumot yuklanmoqda…",
+    "ru": "Загрузка данных…"
+  },
+  {
+    "p": "admin.users.detail.notFoundTitle",
+    "uz": "Foydalanuvchi",
+    "ru": "Пользователь"
+  },
+  {
+    "p": "admin.users.detail.notFoundDescription",
+    "uz": "Profil topilmadi yoki ruxsat yoʻq.",
+    "ru": "Профиль не найден или нет доступа."
+  },
+  {
+    "p": "admin.users.detail.emptyTitle",
+    "uz": "Foydalanuvchi topilmadi",
+    "ru": "Пользователь не найден"
+  },
+  {
+    "p": "admin.users.detail.emptyDescription",
+    "uz": "ID notoʻgʻri yoki bu foydalanuvchini koʻrish huquqi yoʻq.",
+    "ru": "Неверный ID или нет прав на просмотр."
+  },
+  {
+    "p": "admin.users.detail.headerDescription",
+    "uz": "Profil, rol va (sotuvchi uchun) statistika.",
+    "ru": "Профиль, роль и (для продавца) статистика."
+  },
+  {
+    "p": "admin.users.detail.profileCard",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "admin.users.detail.email",
+    "uz": "Email:",
+    "ru": "Email:"
+  },
+  {
+    "p": "admin.users.detail.tel",
+    "uz": "Tel:",
+    "ru": "Тел.:"
+  },
+  {
+    "p": "admin.users.detail.registered",
+    "uz": "Roʻyxatdan:",
+    "ru": "Регистрация:"
+  },
+  {
+    "p": "admin.users.detail.emailVerified",
+    "uz": "Email tasdiqlangan:",
+    "ru": "Email подтверждён:"
+  },
+  {
+    "p": "admin.users.detail.moderatorTitle",
+    "uz": "Moderator huquqlari",
+    "ru": "Права модератора"
+  },
+  {
+    "p": "admin.users.detail.moderatorHint",
+    "uz": "Ushbu moderator qaysi amallarni bajarishi mumkin. Barcha ruxsatlar ochiq bo‘lsa — to‘liq huquq (tovarlar, sharhlar, arizalar, do‘kon o‘zgarishlari).",
+    "ru": "Какие действия может выполнять модератор. Если все права включены — полный доступ (товары, отзывы, заявки, изменения магазина)."
+  },
+  {
+    "p": "admin.users.detail.shopCard",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "admin.users.detail.shopName",
+    "uz": "Nomi:",
+    "ru": "Название:"
+  },
+  {
+    "p": "admin.users.detail.shopSlug",
+    "uz": "Slug:",
+    "ru": "Slug:"
+  },
+  {
+    "p": "admin.users.detail.shopDesc",
+    "uz": "Tavsif:",
+    "ru": "Описание:"
+  },
+  {
+    "p": "admin.users.detail.shopState",
+    "uz": "Holat:",
+    "ru": "Статус:"
+  },
+  {
+    "p": "admin.users.detail.shopActive",
+    "uz": "Aktiv",
+    "ru": "Активен"
+  },
+  {
+    "p": "admin.users.detail.shopInactive",
+    "uz": "Nofaol",
+    "ru": "Неактивен"
+  },
+  {
+    "p": "admin.users.detail.statsTitle",
+    "uz": "Statistika",
+    "ru": "Статистика"
+  },
+  {
+    "p": "admin.users.detail.statsProducts",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "admin.users.detail.statsOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.users.detail.statsRevenue",
+    "uz": "Daromad (soʻm)",
+    "ru": "Выручка (сум)"
+  },
+  {
+    "p": "admin.users.detail.permissions.canModerateProducts",
+    "uz": "Tovarlarni moderatsiya qilish",
+    "ru": "Модерация товаров"
+  },
+  {
+    "p": "admin.users.detail.permissions.canModerateReviews",
+    "uz": "Sharhlarni moderatsiya qilish",
+    "ru": "Модерация отзывов"
+  },
+  {
+    "p": "admin.users.detail.permissions.canApproveSellerApplications",
+    "uz": "Sotuvchi arizalarini tasdiqlash",
+    "ru": "Одобрение заявок продавцов"
+  },
+  {
+    "p": "admin.users.detail.permissions.canApproveShopUpdates",
+    "uz": "Doʻkon oʻzgarishlarini tasdiqlash",
+    "ru": "Одобрение изменений магазина"
+  },
+  {
+    "p": "admin.stats.title",
+    "uz": "Analitika",
+    "ru": "Аналитика"
+  },
+  {
+    "p": "admin.stats.description",
+    "uz": "Platforma statistikasi, savdolar grafigi va sotuvchilar boʻyicha komissiya.",
+    "ru": "Статистика платформы, график продаж и комиссия по продавцам."
+  },
+  {
+    "p": "admin.stats.cardUsers",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.stats.cardProducts",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "admin.stats.moderationHint",
+    "uz": "Moderatsiya: {{count}}",
+    "ru": "Модерация: {{count}}"
+  },
+  {
+    "p": "admin.stats.cardOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.stats.paidHint",
+    "uz": "Toʻlangan: {{count}}",
+    "ru": "Оплачено: {{count}}"
+  },
+  {
+    "p": "admin.stats.cardSalesTotal",
+    "uz": "Savdolar (jami)",
+    "ru": "Продажи (всего)"
+  },
+  {
+    "p": "admin.stats.commissionTotal",
+    "uz": "Komissiya (jami)",
+    "ru": "Комиссия (всего)"
+  },
+  {
+    "p": "admin.stats.receivedFromSellers",
+    "uz": "Sotuvchilardan qabul qilingan",
+    "ru": "Получено от продавцов"
+  },
+  {
+    "p": "admin.stats.balanceSellers",
+    "uz": "Qoldiq (sotuvchilar)",
+    "ru": "Остаток (продавцы)"
+  },
+  {
+    "p": "admin.stats.moderationPending",
+    "uz": "Moderatsiya kutilmoqda:",
+    "ru": "Ожидает модерации:"
+  },
+  {
+    "p": "admin.stats.productsLink",
+    "uz": "Tovarlar ({{count}})",
+    "ru": "Товары ({{count}})"
+  },
+  {
+    "p": "admin.stats.reviewsLink",
+    "uz": "Sharhlar ({{count}})",
+    "ru": "Отзывы ({{count}})"
+  },
+  {
+    "p": "admin.stats.chartTitle",
+    "uz": "Savdolar (kunlik)",
+    "ru": "Продажи (по дням)"
+  },
+  {
+    "p": "admin.stats.days",
+    "uz": "{{n}} kun",
+    "ru": "{{n}} дн."
+  },
+  {
+    "p": "admin.stats.chartAria",
+    "uz": "Savdolar grafigi",
+    "ru": "График продаж"
+  },
+  {
+    "p": "admin.stats.chartTooltip",
+    "uz": "{{date}}: {{amount}} {{currency}}, {{orders}} ta buyurtma",
+    "ru": "{{date}}: {{amount}} {{currency}}, заказов: {{orders}}"
+  },
+  {
+    "p": "admin.stats.summaryTotal",
+    "uz": "Jami (tanlangan davr):",
+    "ru": "Итого (выбранный период):"
+  },
+  {
+    "p": "admin.stats.summaryOrders",
+    "uz": "Buyurtmalar:",
+    "ru": "Заказы:"
+  },
+  {
+    "p": "admin.stats.summaryOrdersValue",
+    "uz": "{{orders}} ta",
+    "ru": "{{orders}}"
+  },
+  {
+    "p": "admin.stats.noData",
+    "uz": "Maʼlumot yoʻq yoki yuklanmoqda",
+    "ru": "Нет данных или загрузка"
+  },
+  {
+    "p": "admin.stats.sellersSection",
+    "uz": "Sotuvchilar boʻyicha (komissiya hisobi)",
+    "ru": "По продавцам (учёт комиссии)"
+  },
+  {
+    "p": "admin.stats.payoutsLink",
+    "uz": "Barchasi — Komissiya hisobi",
+    "ru": "Всё — учёт комиссии"
+  },
+  {
+    "p": "admin.stats.thSeller",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "admin.stats.thOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.stats.thSales",
+    "uz": "Savdolar",
+    "ru": "Продажи"
+  },
+  {
+    "p": "admin.stats.thSellerGets",
+    "uz": "Sotuvchi oladi",
+    "ru": "Продавец получает"
+  },
+  {
+    "p": "admin.stats.thCommission",
+    "uz": "Komissiya",
+    "ru": "Комиссия"
+  },
+  {
+    "p": "admin.stats.thPaidToUs",
+    "uz": "Bizga toʻlangan",
+    "ru": "Оплачено нам"
+  },
+  {
+    "p": "admin.stats.thBalance",
+    "uz": "Qoldiq",
+    "ru": "Остаток"
+  },
+  {
+    "p": "admin.stats.noRows",
+    "uz": "Maʼlumot yoʻq",
+    "ru": "Нет данных"
+  },
+  {
+    "p": "admin.settings.title",
+    "uz": "Platforma sozlamalari",
+    "ru": "Настройки платформы"
+  },
+  {
+    "p": "admin.settings.description",
+    "uz": "Komissiya, toʻlov usullari, yetkazib berish va Telegram.",
+    "ru": "Комиссия, способы оплаты, доставка и Telegram."
+  },
+  {
+    "p": "admin.settings.telegramCardTitle",
+    "uz": "Admin Telegram — toʻliq buyurtma bildirishnomalari",
+    "ru": "Админ Telegram — полные уведомления о заказах"
+  },
+  {
+    "p": "admin.settings.telegramCardHint",
+    "uz": "Barcha yangi buyurtmalar va holat oʻzgarishlari toʻliq maʼlumot bilan (xaridor, sotuvchi, manzil, toʻlov, mahsulotlar) shu chatga yuboriladi. Ulash: botda /code yuboring, kodni quyida kiriting; yoki Chat ID ni qoʻlda kiriting; yoki .env da ADMIN_TELEGRAM_CHAT_ID belgilang.",
+    "ru": "Все новые заказы и изменения статуса с полными данными (покупатель, продавец, адрес, оплата, товары) отправляются в этот чат. Подключение: отправьте /code боту и введите код ниже; или укажите Chat ID вручную; или задайте ADMIN_TELEGRAM_CHAT_ID в .env."
+  },
+  {
+    "p": "admin.settings.labelChatId",
+    "uz": "Admin Telegram Chat ID (ixtiyoriy)",
+    "ru": "Chat ID админа Telegram (необязательно)"
+  },
+  {
+    "p": "admin.settings.phChatId",
+    "uz": "123456789",
+    "ru": "123456789"
+  },
+  {
+    "p": "admin.settings.phTelegramCode",
+    "uz": "AB12CD",
+    "ru": "AB12CD"
+  },
+  {
+    "p": "admin.settings.phCommission",
+    "uz": "5",
+    "ru": "5"
+  },
+  {
+    "p": "admin.settings.phMinPayout",
+    "uz": "100000",
+    "ru": "100000"
+  },
+  {
+    "p": "admin.settings.chatIdHint",
+    "uz": "Raqam (masalan, @userinfobot orqali olingan). Boʻsh qoldirsangiz — faqat kod orqali ulash yoki .env ishlatiladi.",
+    "ru": "Число (например, от @userinfobot). Если пусто — только код или .env."
+  },
+  {
+    "p": "admin.settings.telegramConnected",
+    "uz": "Admin Telegram ulangan",
+    "ru": "Админ Telegram подключён"
+  },
+  {
+    "p": "admin.settings.telegramSteps",
+    "uz": "1) Telegramda botni oching va /code yuboring — 6 belgili kod olasiz.\n2) Shu kodni quyida kiriting va «Ulash» bosing.",
+    "ru": "1) Откройте бота в Telegram и отправьте /code — получите 6 символов.\n2) Введите код ниже и нажмите «Подключить»."
+  },
+  {
+    "p": "admin.settings.siteNameCard",
+    "uz": "Markaz nomi",
+    "ru": "Название маркетплейса"
+  },
+  {
+    "p": "admin.settings.siteNameHint",
+    "uz": "Sayt sarlavhasi, shapka va futerdagi nom. Boʻsh qoldirsangiz — Oline Bozor koʻrsatiladi.",
+    "ru": "Заголовок сайта, шапка и футер. Если пусто — отображается Oline Bozor."
+  },
+  {
+    "p": "admin.settings.labelSiteName",
+    "uz": "Nomi",
+    "ru": "Название"
+  },
+  {
+    "p": "admin.settings.phSiteName",
+    "uz": "Oline Bozor",
+    "ru": "Oline Bozor"
+  },
+  {
+    "p": "admin.settings.commissionCard",
+    "uz": "Komissiya va minimal toʻlov",
+    "ru": "Комиссия и минимальный платёж"
+  },
+  {
+    "p": "admin.settings.labelCommission",
+    "uz": "Komissiya (%)",
+    "ru": "Комиссия (%)"
+  },
+  {
+    "p": "admin.settings.labelMinPayout",
+    "uz": "Minimal toʻlov (soʻm)",
+    "ru": "Минимальный платёж (сум)"
+  },
+  {
+    "p": "admin.settings.paymentCard",
+    "uz": "Toʻlov usullari",
+    "ru": "Способы оплаты"
+  },
+  {
+    "p": "admin.settings.paymentHint",
+    "uz": "Qaysi toʻlov usullarini xaridorlar uchun koʻrsatish",
+    "ru": "Какие способы оплаты показывать покупателям"
+  },
+  {
+    "p": "admin.settings.paymentClick",
+    "uz": "Click",
+    "ru": "Click"
+  },
+  {
+    "p": "admin.settings.paymentPayme",
+    "uz": "Payme",
+    "ru": "Payme"
+  },
+  {
+    "p": "admin.settings.paymentCash",
+    "uz": "Naqd",
+    "ru": "Наличные"
+  },
+  {
+    "p": "admin.settings.paymentCardDelivery",
+    "uz": "Karta (qabul qilishda)",
+    "ru": "Карта при получении"
+  },
+  {
+    "p": "admin.settings.deliveryCard",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "admin.settings.deliveryHint",
+    "uz": "Qaysi usullarni xaridorlar uchun koʻrsatish",
+    "ru": "Какие способы показывать покупателям"
+  },
+  {
+    "p": "admin.settings.deliveryCourier",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка курьером"
+  },
+  {
+    "p": "admin.settings.deliveryPickup",
+    "uz": "Oʻzim olib ketaman",
+    "ru": "Самовывоз"
+  },
+  {
+    "p": "admin.settings.chatCard",
+    "uz": "Chat xaridor–sotuvchi",
+    "ru": "Чат покупатель–продавец"
+  },
+  {
+    "p": "admin.settings.chatHint",
+    "uz": "Chat yoqilganda xaridorlar sotuvchilar bilan yozishlari mumkin. O‘chirsangiz, barcha chatlar platformada o‘chiriladi. Yoqilganda har bir sotuvchi o‘z do‘konida chatni alohida yoqishi yoki o‘chirishi mumkin.",
+    "ru": "Если чат включён, покупатели могут писать продавцам. Если выключить — все чаты на платформе будут отключены. Продавец может включать/выключать чат в настройках магазина."
+  },
+  {
+    "p": "admin.settings.chatEnabled",
+    "uz": "Chat xaridor–sotuvchi yoqilgan",
+    "ru": "Чат покупатель–продавец включён"
+  },
+  {
+    "p": "admin.settings.saveAll",
+    "uz": "Barcha sozlamalarni saqlash",
+    "ru": "Сохранить все настройки"
+  },
+  {
+    "p": "admin.sellers.title",
+    "uz": "Sotuvchilar",
+    "ru": "Продавцы"
+  },
+  {
+    "p": "admin.sellers.description",
+    "uz": "Doʻkonlar, komissiya foizi, tovarlar va buyurtmalar boʻyicha koʻrinish.",
+    "ru": "Магазины, процент комиссии, товары и заказы."
+  },
+  {
+    "p": "admin.sellers.loadError",
+    "uz": "API ga ulanishda xatolik.",
+    "ru": "Ошибка подключения к API."
+  },
+  {
+    "p": "admin.sellers.thName",
+    "uz": "F.I.O / Email",
+    "ru": "ФИО / Email"
+  },
+  {
+    "p": "admin.sellers.thShop",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "admin.sellers.thCommission",
+    "uz": "Komissiya %",
+    "ru": "Комиссия %"
+  },
+  {
+    "p": "admin.sellers.thProducts",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  }
+]

@@ -1,0 +1,1002 @@
+[
+  {
+    "p": "favorites.toastError",
+    "uz": "Xatolik yuz berdi",
+    "ru": "Произошла ошибка"
+  },
+  {
+    "p": "favorites.ariaLabel",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "favorites.titleAdd",
+    "uz": "Sevimlilarga qoʻshish",
+    "ru": "Добавить в избранное"
+  },
+  {
+    "p": "favorites.titleRemove",
+    "uz": "Sevimlilardan olib tashlash",
+    "ru": "Удалить из избранного"
+  },
+  {
+    "p": "favorites.shareLink",
+    "uz": "Roʻyxatni ulashish",
+    "ru": "Поделиться списком"
+  },
+  {
+    "p": "favorites.shareCopied",
+    "uz": "Havola nusxalandi",
+    "ru": "Ссылка скопирована"
+  },
+  {
+    "p": "favorites.sharedViewHint",
+    "uz": "Ulashilgan sevimlilar (faqat koʻrish).",
+    "ru": "Общий список избранного (только просмотр)."
+  },
+  {
+    "p": "account.metaTitle",
+    "uz": "Shaxsiy kabinet",
+    "ru": "Личный кабинет"
+  },
+  {
+    "p": "account.metaDescription",
+    "uz": "Profil va buyurtmalar",
+    "ru": "Профиль и заказы"
+  },
+  {
+    "p": "account.title",
+    "uz": "Shaxsiy kabinet",
+    "ru": "Личный кабинет"
+  },
+  {
+    "p": "account.subtitle",
+    "uz": "Profil va buyurtmalar",
+    "ru": "Профиль и заказы"
+  },
+  {
+    "p": "account.languageTitle",
+    "uz": "Sayt tili",
+    "ru": "Язык сайта"
+  },
+  {
+    "p": "account.languageDesc",
+    "uz": "Interfeys oʻzbek yoki rus tilida",
+    "ru": "Интерфейс на узбекском или русском"
+  },
+  {
+    "p": "account.roleAdmin",
+    "uz": "Admin",
+    "ru": "Админ"
+  },
+  {
+    "p": "account.roleSeller",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "account.roleBuyer",
+    "uz": "Xaridor",
+    "ru": "Покупатель"
+  },
+  {
+    "p": "account.roleGuest",
+    "uz": "Mehmon",
+    "ru": "Гость"
+  },
+  {
+    "p": "account.guestBadge",
+    "uz": "Gost hisob — toʻliq profil uchun Telegram ulang",
+    "ru": "Гостевой аккаунт — привяжите Telegram для полного профиля"
+  },
+  {
+    "p": "account.tel",
+    "uz": "Tel:",
+    "ru": "Тел.:"
+  },
+  {
+    "p": "account.memberSince",
+    "uz": "Aʼzo boʻldi:",
+    "ru": "Участник с:"
+  },
+  {
+    "p": "account.shop",
+    "uz": "Doʻkon:",
+    "ru": "Магазин:"
+  },
+  {
+    "p": "account.edit",
+    "uz": "Tahrirlash",
+    "ru": "Редактировать"
+  },
+  {
+    "p": "account.firstName",
+    "uz": "Ism",
+    "ru": "Имя"
+  },
+  {
+    "p": "account.lastName",
+    "uz": "Familiya",
+    "ru": "Фамилия"
+  },
+  {
+    "p": "account.phoneOptional",
+    "uz": "Telefon (ixtiyoriy)",
+    "ru": "Телефон (необязательно)"
+  },
+  {
+    "p": "account.phonePlaceholder",
+    "uz": "+998 90 123 45 67",
+    "ru": "+998 90 123 45 67"
+  },
+  {
+    "p": "account.saving",
+    "uz": "Saqlanmoqda...",
+    "ru": "Сохранение..."
+  },
+  {
+    "p": "account.save",
+    "uz": "Saqlash",
+    "ru": "Сохранить"
+  },
+  {
+    "p": "account.cancel",
+    "uz": "Bekor qilish",
+    "ru": "Отмена"
+  },
+  {
+    "p": "account.telegram",
+    "uz": "Telegram",
+    "ru": "Telegram"
+  },
+  {
+    "p": "account.telegramLinked",
+    "uz": "Hisobingiz Telegramga ulangan — buyurtmalar haqida xabar olasiz",
+    "ru": "Аккаунт привязан к Telegram — вы будете получать уведомления о заказах"
+  },
+  {
+    "p": "account.telegramGuest",
+    "uz": "Telegramni ulang — toʻliq profil va buyurtmalar haqida xabar olish",
+    "ru": "Привяжите Telegram — полный профиль и уведомления о заказах"
+  },
+  {
+    "p": "account.telegramPrompt",
+    "uz": "Telegramni ulang va buyurtmalar haqida xabar oling",
+    "ru": "Привяжите Telegram и получайте уведомления о заказах"
+  },
+  {
+    "p": "account.telegramLinkedStatus",
+    "uz": "Ulangan",
+    "ru": "Привязано"
+  },
+  {
+    "p": "account.telegramLinkLoading",
+    "uz": "Yuklanmoqda...",
+    "ru": "Загрузка..."
+  },
+  {
+    "p": "account.telegramLinkWaiting",
+    "uz": "Telegramda tugmani bosing...",
+    "ru": "Нажмите кнопку в Telegram..."
+  },
+  {
+    "p": "account.telegramLink",
+    "uz": "Telegram ulash",
+    "ru": "Привязать Telegram"
+  },
+  {
+    "p": "account.orders",
+    "uz": "Buyurtmalarim",
+    "ru": "Мои заказы"
+  },
+  {
+    "p": "account.ordersDesc",
+    "uz": "Tarix va holat",
+    "ru": "История и статус"
+  },
+  {
+    "p": "account.favorites",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "account.favoritesDesc",
+    "uz": "Saqlangan tovarlar",
+    "ru": "Сохранённые товары"
+  },
+  {
+    "p": "account.chat",
+    "uz": "Xabarlar",
+    "ru": "Сообщения"
+  },
+  {
+    "p": "account.chatDesc",
+    "uz": "Sotuvchilar bilan suhbat",
+    "ru": "Чат с продавцами"
+  },
+  {
+    "p": "account.becomeSeller",
+    "uz": "Sotuvchi bo'lish",
+    "ru": "Стать продавцом"
+  },
+  {
+    "p": "account.becomeSellerDesc",
+    "uz": "Do'kon ochish uchun ariza yuboring — admin tasdiqlagach sotuvchi bo'lasiz",
+    "ru": "Подайте заявку на магазин — после одобрения админом вы станете продавцом"
+  },
+  {
+    "p": "account.sellerPanel",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "account.sellerPanelDesc",
+    "uz": "Tovarlar, buyurtmalar, doʻkon sozlamalari",
+    "ru": "Товары, заказы, настройки магазина"
+  },
+  {
+    "p": "account.adminPanel",
+    "uz": "Admin panel",
+    "ru": "Админ-панель"
+  },
+  {
+    "p": "account.adminPanelDesc",
+    "uz": "Platforma boshqaruvi",
+    "ru": "Управление платформой"
+  },
+  {
+    "p": "account.logout",
+    "uz": "Chiqish",
+    "ru": "Выйти"
+  },
+  {
+    "p": "account.errorGeneric",
+    "uz": "Xatolik",
+    "ru": "Ошибка"
+  },
+  {
+    "p": "myOrders.metaTitle",
+    "uz": "Buyurtmalarim",
+    "ru": "Мои заказы"
+  },
+  {
+    "p": "myOrders.loginPrompt",
+    "uz": "Buyurtmalaringizni koʻrish uchun tizimga kiring.",
+    "ru": "Войдите в аккаунт, чтобы посмотреть заказы."
+  },
+  {
+    "p": "myOrders.login",
+    "uz": "Kirish",
+    "ru": "Войти"
+  },
+  {
+    "p": "myOrders.guestLookup",
+    "uz": "Mehmon buyurtmasini koʻrish",
+    "ru": "Просмотр заказа гостя"
+  },
+  {
+    "p": "myOrders.guestHint",
+    "uz": "Tizimga kirmagan holda buyurtma bergan boʻlsangiz, «Mehmon buyurtmasini koʻrish» orqali buyurtma raqami va telefon raqamingizni kiritib koʻring.",
+    "ru": "Если вы оформили заказ без входа, укажите номер заказа и телефон в разделе «Просмотр заказа гостя»."
+  },
+  {
+    "p": "myOrders.forbidden",
+    "uz": "Buyurtmalar faqat xaridorlar uchun. Sotuvchi boʻlsangiz, doʻkon buyurtmalari Sotuvchi kabinetida.",
+    "ru": "Список заказов доступен покупателям. Для заказов магазина откройте кабинет продавца."
+  },
+  {
+    "p": "myOrders.backProfile",
+    "uz": "← Profil",
+    "ru": "← Профиль"
+  },
+  {
+    "p": "myOrders.profile",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "myOrders.title",
+    "uz": "Buyurtmalarim",
+    "ru": "Мои заказы"
+  },
+  {
+    "p": "myOrders.subtitle",
+    "uz": "Barcha buyurtmalar roʻyxati",
+    "ru": "Все ваши заказы"
+  },
+  {
+    "p": "myOrders.empty",
+    "uz": "Hali buyurtma yoʻq.",
+    "ru": "Пока нет заказов."
+  },
+  {
+    "p": "myOrders.catalogLink",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "myOrders.pickupSelf",
+    "uz": "Oʻzim olib ketaman",
+    "ru": "Самовывоз"
+  },
+  {
+    "p": "myOrders.shop",
+    "uz": "Doʻkon:",
+    "ru": "Магазин:"
+  },
+  {
+    "p": "myOrders.pickupAddressFrom",
+    "uz": "Manzil (qayerdan olib ketish):",
+    "ru": "Адрес (где забрать):"
+  },
+  {
+    "p": "myOrders.pickupNoAddressHint",
+    "uz": "Sotuvchi siz bilan bogʻlanadi (manzil doʻkon sozlamalarida koʻrsatilmagan)",
+    "ru": "Продавец свяжется с вами (адрес не указан в настройках магазина)"
+  },
+  {
+    "p": "myOrders.delivery",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "myOrders.seller",
+    "uz": "Sotuvchi:",
+    "ru": "Продавец:"
+  },
+  {
+    "p": "myOrders.productFallback",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "myOrders.moreItems",
+    "uz": "+{{count}} boshqa",
+    "ru": "+ещё {{count}}"
+  },
+  {
+    "p": "myOrders.pickupShipped",
+    "uz": "Olib ketishga tayyor",
+    "ru": "Готов к самовывозу"
+  },
+  {
+    "p": "myOrders.pickupDelivered",
+    "uz": "Olib ketildi",
+    "ru": "Забран"
+  },
+  {
+    "p": "myOrders.status.PENDING",
+    "uz": "Kutilmoqda",
+    "ru": "Ожидает"
+  },
+  {
+    "p": "myOrders.status.CONFIRMED",
+    "uz": "Tasdiqlandi",
+    "ru": "Подтверждён"
+  },
+  {
+    "p": "myOrders.status.PROCESSING",
+    "uz": "Tayyorlanmoqda",
+    "ru": "Готовится"
+  },
+  {
+    "p": "myOrders.status.SHIPPED",
+    "uz": "Yuborildi",
+    "ru": "Отправлен"
+  },
+  {
+    "p": "myOrders.status.DELIVERED",
+    "uz": "Yetkazildi",
+    "ru": "Доставлен"
+  },
+  {
+    "p": "myOrders.status.CANCELLED",
+    "uz": "Bekor qilindi",
+    "ru": "Отменён"
+  },
+  {
+    "p": "orderLookup.metaTitle",
+    "uz": "Buyurtmani tekshirish",
+    "ru": "Проверка заказа"
+  },
+  {
+    "p": "orderLookup.backHome",
+    "uz": "← Bosh sahifa",
+    "ru": "← Главная"
+  },
+  {
+    "p": "orderLookup.title",
+    "uz": "Mehmon buyurtmasini koʻrish",
+    "ru": "Просмотр заказа гостя"
+  },
+  {
+    "p": "orderLookup.description",
+    "uz": "Tizimga kirmagan holda buyurtma bergan boʻlsangiz, buyurtma raqami va buyurtmada koʻrsatilgan telefon raqamingizni kiriting.",
+    "ru": "Если вы оформили заказ без входа, введите номер заказа и телефон, указанный при оформлении."
+  },
+  {
+    "p": "orderLookup.labelOrderNumber",
+    "uz": "Buyurtma raqami",
+    "ru": "Номер заказа"
+  },
+  {
+    "p": "orderLookup.placeholderOrderNumber",
+    "uz": "masalan: ORD-ABC123-00001",
+    "ru": "например: ORD-ABC123-00001"
+  },
+  {
+    "p": "orderLookup.labelPhone",
+    "uz": "Telefon raqam",
+    "ru": "Телефон"
+  },
+  {
+    "p": "orderLookup.placeholderPhone",
+    "uz": "+998 90 123 45 67",
+    "ru": "+998 90 123 45 67"
+  },
+  {
+    "p": "orderLookup.submitLoading",
+    "uz": "Qidirilmoqda...",
+    "ru": "Поиск..."
+  },
+  {
+    "p": "orderLookup.submit",
+    "uz": "Buyurtmani koʻrish",
+    "ru": "Показать заказ"
+  },
+  {
+    "p": "orderLookup.errorRequired",
+    "uz": "Buyurtma raqami va telefon raqamini kiriting.",
+    "ru": "Введите номер заказа и телефон."
+  },
+  {
+    "p": "orderLookup.errorNotFound",
+    "uz": "Buyurtma topilmadi. Raqam va telefonni tekshiring.",
+    "ru": "Заказ не найден. Проверьте номер и телефон."
+  },
+  {
+    "p": "orderLookup.errorGeneric",
+    "uz": "Xatolik yuz berdi. Qaytadan urinib koʻring.",
+    "ru": "Произошла ошибка. Попробуйте снова."
+  },
+  {
+    "p": "orderLookup.pickupAddress",
+    "uz": "Olib ketish manzili:",
+    "ru": "Адрес самовывоза:"
+  },
+  {
+    "p": "orderLookup.pickupNoAddress",
+    "uz": "Sotuvchi siz bilan bogʻlanadi (manzil doʻkon sozlamalarida koʻrsatilmagan)",
+    "ru": "Продавец свяжется с вами (адрес не указан в настройках магазина)"
+  },
+  {
+    "p": "orderLookup.total",
+    "uz": "Jami:",
+    "ru": "Итого:"
+  },
+  {
+    "p": "orderLookup.searchAnother",
+    "uz": "Boshqa buyurtmani qidirish",
+    "ru": "Найти другой заказ"
+  },
+  {
+    "p": "orderLookup.home",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "orderLookup.footerLoginHint",
+    "uz": "Hisobingiz boʻlsa,",
+    "ru": "Если у вас есть аккаунт,"
+  },
+  {
+    "p": "orderLookup.footerLogin",
+    "uz": "tizimga kiring",
+    "ru": "войдите"
+  },
+  {
+    "p": "orderLookup.footerLoginAfter",
+    "uz": "va barcha buyurtmalaringizni koʻring.",
+    "ru": "и просмотрите все заказы."
+  },
+  {
+    "p": "orderLookup.shopDefault",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "orderLookup.productDefault",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "orderGuestView.metaTitle",
+    "uz": "Buyurtma",
+    "ru": "Заказ"
+  },
+  {
+    "p": "orderGuestView.notFoundTitle",
+    "uz": "Buyurtma topilmadi",
+    "ru": "Заказ не найден"
+  },
+  {
+    "p": "orderGuestView.notFoundHint",
+    "uz": "Havola notoʻgʻri yoki muddati tugagan. Tizimga kiring va «Buyurtmalarim» orqali koʻring.",
+    "ru": "Ссылка неверна или срок действия истёк. Войдите и откройте «Мои заказы»."
+  },
+  {
+    "p": "orderGuestView.login",
+    "uz": "Kirish",
+    "ru": "Войти"
+  },
+  {
+    "p": "orderGuestView.home",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "orderGuestView.backHome",
+    "uz": "← Bosh sahifa",
+    "ru": "← Главная"
+  },
+  {
+    "p": "orderGuestView.title",
+    "uz": "Buyurtma #{{number}}",
+    "ru": "Заказ №{{number}}"
+  },
+  {
+    "p": "orderGuestView.pickupAddress",
+    "uz": "Olib ketish manzili:",
+    "ru": "Адрес самовывоза:"
+  },
+  {
+    "p": "orderGuestView.addressUnknown",
+    "uz": "Manzil koʻrsatilmagan",
+    "ru": "Адрес не указан"
+  },
+  {
+    "p": "orderGuestView.pickupContact",
+    "uz": "Sotuvchi siz bilan manzil boʻyicha bogʻlanadi.",
+    "ru": "Продавец свяжется с вами по адресу."
+  },
+  {
+    "p": "orderGuestView.productDefault",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "orderGuestView.total",
+    "uz": "Jami:",
+    "ru": "Итого:"
+  },
+  {
+    "p": "orderGuestView.catalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "orderGuestView.shopDefault",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "becomeSeller.logoAlt",
+    "uz": "Doʻkon logotipi",
+    "ru": "Логотип магазина"
+  },
+  {
+    "p": "becomeSeller.metaTitle",
+    "uz": "Sotuvchi boʻlish",
+    "ru": "Стать продавцом"
+  },
+  {
+    "p": "becomeSeller.title",
+    "uz": "Sotuvchi bo‘lish",
+    "ru": "Стать продавцом"
+  },
+  {
+    "p": "becomeSeller.intro",
+    "uz": "Do‘koningizni ochish uchun ariza yuboring. Admin tasdiqlagach, siz sotuvchi bo‘lasiz va tovarlar qo‘sha olasiz.",
+    "ru": "Подайте заявку на открытие магазина. После одобрения администратором вы станете продавцом и сможете добавлять товары."
+  },
+  {
+    "p": "becomeSeller.approvedTitle",
+    "uz": "Siz allaqachon sotuvchisiz",
+    "ru": "Вы уже продавец"
+  },
+  {
+    "p": "becomeSeller.approvedHint",
+    "uz": "Do‘kon paneliga o‘ting va tovarlar qo‘shing.",
+    "ru": "Откройте панель магазина и добавьте товары."
+  },
+  {
+    "p": "becomeSeller.sellerPanel",
+    "uz": "Sotuvchi paneli",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "becomeSeller.pendingTitle",
+    "uz": "Arizangiz ko‘rib chiqilmoqda",
+    "ru": "Заявка на рассмотрении"
+  },
+  {
+    "p": "becomeSeller.pendingHint",
+    "uz": "Admin tasdiqlagach, sizga xabar beramiz. Sahifani yangilab turing yoki keyinroq qaytib keling.",
+    "ru": "После одобрения мы сообщим вам. Обновите страницу или зайдите позже."
+  },
+  {
+    "p": "becomeSeller.shopNameLabel",
+    "uz": "Do‘kon nomi:",
+    "ru": "Название магазина:"
+  },
+  {
+    "p": "becomeSeller.rejectedTitle",
+    "uz": "Ariza rad etildi",
+    "ru": "Заявка отклонена"
+  },
+  {
+    "p": "becomeSeller.rejectedHint",
+    "uz": "Agar xatolik bo‘lsa, quyidagi formadan qayta ariza yuborishingiz mumkin.",
+    "ru": "При необходимости отправьте заявку снова через форму ниже."
+  },
+  {
+    "p": "becomeSeller.formTitle",
+    "uz": "Ariza yuborish",
+    "ru": "Подать заявку"
+  },
+  {
+    "p": "becomeSeller.formDescription",
+    "uz": "Do‘kon nomi, tavsif va yuridik ma’lumotlarni kiriting. Admin tasdiqlagach siz sotuvchi bo‘lasiz.",
+    "ru": "Укажите название магазина, описание и юридические данные. После одобрения вы станете продавцом."
+  },
+  {
+    "p": "becomeSeller.shopName",
+    "uz": "Do‘kon nomi *",
+    "ru": "Название магазина *"
+  },
+  {
+    "p": "becomeSeller.shopNamePlaceholder",
+    "uz": "Masalan: Mening do‘konim",
+    "ru": "Например: Мой магазин"
+  },
+  {
+    "p": "becomeSeller.description",
+    "uz": "Tavsif (ixtiyoriy)",
+    "ru": "Описание (необязательно)"
+  },
+  {
+    "p": "becomeSeller.descriptionPlaceholder",
+    "uz": "Do‘koningiz haqida qisqacha",
+    "ru": "Кратко о магазине"
+  },
+  {
+    "p": "becomeSeller.legalSection",
+    "uz": "Yuridik maʼlumotlar (ixtiyoriy)",
+    "ru": "Юридические данные (необязательно)"
+  },
+  {
+    "p": "becomeSeller.legalForm",
+    "uz": "Shakl (ИП / ООО)",
+    "ru": "Форма (ИП / ООО)"
+  },
+  {
+    "p": "becomeSeller.legalSelect",
+    "uz": "Tanlang",
+    "ru": "Выберите"
+  },
+  {
+    "p": "becomeSeller.legalFormIp",
+    "uz": "ИП (Yakka tadbirkor)",
+    "ru": "ИП (индивидуальный предприниматель)"
+  },
+  {
+    "p": "becomeSeller.legalFormOoo",
+    "uz": "ООО (MChJ)",
+    "ru": "ООО (общество с ограниченной ответственностью)"
+  },
+  {
+    "p": "becomeSeller.legalName",
+    "uz": "Toʻliq nomi (ИП/ООО)",
+    "ru": "Полное наименование (ИП/ООО)"
+  },
+  {
+    "p": "becomeSeller.legalNamePlaceholder",
+    "uz": "Masalan: IP Ivanov I.I.",
+    "ru": "Например: ИП Иванов И.И."
+  },
+  {
+    "p": "becomeSeller.ogrn",
+    "uz": "OGRN",
+    "ru": "ОГРН"
+  },
+  {
+    "p": "becomeSeller.ogrnPlaceholder",
+    "uz": "OGRN raqami",
+    "ru": "Номер ОГРН"
+  },
+  {
+    "p": "becomeSeller.inn",
+    "uz": "INN",
+    "ru": "ИНН"
+  },
+  {
+    "p": "becomeSeller.innPlaceholder",
+    "uz": "INN raqami",
+    "ru": "Номер ИНН"
+  },
+  {
+    "p": "becomeSeller.documents",
+    "uz": "Hujjatlar (foto)",
+    "ru": "Документы (фото)"
+  },
+  {
+    "p": "becomeSeller.adminMessage",
+    "uz": "Administratorga xabar (ixtiyoriy)",
+    "ru": "Сообщение администратору (необязательно)"
+  },
+  {
+    "p": "becomeSeller.adminMessagePlaceholder",
+    "uz": "Qo‘shimcha ma’lumot yoki savol",
+    "ru": "Дополнительная информация или вопрос"
+  },
+  {
+    "p": "becomeSeller.submitLoading",
+    "uz": "Yuborilmoqda...",
+    "ru": "Отправка..."
+  },
+  {
+    "p": "becomeSeller.submit",
+    "uz": "Ariza yuborish",
+    "ru": "Отправить заявку"
+  },
+  {
+    "p": "becomeSeller.submitError",
+    "uz": "Ariza yuborishda xatolik",
+    "ru": "Ошибка при отправке заявки"
+  },
+  {
+    "p": "becomeSeller.backHome",
+    "uz": "Bosh sahifaga qaytish",
+    "ru": "На главную"
+  },
+  {
+    "p": "cookies.metaTitle",
+    "uz": "Cookie (kuki) siyosati",
+    "ru": "Политика cookie"
+  },
+  {
+    "p": "cookies.metaDescription",
+    "uz": "Saytda cookie foydalanishi haqida maʼlumot.",
+    "ru": "Информация об использовании cookie на сайте."
+  },
+  {
+    "p": "cookies.title",
+    "uz": "Cookie (kuki) siyosati",
+    "ru": "Политика cookie"
+  },
+  {
+    "p": "cookies.updated",
+    "uz": "Oxirgi yangilanish:",
+    "ru": "Последнее обновление:"
+  },
+  {
+    "p": "cookies.whatTitle",
+    "uz": "Cookie nima?",
+    "ru": "Что такое cookie?"
+  },
+  {
+    "p": "cookies.whatBody",
+    "uz": "Cookie (kuki) — sayt tomonidan brauzeringizga yoziladigan kichik matn fayllari. Ular saytning toʻgʻri ishlashi, xavfsizligi va sizning qulayligingiz uchun ishlatiladi.",
+    "ru": "Cookie — это небольшие текстовые файлы, которые сайт сохраняет в вашем браузере. Они нужны для корректной работы, безопасности и удобства."
+  },
+  {
+    "p": "cookies.howTitle",
+    "uz": "Sayt qanday cookie ishlatadi?",
+    "ru": "Как сайт использует cookie?"
+  },
+  {
+    "p": "cookies.howCart",
+    "uz": "Savatcha (cart) — siz saytda qoʻshgan mahsulotlar savatchada saqlanadi (anonim foydalanuvchilar uchun sessiya identifikatori cookie orqali).",
+    "ru": "Корзина — добавленные товары сохраняются в корзине (для анонимных пользователей через идентификатор сессии в cookie)."
+  },
+  {
+    "p": "cookies.howAuth",
+    "uz": "Tizimga kirish (auth) — tizimga kiringan holatda sizni tanlash va yangilanish tokenini xavfsiz saqlash uchun (masalan, refreshToken).",
+    "ru": "Вход (auth) — чтобы распознать вас после входа и безопасно хранить токен обновления (например, refreshToken)."
+  },
+  {
+    "p": "cookies.howCsrf",
+    "uz": "Xavfsizlik (CSRF) — soʻrovlarni soxta saytlardan himoya qilish uchun token cookie orqali yuboriladi.",
+    "ru": "Безопасность (CSRF) — токен передаётся через cookie, чтобы защитить запросы от поддельных сайтов."
+  },
+  {
+    "p": "cookies.manageTitle",
+    "uz": "Cookieʼni oʻchirish va boshqarish",
+    "ru": "Удаление и управление cookie"
+  },
+  {
+    "p": "cookies.manageBody",
+    "uz": "Brauzeringiz sozlamalarida cookieʼlarni oʻchirish yoki cheklash mumkin. Agar cookieʼlar oʻchirilsa, savatcha (anonim rejimda), avtomatik kirish va baʼzi xavfsizlik funksiyalari toʻliq ishlamasligi mumkin.",
+    "ru": "В настройках браузера можно удалить или ограничить cookie. Если cookie отключены, корзина (в анонимном режиме), автоматический вход и часть функций безопасности могут работать неполно."
+  },
+  {
+    "p": "cookies.questionsTitle",
+    "uz": "Savollar",
+    "ru": "Вопросы"
+  },
+  {
+    "p": "cookies.questionsBefore",
+    "uz": "Cookie siyosati yoki shaxsiy maʼlumotlar boʻyicha savollaringiz boʻlsa,",
+    "ru": "Если у вас есть вопросы по политике cookie или персональным данным, обратитесь в раздел"
+  },
+  {
+    "p": "cookies.contactLink",
+    "uz": "Aloqa",
+    "ru": "Контакты"
+  },
+  {
+    "p": "cookies.questionsAfter",
+    "uz": "boʻlimi orqali murojaat qiling.",
+    "ru": "на сайте."
+  },
+  {
+    "p": "cookies.backHome",
+    "uz": "← Bosh sahifaga",
+    "ru": "← На главную"
+  },
+  {
+    "p": "product.breadcrumbNav",
+    "uz": "Yo‘nalish",
+    "ru": "Навигация"
+  },
+  {
+    "p": "product.descriptionHeading",
+    "uz": "Tavsif",
+    "ru": "Описание"
+  },
+  {
+    "p": "product.relatedTitle",
+    "uz": "Sizga yoqishi mumkin",
+    "ru": "Вам может понравиться"
+  },
+  {
+    "p": "product.specsLink",
+    "uz": "Xususiyatlar va tavsif",
+    "ru": "Характеристики и описание"
+  },
+  {
+    "p": "product.specsAll",
+    "uz": "Barcha xususiyatlar",
+    "ru": "Все характеристики"
+  },
+  {
+    "p": "product.specsModalTitle",
+    "uz": "Xususiyatlar va tavsif",
+    "ru": "Характеристики и описание"
+  },
+  {
+    "p": "product.specsBlockTitle",
+    "uz": "Xususiyatlar",
+    "ru": "Характеристики"
+  },
+  {
+    "p": "product.pickVariant",
+    "uz": "Variantni tanlang",
+    "ru": "Выберите вариант"
+  },
+  {
+    "p": "product.sellerRow",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "product.shopLine",
+    "uz": "Doʻkon:",
+    "ru": "Магазин:"
+  },
+  {
+    "p": "product.specCategory",
+    "uz": "Kategoriya",
+    "ru": "Категория"
+  },
+  {
+    "p": "product.notShown",
+    "uz": "Koʻrsatilmagan",
+    "ru": "Не указано"
+  },
+  {
+    "p": "product.noImage",
+    "uz": "Rasm yoʻq",
+    "ru": "Нет изображения"
+  },
+  {
+    "p": "product.modalTitle",
+    "uz": "Variantni tanlang",
+    "ru": "Выберите вариант"
+  },
+  {
+    "p": "product.modalDesc",
+    "uz": "Mahsulot varianti va narx",
+    "ru": "Вариант товара и цена"
+  },
+  {
+    "p": "product.close",
+    "uz": "Yopish",
+    "ru": "Закрыть"
+  },
+  {
+    "p": "product.reviewsNone",
+    "uz": "Sharhlar yoʻq",
+    "ru": "Нет отзывов"
+  },
+  {
+    "p": "product.reviewsOne",
+    "uz": "1 ta sharh",
+    "ru": "1 отзыв"
+  },
+  {
+    "p": "product.reviewsMany",
+    "uz": "{{count}} ta sharh",
+    "ru": "{{count}} отзывов"
+  },
+  {
+    "p": "product.stockOut",
+    "uz": "Hozircha mavjud emas",
+    "ru": "Сейчас нет в наличии"
+  },
+  {
+    "p": "product.stockLow",
+    "uz": "Omborda oz qoldi — {{count}} dona",
+    "ru": "Мало на складе — {{count}} шт."
+  },
+  {
+    "p": "product.stockIn",
+    "uz": "Omborda: {{count}} dona",
+    "ru": "На складе: {{count}} шт."
+  },
+  {
+    "p": "product.addToCart",
+    "uz": "Savatchaga",
+    "ru": "В корзину"
+  },
+  {
+    "p": "product.addToCartLong",
+    "uz": "Savatchaga qoʻshish",
+    "ru": "Добавить в корзину"
+  },
+  {
+    "p": "product.adding",
+    "uz": "Qoʻshilmoqda...",
+    "ru": "Добавление..."
+  },
+  {
+    "p": "product.added",
+    "uz": "Qoʻshildi",
+    "ru": "Добавлено"
+  },
+  {
+    "p": "product.buyNow",
+    "uz": "Xarid qilish",
+    "ru": "Купить"
+  },
+  {
+    "p": "product.goToCart",
+    "uz": "Savatchaga oʻtish",
+    "ru": "Перейти в корзину"
+  },
+  {
+    "p": "product.outOfStockShort",
+    "uz": "Mavjud emas",
+    "ru": "Нет в наличии"
+  },
+  {
+    "p": "product.toastAdded",
+    "uz": "Savatchaga qoʻshildi",
+    "ru": "Добавлено в корзину"
+  },
+  {
+    "p": "product.toastAddError",
+    "uz": "Qoʻshishda xatolik",
+    "ru": "Ошибка при добавлении"
+  }
+]

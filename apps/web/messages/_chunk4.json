@@ -1,0 +1,1002 @@
+[
+  {
+    "p": "product.toastAddFailed",
+    "uz": "Savatchaga qoʻshib boʻlmadi",
+    "ru": "Не удалось добавить в корзину"
+  },
+  {
+    "p": "product.reviewsTitle",
+    "uz": "Sharhlar",
+    "ru": "Отзывы"
+  },
+  {
+    "p": "product.reviewsViewAll",
+    "uz": "Barcha sharhlarni koʻrish",
+    "ru": "Все отзывы"
+  },
+  {
+    "p": "product.reviewsEmpty",
+    "uz": "Hali sharh yoʻq. Birinchi sharhni siz yozing.",
+    "ru": "Пока нет отзывов. Напишите первый."
+  },
+  {
+    "p": "product.sellerReply",
+    "uz": "Sotuvchi javobi:",
+    "ru": "Ответ продавца:"
+  },
+  {
+    "p": "product.sellerReplyShort",
+    "uz": "Sotuvchi:",
+    "ru": "Продавец:"
+  },
+  {
+    "p": "product.loginPrompt",
+    "uz": "Sharh yozish uchun",
+    "ru": "Чтобы оставить отзыв,"
+  },
+  {
+    "p": "product.loginLink",
+    "uz": "tizimga kiring",
+    "ru": "войдите"
+  },
+  {
+    "p": "product.loginAfter",
+    "uz": ".",
+    "ru": "."
+  },
+  {
+    "p": "product.mustBuyFirst",
+    "uz": "Sharh yozish uchun avval ushbu mahsulotni sotib oling.",
+    "ru": "Чтобы оставить отзыв, сначала купите этот товар."
+  },
+  {
+    "p": "product.reviewQuota",
+    "uz": "Siz ushbu mahsulot boʻyicha {{reviewCount}} ta sharh yozgansiz (sotib olganlar: {{purchaseCount}}). Qoʻshimcha sharh yozish uchun mahsulotni qayta sotib oling.",
+    "ru": "Вы уже написали {{reviewCount}} отзыв(ов) по этому товару (покупок: {{purchaseCount}}). Чтобы написать ещё, купите товар снова."
+  },
+  {
+    "p": "product.writeReview",
+    "uz": "Sharh yozing",
+    "ru": "Ваш отзыв"
+  },
+  {
+    "p": "product.purchaseStats",
+    "uz": "Sotib olganlar: {{purchases}}, yozilgan sharhlar: {{reviews}}. Yana {{remaining}} ta sharh yozishingiz mumkin.",
+    "ru": "Покупок: {{purchases}}, отзывов: {{reviews}}. Можно написать ещё {{remaining}}."
+  },
+  {
+    "p": "product.starLabel",
+    "uz": "{{n}} yulduz",
+    "ru": "{{n}} звёзд"
+  },
+  {
+    "p": "product.commentPlaceholder",
+    "uz": "Izoh (ixtiyoriy)",
+    "ru": "Комментарий (необязательно)"
+  },
+  {
+    "p": "product.submitReviewLoading",
+    "uz": "Yuborilmoqda...",
+    "ru": "Отправка..."
+  },
+  {
+    "p": "product.submitReview",
+    "uz": "Yuborish",
+    "ru": "Отправить"
+  },
+  {
+    "p": "product.reviewSaved",
+    "uz": "Sharhingiz saqlandi",
+    "ru": "Отзыв сохранён"
+  },
+  {
+    "p": "product.reviewSubmitError",
+    "uz": "Sharh yozib boʻlmadi. Keyinroq urinib koʻring.",
+    "ru": "Не удалось отправить отзыв. Попробуйте позже."
+  },
+  {
+    "p": "product.prevSlide",
+    "uz": "Oldingi",
+    "ru": "Назад"
+  },
+  {
+    "p": "product.nextSlide",
+    "uz": "Keyingi",
+    "ru": "Вперёд"
+  },
+  {
+    "p": "product.reviewsPageBack",
+    "uz": "Tovarga qaytish",
+    "ru": "К товару"
+  },
+  {
+    "p": "product.reviewsPageSubtitle",
+    "uz": "Barcha sharhlar",
+    "ru": "Все отзывы"
+  },
+  {
+    "p": "product.chatDisabledTitle",
+    "uz": "Sotuvchi hozircha xabarlarni qabul qilmaydi",
+    "ru": "Продавец сейчас не принимает сообщения"
+  },
+  {
+    "p": "product.chatWriteSeller",
+    "uz": "Sotuvchiga yozish",
+    "ru": "Написать продавцу"
+  },
+  {
+    "p": "product.chatOff",
+    "uz": "Chat o‘chirilgan",
+    "ru": "Чат выключен"
+  },
+  {
+    "p": "product.chatSellerOffHint",
+    "uz": "Sotuvchi xabarlarni o‘chirgan",
+    "ru": "Продавец отключил сообщения"
+  },
+  {
+    "p": "product.trustDelivery",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "product.trustDeliveryHint",
+    "uz": "Oʻzbekiston boʻylab",
+    "ru": "По Узбекистану"
+  },
+  {
+    "p": "product.trustPay",
+    "uz": "Xavfsiz toʻlov",
+    "ru": "Безопасная оплата"
+  },
+  {
+    "p": "product.trustPayHint",
+    "uz": "Click, Payme",
+    "ru": "Click, Payme"
+  },
+  {
+    "p": "product.trustReturn",
+    "uz": "Qaytarish",
+    "ru": "Возврат"
+  },
+  {
+    "p": "product.trustReturnHint",
+    "uz": "14 kun ichida",
+    "ru": "в течение 14 дней"
+  },
+  {
+    "p": "product.decreaseQty",
+    "uz": "Kamaytirish",
+    "ru": "Уменьшить"
+  },
+  {
+    "p": "product.increaseQty",
+    "uz": "Oshirish",
+    "ru": "Увеличить"
+  },
+  {
+    "p": "product.toastAddRetry",
+    "uz": "Qoʻshishda xatolik. Qayta urinib koʻring.",
+    "ru": "Ошибка при добавлении. Попробуйте снова."
+  },
+  {
+    "p": "product.zoomOut",
+    "uz": "Kichiklashtirish",
+    "ru": "Уменьшить"
+  },
+  {
+    "p": "product.zoomIn",
+    "uz": "Kattalashtirish",
+    "ru": "Увеличить"
+  },
+  {
+    "p": "product.imageAlt",
+    "uz": "Rasm {{index}}",
+    "ru": "Изображение {{index}}"
+  },
+  {
+    "p": "productCard.badgeNew",
+    "uz": "Yangilik",
+    "ru": "Новинка"
+  },
+  {
+    "p": "productCard.badgeDiscount",
+    "uz": "Aksiya -{{percent}}%",
+    "ru": "Скидка −{{percent}}%"
+  },
+  {
+    "p": "productCard.quickViewDialogTitle",
+    "uz": "Tezkor koʻrish: {{title}}",
+    "ru": "Быстрый просмотр: {{title}}"
+  },
+  {
+    "p": "productCard.quickViewDialogDesc",
+    "uz": "Mahsulot rasmlari va maʼlumotlari",
+    "ru": "Изображения и информация о товаре"
+  },
+  {
+    "p": "productCard.imagePrevAria",
+    "uz": "Oldingi rasm",
+    "ru": "Предыдущее изображение"
+  },
+  {
+    "p": "productCard.imageNextAria",
+    "uz": "Keyingi rasm",
+    "ru": "Следующее изображение"
+  },
+  {
+    "p": "productCard.imageDotAria",
+    "uz": "Rasm {{n}}",
+    "ru": "Изображение {{n}}"
+  },
+  {
+    "p": "productCard.fullDetails",
+    "uz": "Toʻliq maʼlumot",
+    "ru": "Подробнее"
+  },
+  {
+    "p": "productCard.variantModalSrDesc",
+    "uz": "Mahsulot variantini tanlang va savatchaga qoʻshing",
+    "ru": "Выберите вариант товара и добавьте в корзину"
+  },
+  {
+    "p": "productCard.productFallback",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "productCard.quickView",
+    "uz": "Tezkor koʻrish",
+    "ru": "Быстрый просмотр"
+  },
+  {
+    "p": "share.copyPrompt",
+    "uz": "Havolani nusxalash uchun (Ctrl+C):",
+    "ru": "Скопируйте ссылку (Ctrl+C):"
+  },
+  {
+    "p": "share.linkCopied",
+    "uz": "Havola nusxalandi",
+    "ru": "Ссылка скопирована"
+  },
+  {
+    "p": "share.shareTitle",
+    "uz": "Ulashish: {{productName}}",
+    "ru": "Поделиться: {{productName}}"
+  },
+  {
+    "p": "share.ariaCopy",
+    "uz": "{{productName}} — havolani nusxalash",
+    "ru": "{{productName}} — копировать ссылку"
+  },
+  {
+    "p": "chat.metaTitle",
+    "uz": "Xabarlar",
+    "ru": "Сообщения"
+  },
+  {
+    "p": "chat.metaDescription",
+    "uz": "Sotuvchilar bilan suhbat",
+    "ru": "Чат с продавцами"
+  },
+  {
+    "p": "chat.listTitle",
+    "uz": "Xabarlar",
+    "ru": "Сообщения"
+  },
+  {
+    "p": "chat.tabBuyer",
+    "uz": "Mening suhbatlarim",
+    "ru": "Мои чаты"
+  },
+  {
+    "p": "chat.tabSeller",
+    "uz": "Doʻkon suhbatlari",
+    "ru": "Чаты магазина"
+  },
+  {
+    "p": "chat.empty",
+    "uz": "Hali suhbatlar yoʻq.",
+    "ru": "Пока нет чатов."
+  },
+  {
+    "p": "chat.emptySellerHint",
+    "uz": "Xaridorlar tovar sahifasidagi «Sotuvchiga yozish» tugmasi orqali siz bilan bogʻlanishi mumkin.",
+    "ru": "Покупатели могут написать вам через кнопку «Написать продавцу» на странице товара."
+  },
+  {
+    "p": "chat.otherSeller",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "chat.otherBuyer",
+    "uz": "Xaridor",
+    "ru": "Покупатель"
+  },
+  {
+    "p": "chat.lastMessageEmpty",
+    "uz": "—",
+    "ru": "—"
+  },
+  {
+    "p": "chat.timeJustNow",
+    "uz": "Hozir",
+    "ru": "Сейчас"
+  },
+  {
+    "p": "chat.timeMins",
+    "uz": "{{n}} min",
+    "ru": "{{n}} мин"
+  },
+  {
+    "p": "chat.timeHours",
+    "uz": "{{n}} soat",
+    "ru": "{{n}} ч"
+  },
+  {
+    "p": "chat.timeYesterday",
+    "uz": "Kecha",
+    "ru": "Вчера"
+  },
+  {
+    "p": "chat.timeDays",
+    "uz": "{{n}} kun",
+    "ru": "{{n}} дн."
+  },
+  {
+    "p": "chat.productPrefix",
+    "uz": "Tovar:",
+    "ru": "Товар:"
+  },
+  {
+    "p": "chat.roomFallback",
+    "uz": "Suhbat",
+    "ru": "Чат"
+  },
+  {
+    "p": "chat.sellerPausedNew",
+    "uz": "Sotuvchi hozircha yangi xabarlarni qabul qilmaydi. Oldingi xabarlar saqlanadi.",
+    "ru": "Продавец сейчас не принимает новые сообщения. Старые сообщения сохранены."
+  },
+  {
+    "p": "chat.noMessagesYet",
+    "uz": "Xabarlar yoʻq. Birinchi xabarni yozing.",
+    "ru": "Нет сообщений. Напишите первое."
+  },
+  {
+    "p": "chat.placeholderAdminOff",
+    "uz": "Platforma administratori chatni o‘chirgan",
+    "ru": "Чат отключён администратором платформы"
+  },
+  {
+    "p": "chat.placeholderSellerOff",
+    "uz": "Sotuvchi xabarlarni o‘chirgan",
+    "ru": "Продавец отключил сообщения"
+  },
+  {
+    "p": "chat.placeholderWrite",
+    "uz": "Xabar yozing...",
+    "ru": "Напишите сообщение..."
+  },
+  {
+    "p": "chat.send",
+    "uz": "Yuborish",
+    "ru": "Отправить"
+  },
+  {
+    "p": "chat.sendError",
+    "uz": "Xabar yuborishda xatolik",
+    "ru": "Ошибка при отправке сообщения"
+  },
+  {
+    "p": "admin.metaTitle",
+    "uz": "Admin panel",
+    "ru": "Панель администратора"
+  },
+  {
+    "p": "admin.metaDescription",
+    "uz": "Platforma boshqaruvi",
+    "ru": "Управление платформой"
+  },
+  {
+    "p": "admin.nav.backToSite",
+    "uz": "Saytga qaytish",
+    "ru": "На сайт"
+  },
+  {
+    "p": "admin.nav.management",
+    "uz": "Boshqaruv",
+    "ru": "Управление"
+  },
+  {
+    "p": "admin.nav.catalogSettings",
+    "uz": "Katalog va sozlamalar",
+    "ru": "Каталог и настройки"
+  },
+  {
+    "p": "admin.nav.openMenu",
+    "uz": "Menyuni ochish",
+    "ru": "Открыть меню"
+  },
+  {
+    "p": "admin.nav.closeMenu",
+    "uz": "Menyuni yopish",
+    "ru": "Закрыть меню"
+  },
+  {
+    "p": "admin.nav.panelTitle",
+    "uz": "Admin panel",
+    "ru": "Панель администратора"
+  },
+  {
+    "p": "admin.nav.panelAria",
+    "uz": "Admin panel navigatsiyasi",
+    "ru": "Навигация панели администратора"
+  },
+  {
+    "p": "admin.nav.homeAria",
+    "uz": "Admin bosh sahifasi",
+    "ru": "Главная админ-панели"
+  },
+  {
+    "p": "admin.nav.mainMenuAria",
+    "uz": "Asosiy menyu",
+    "ru": "Главное меню"
+  },
+  {
+    "p": "admin.nav.home",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "admin.nav.notifications",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "admin.nav.users",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.nav.sellers",
+    "uz": "Sotuvchilar",
+    "ru": "Продавцы"
+  },
+  {
+    "p": "admin.nav.sellerApplications",
+    "uz": "Sotuvchi arizalari",
+    "ru": "Заявки продавцов"
+  },
+  {
+    "p": "admin.nav.pendingShopUpdates",
+    "uz": "Doʻkon oʻzgarishlari",
+    "ru": "Изменения магазинов"
+  },
+  {
+    "p": "admin.nav.orders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.nav.productsModeration",
+    "uz": "Tovarlar (moderatsiya)",
+    "ru": "Товары (модерация)"
+  },
+  {
+    "p": "admin.nav.reviews",
+    "uz": "Sharhlar",
+    "ru": "Отзывы"
+  },
+  {
+    "p": "admin.nav.stats",
+    "uz": "Analitika",
+    "ru": "Аналитика"
+  },
+  {
+    "p": "admin.nav.payouts",
+    "uz": "Komissiya hisobi",
+    "ru": "Учёт комиссии"
+  },
+  {
+    "p": "admin.nav.categories",
+    "uz": "Toifalar",
+    "ru": "Категории"
+  },
+  {
+    "p": "admin.nav.banners",
+    "uz": "Bannerlar",
+    "ru": "Баннеры"
+  },
+  {
+    "p": "admin.nav.settings",
+    "uz": "Platforma sozlamalari",
+    "ru": "Настройки платформы"
+  },
+  {
+    "p": "admin.common.platform",
+    "uz": "Platforma",
+    "ru": "Платформа"
+  },
+  {
+    "p": "admin.common.prev",
+    "uz": "Oldingi",
+    "ru": "Назад"
+  },
+  {
+    "p": "admin.common.next",
+    "uz": "Keyingi",
+    "ru": "Вперёд"
+  },
+  {
+    "p": "admin.common.pageOf",
+    "uz": "Sahifa {{current}} / {{total}}",
+    "ru": "Страница {{current}} / {{total}}"
+  },
+  {
+    "p": "admin.common.pageSlash",
+    "uz": "{{current}} / {{total}}",
+    "ru": "{{current}} / {{total}}"
+  },
+  {
+    "p": "admin.common.totalWithCount",
+    "uz": "Jami: {{total}}.",
+    "ru": "Всего: {{total}}."
+  },
+  {
+    "p": "admin.common.actionFailed",
+    "uz": "Amal bajarilmadi",
+    "ru": "Операция не выполнена"
+  },
+  {
+    "p": "admin.common.roleSaveFailed",
+    "uz": "Rol saqlanmadi",
+    "ru": "Не удалось сохранить роль"
+  },
+  {
+    "p": "admin.common.saveFailed",
+    "uz": "Saqlanmadi",
+    "ru": "Не удалось сохранить"
+  },
+  {
+    "p": "admin.common.errorGeneric",
+    "uz": "Xatolik yuz berdi",
+    "ru": "Произошла ошибка"
+  },
+  {
+    "p": "admin.common.apiConnectError",
+    "uz": "API ga ulanishda xatolik. Serverni ishga tushiring (pnpm run dev).",
+    "ru": "Ошибка подключения к API. Запустите сервер (pnpm run dev)."
+  },
+  {
+    "p": "admin.common.apiConnectShort",
+    "uz": "API ga ulanishda xatolik.",
+    "ru": "Ошибка подключения к API."
+  },
+  {
+    "p": "admin.common.saveErrorHint",
+    "uz": "Saqlashda xatolik. API ishlayotganini tekshiring.",
+    "ru": "Ошибка сохранения. Проверьте, что API доступен."
+  },
+  {
+    "p": "admin.common.dash",
+    "uz": "—",
+    "ru": "—"
+  },
+  {
+    "p": "admin.common.yes",
+    "uz": "Ha",
+    "ru": "Да"
+  },
+  {
+    "p": "admin.common.no",
+    "uz": "Yoʻq",
+    "ru": "Нет"
+  },
+  {
+    "p": "admin.common.telegram",
+    "uz": "Telegram",
+    "ru": "Telegram"
+  },
+  {
+    "p": "admin.common.blocked",
+    "uz": "Bloklangan",
+    "ru": "Заблокирован"
+  },
+  {
+    "p": "admin.common.currencySuffix",
+    "uz": "{{amount}} {{currency}}",
+    "ru": "{{amount}} {{currency}}"
+  },
+  {
+    "p": "admin.common.amountSom",
+    "uz": "{{amount}} soʻm",
+    "ru": "{{amount}} сум"
+  },
+  {
+    "p": "admin.ui.all",
+    "uz": "Barchasi",
+    "ru": "Все"
+  },
+  {
+    "p": "admin.ui.pending",
+    "uz": "Kutilmoqda",
+    "ru": "Ожидает"
+  },
+  {
+    "p": "admin.ui.approved",
+    "uz": "Tasdiqlangan",
+    "ru": "Одобрено"
+  },
+  {
+    "p": "admin.ui.approve",
+    "uz": "Tasdiqlash",
+    "ru": "Одобрить"
+  },
+  {
+    "p": "admin.ui.reject",
+    "uz": "Rad etish",
+    "ru": "Отклонить"
+  },
+  {
+    "p": "admin.ui.save",
+    "uz": "Saqlash",
+    "ru": "Сохранить"
+  },
+  {
+    "p": "admin.ui.cancel",
+    "uz": "Bekor qilish",
+    "ru": "Отмена"
+  },
+  {
+    "p": "admin.ui.saving",
+    "uz": "Saqlanmoqda…",
+    "ru": "Сохранение…"
+  },
+  {
+    "p": "admin.ui.linking",
+    "uz": "Ulanmoqda...",
+    "ru": "Подключение..."
+  },
+  {
+    "p": "admin.ui.unlink",
+    "uz": "Uzish",
+    "ru": "Отключить"
+  },
+  {
+    "p": "admin.ui.link",
+    "uz": "Ulash",
+    "ru": "Подключить"
+  },
+  {
+    "p": "admin.ui.delete",
+    "uz": "Oʻchirish",
+    "ru": "Удалить"
+  },
+  {
+    "p": "admin.ui.view",
+    "uz": "Koʻrish",
+    "ru": "Просмотр"
+  },
+  {
+    "p": "admin.ui.seeArrow",
+    "uz": "Koʻrish →",
+    "ru": "Смотреть →"
+  },
+  {
+    "p": "admin.ui.profile",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "admin.ui.open",
+    "uz": "Ochish",
+    "ru": "Открыть"
+  },
+  {
+    "p": "admin.ui.block",
+    "uz": "Bloklash",
+    "ru": "Заблокировать"
+  },
+  {
+    "p": "admin.ui.unblock",
+    "uz": "Blokdan chiqarish",
+    "ru": "Снять блокировку"
+  },
+  {
+    "p": "admin.ui.homeLink",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "admin.ui.backToUsers",
+    "uz": "Roʻyxatga qaytish",
+    "ru": "К списку"
+  },
+  {
+    "p": "admin.ui.usersList",
+    "uz": "Foydalanuvchilar",
+    "ru": "Пользователи"
+  },
+  {
+    "p": "admin.ui.notFound",
+    "uz": "Topilmadi",
+    "ru": "Не найдено"
+  },
+  {
+    "p": "admin.ui.code",
+    "uz": "Kod",
+    "ru": "Код"
+  },
+  {
+    "p": "admin.ui.optional",
+    "uz": "Ixtiyoriy",
+    "ru": "Необязательно"
+  },
+  {
+    "p": "admin.ui.name",
+    "uz": "Nomi",
+    "ru": "Название"
+  },
+  {
+    "p": "admin.ui.slug",
+    "uz": "Slug",
+    "ru": "Slug"
+  },
+  {
+    "p": "admin.ui.description",
+    "uz": "Tavsif",
+    "ru": "Описание"
+  },
+  {
+    "p": "admin.ui.add",
+    "uz": "Qoʻshish",
+    "ru": "Добавить"
+  },
+  {
+    "p": "admin.ui.howItWorks",
+    "uz": "Qanday ishlaydi",
+    "ru": "Как это работает"
+  },
+  {
+    "p": "admin.ui.total",
+    "uz": "Jami",
+    "ru": "Итого"
+  },
+  {
+    "p": "admin.ui.seller",
+    "uz": "Sotuvchi",
+    "ru": "Продавец"
+  },
+  {
+    "p": "admin.ui.orders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "admin.ui.sales",
+    "uz": "Savdolar",
+    "ru": "Продажи"
+  },
+  {
+    "p": "admin.ui.commission",
+    "uz": "Komissiya",
+    "ru": "Комиссия"
+  },
+  {
+    "p": "admin.ui.recordPayment",
+    "uz": "Qayd etish",
+    "ru": "Записать платёж"
+  },
+  {
+    "p": "admin.ui.paid",
+    "uz": "Toʻlangan",
+    "ru": "Оплачено"
+  },
+  {
+    "p": "admin.ui.paidStatus",
+    "uz": "Toʻlandi",
+    "ru": "Оплачено"
+  },
+  {
+    "p": "admin.ui.balance",
+    "uz": "Qoldiq",
+    "ru": "Остаток"
+  },
+  {
+    "p": "admin.ui.date",
+    "uz": "Sana",
+    "ru": "Дата"
+  },
+  {
+    "p": "admin.ui.note",
+    "uz": "Izoh (ixtiyoriy)",
+    "ru": "Комментарий (необязательно)"
+  },
+  {
+    "p": "admin.ui.amountSomLabel",
+    "uz": "Summa (soʻm)",
+    "ru": "Сумма (сум)"
+  },
+  {
+    "p": "admin.ui.paymentMethod",
+    "uz": "Toʻlov usuli",
+    "ru": "Способ оплаты"
+  },
+  {
+    "p": "admin.ui.cash",
+    "uz": "Naqd",
+    "ru": "Наличные"
+  },
+  {
+    "p": "admin.ui.card",
+    "uz": "Karta",
+    "ru": "Карта"
+  },
+  {
+    "p": "admin.ui.recordTitle",
+    "uz": "Komissiya qabul qilindi",
+    "ru": "Комиссия получена"
+  },
+  {
+    "p": "admin.ui.uploadPhoto",
+    "uz": "Foto yuklash",
+    "ru": "Загрузить фото"
+  },
+  {
+    "p": "admin.ui.uploading",
+    "uz": "Yuklanmoqda…",
+    "ru": "Загрузка…"
+  },
+  {
+    "p": "admin.ui.orUrl",
+    "uz": "yoki URL",
+    "ru": "или URL"
+  },
+  {
+    "p": "admin.ui.legalInfo",
+    "uz": "Yuridik maʼlumotlar",
+    "ru": "Юридические данные"
+  },
+  {
+    "p": "admin.ui.form",
+    "uz": "Shakl",
+    "ru": "Форма"
+  },
+  {
+    "p": "admin.ui.fullName",
+    "uz": "Toʻliq nomi",
+    "ru": "Полное наименование"
+  },
+  {
+    "p": "admin.ui.documentsCount",
+    "uz": "Hujjatlar: {{count}} ta",
+    "ru": "Документов: {{count}}"
+  },
+  {
+    "p": "admin.ui.reason",
+    "uz": "Sabab",
+    "ru": "Причина"
+  },
+  {
+    "p": "admin.ui.messageLabel",
+    "uz": "Xabar",
+    "ru": "Сообщение"
+  },
+  {
+    "p": "admin.ui.rejectPlaceholder",
+    "uz": "Rad etish sababi (ixtiyoriy)",
+    "ru": "Причина отклонения (необязательно)"
+  },
+  {
+    "p": "admin.ui.current",
+    "uz": "Hozirgi",
+    "ru": "Сейчас"
+  },
+  {
+    "p": "admin.ui.requested",
+    "uz": "So‘ralgan",
+    "ru": "Запрошено"
+  },
+  {
+    "p": "admin.ui.sellerLine",
+    "uz": "Sotuvchi: {{firstName}} {{lastName}} — {{email}}",
+    "ru": "Продавец: {{firstName}} {{lastName}} — {{email}}"
+  },
+  {
+    "p": "admin.ui.shopNow",
+    "uz": "Hozirgi: «{{name}}» (slug: {{slug}})",
+    "ru": "Сейчас: «{{name}}» (slug: {{slug}})"
+  },
+  {
+    "p": "admin.ui.shopRequested",
+    "uz": "So‘ralgan: «{{name}}» (slug: {{slug}})",
+    "ru": "Запрошено: «{{name}}» (slug: {{slug}})"
+  },
+  {
+    "p": "admin.ui.descriptionLine",
+    "uz": "Tavsif: {{text}}",
+    "ru": "Описание: {{text}}"
+  },
+  {
+    "p": "admin.ui.ip",
+    "uz": "ИП",
+    "ru": "ИП"
+  },
+  {
+    "p": "admin.ui.ooo",
+    "uz": "ООО",
+    "ru": "ООО"
+  },
+  {
+    "p": "admin.ui.legalType",
+    "uz": "Shakl",
+    "ru": "Форма"
+  },
+  {
+    "p": "admin.ui.ogrn",
+    "uz": "OGRN",
+    "ru": "ОГРН"
+  },
+  {
+    "p": "admin.ui.inn",
+    "uz": "INN",
+    "ru": "ИНН"
+  },
+  {
+    "p": "admin.ui.approveChanges",
+    "uz": "O‘zgarishlar qabul qilindi",
+    "ru": "Изменения приняты"
+  },
+  {
+    "p": "admin.ui.rejectRequest",
+    "uz": "So‘rov rad etildi",
+    "ru": "Запрос отклонён"
+  },
+  {
+    "p": "admin.ui.applicationApproved",
+    "uz": "Ariza qabul qilindi",
+    "ru": "Заявка одобрена"
+  },
+  {
+    "p": "admin.ui.applicationRejected",
+    "uz": "Ariza rad etildi",
+    "ru": "Заявка отклонена"
+  },
+  {
+    "p": "admin.ui.productApproved",
+    "uz": "Tovar tasdiqlandi",
+    "ru": "Товар одобрен"
+  },
+  {
+    "p": "admin.ui.productRejected",
+    "uz": "Tovar rad etildi",
+    "ru": "Товар отклонён"
+  },
+  {
+    "p": "admin.ui.reviewApproved",
+    "uz": "Sharh tasdiqlandi",
+    "ru": "Отзыв одобрен"
+  },
+  {
+    "p": "admin.ui.reviewRejected",
+    "uz": "Sharh rad etildi",
+    "ru": "Отзыв отклонён"
+  },
+  {
+    "p": "admin.ui.reviewDeleted",
+    "uz": "Sharh oʻchirildi",
+    "ru": "Отзыв удалён"
+  },
+  {
+    "p": "admin.ui.deleteFailed",
+    "uz": "Oʻchirib boʻlmadi",
+    "ru": "Не удалось удалить"
+  },
+  {
+    "p": "admin.ui.userBlocked",
+    "uz": "Foydalanuvchi bloklandi",
+    "ru": "Пользователь заблокирован"
+  }
+]

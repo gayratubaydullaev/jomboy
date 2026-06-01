@@ -1,0 +1,1002 @@
+[
+  {
+    "p": "header.networkError",
+    "uz": "Tarmoq xatosi. Qayta urinib koʻring.",
+    "ru": "Ошибка сети. Попробуйте снова."
+  },
+  {
+    "p": "header.logoAria",
+    "uz": "{{siteName}} — bosh sahifa",
+    "ru": "{{siteName}} — главная"
+  },
+  {
+    "p": "footer.rights",
+    "uz": "© {{year}} {{siteName}}. Barcha huquqlar himoyalangan.",
+    "ru": "© {{year}} {{siteName}}. Все права защищены."
+  },
+  {
+    "p": "footer.shop",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "footer.forBuyers",
+    "uz": "Xaridorlar uchun",
+    "ru": "Покупателям"
+  },
+  {
+    "p": "footer.help",
+    "uz": "Yordam",
+    "ru": "Помощь"
+  },
+  {
+    "p": "footer.account",
+    "uz": "Hisob",
+    "ru": "Аккаунт"
+  },
+  {
+    "p": "footer.catalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "footer.lowPrices",
+    "uz": "Arzon narxlarda",
+    "ru": "Низкие цены"
+  },
+  {
+    "p": "footer.cart",
+    "uz": "Savatcha",
+    "ru": "Корзина"
+  },
+  {
+    "p": "footer.favorites",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "footer.profile",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "footer.delivery",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "footer.paymentMethods",
+    "uz": "Toʻlov usullari",
+    "ru": "Способы оплаты"
+  },
+  {
+    "p": "footer.cookiePolicy",
+    "uz": "Cookie siyosati",
+    "ru": "Политика cookie"
+  },
+  {
+    "p": "footer.contact",
+    "uz": "Aloqa",
+    "ru": "Контакты"
+  },
+  {
+    "p": "footer.register",
+    "uz": "Roʻyxatdan oʻtish",
+    "ru": "Регистрация"
+  },
+  {
+    "p": "footer.becomeSeller",
+    "uz": "Sotuvchi boʻlish",
+    "ru": "Стать продавцом"
+  },
+  {
+    "p": "nav.main",
+    "uz": "Asosiy navigatsiya",
+    "ru": "Основная навигация"
+  },
+  {
+    "p": "nav.home",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "nav.catalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "nav.cart",
+    "uz": "Savatcha",
+    "ru": "Корзина"
+  },
+  {
+    "p": "nav.favorites",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "nav.profile",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "nav.back",
+    "uz": "Orqaga",
+    "ru": "Назад"
+  },
+  {
+    "p": "nav.close",
+    "uz": "Yopish",
+    "ru": "Закрыть"
+  },
+  {
+    "p": "cookie.dialogAria",
+    "uz": "Cookie xabarnoma",
+    "ru": "Уведомление о cookie"
+  },
+  {
+    "p": "cookie.intro",
+    "uz": "Sayt savatcha, tizimga kirish va xavfsizlik uchun ",
+    "ru": "Сайт использует "
+  },
+  {
+    "p": "cookie.cookieWord",
+    "uz": "cookie",
+    "ru": "cookie"
+  },
+  {
+    "p": "cookie.afterCookie",
+    "uz": " (kuki) foydalanadi. ",
+    "ru": " для корзины, входа и безопасности. "
+  },
+  {
+    "p": "cookie.details",
+    "uz": "Batafsil",
+    "ru": "Подробнее"
+  },
+  {
+    "p": "cookie.outro",
+    "uz": "Davom etish orqali siz buni qabul qilasiz.",
+    "ru": "Продолжая, вы это принимаете."
+  },
+  {
+    "p": "cookie.accept",
+    "uz": "Tushundim",
+    "ru": "Понятно"
+  },
+  {
+    "p": "language.label",
+    "uz": "Til",
+    "ru": "Язык"
+  },
+  {
+    "p": "language.uz",
+    "uz": "Oʻzbekcha",
+    "ru": "Oʻzbekcha"
+  },
+  {
+    "p": "language.ru",
+    "uz": "Русский",
+    "ru": "Русский"
+  },
+  {
+    "p": "home.emptyTitle",
+    "uz": "Hozircha mahsulotlar yoʻq",
+    "ru": "Пока нет товаров"
+  },
+  {
+    "p": "home.goToCatalog",
+    "uz": "Katalogga",
+    "ru": "В каталог"
+  },
+  {
+    "p": "home.loadError",
+    "uz": "Mahsulotlarni yuklab boʻlmadi.",
+    "ru": "Не удалось загрузить товары."
+  },
+  {
+    "p": "common.retry",
+    "uz": "Qayta urinish",
+    "ru": "Повторить"
+  },
+  {
+    "p": "auth.passwordShow",
+    "uz": "Parolni koʻrsatish",
+    "ru": "Показать пароль"
+  },
+  {
+    "p": "auth.passwordHide",
+    "uz": "Parolni yashirish",
+    "ru": "Скрыть пароль"
+  },
+  {
+    "p": "auth.login.metaTitle",
+    "uz": "Kirish",
+    "ru": "Вход"
+  },
+  {
+    "p": "auth.login.metaDescription",
+    "uz": "Hisobingizga kiring",
+    "ru": "Войдите в аккаунт"
+  },
+  {
+    "p": "auth.login.title",
+    "uz": "Tizimga kirish",
+    "ru": "Вход"
+  },
+  {
+    "p": "auth.login.description",
+    "uz": "Email va parolingizni kiriting",
+    "ru": "Введите email и пароль"
+  },
+  {
+    "p": "auth.login.reasonFavorites",
+    "uz": "Sevimlilarga qoʻshish uchun tizimga kiring",
+    "ru": "Войдите, чтобы добавить в избранное"
+  },
+  {
+    "p": "auth.login.reasonCheckout",
+    "uz": "Buyurtma berish uchun tizimga kiring",
+    "ru": "Войдите, чтобы оформить заказ"
+  },
+  {
+    "p": "auth.login.telegramSection",
+    "uz": "Telegram bot orqali",
+    "ru": "Через Telegram-бота"
+  },
+  {
+    "p": "auth.login.telegramButton",
+    "uz": "Telegram orqali kirish",
+    "ru": "Войти через Telegram"
+  },
+  {
+    "p": "auth.login.telegramWaiting",
+    "uz": "Telegramda Start bosing, keyin shu oynaga qayting…",
+    "ru": "Нажмите Start в Telegram, затем вернитесь в это окно…"
+  },
+  {
+    "p": "auth.login.telegramNotConfigured",
+    "uz": "Telegram kirish sozlanmagan.",
+    "ru": "Вход через Telegram не настроен."
+  },
+  {
+    "p": "auth.login.telegramNotConfiguredHint",
+    "uz": "Telegram kirish sozlanmagan. (Server sozlamalarini tekshiring.)",
+    "ru": "Вход через Telegram не настроен. (Проверьте настройки сервера.)"
+  },
+  {
+    "p": "auth.login.telegramTimeout",
+    "uz": "Vaqt tugadi. Qayta urinib koʻring.",
+    "ru": "Время вышло. Попробуйте снова."
+  },
+  {
+    "p": "auth.login.serverError",
+    "uz": "Serverga ulanishda xatolik.",
+    "ru": "Ошибка подключения к серверу."
+  },
+  {
+    "p": "auth.login.invalidCredentials",
+    "uz": "Email yoki parol notoʻgʻri.",
+    "ru": "Неверный email или пароль."
+  },
+  {
+    "p": "auth.login.dividerEmail",
+    "uz": "yoki email bilan",
+    "ru": "или по email"
+  },
+  {
+    "p": "auth.login.labelEmail",
+    "uz": "Email",
+    "ru": "Email"
+  },
+  {
+    "p": "auth.login.placeholderEmail",
+    "uz": "ism@example.com",
+    "ru": "name@example.com"
+  },
+  {
+    "p": "auth.login.placeholderPassword",
+    "uz": "••••••••",
+    "ru": "••••••••"
+  },
+  {
+    "p": "auth.login.labelPassword",
+    "uz": "Parol",
+    "ru": "Пароль"
+  },
+  {
+    "p": "auth.login.submit",
+    "uz": "Kirish",
+    "ru": "Войти"
+  },
+  {
+    "p": "auth.login.submitLoading",
+    "uz": "Kiritilmoqda...",
+    "ru": "Вход…"
+  },
+  {
+    "p": "auth.login.noAccount",
+    "uz": "Hisobingiz yoʻqmi?",
+    "ru": "Нет аккаунта?"
+  },
+  {
+    "p": "auth.login.registerLink",
+    "uz": "Roʻyxatdan oʻtish",
+    "ru": "Регистрация"
+  },
+  {
+    "p": "auth.register.metaTitle",
+    "uz": "Roʻyxatdan oʻtish",
+    "ru": "Регистрация"
+  },
+  {
+    "p": "auth.register.metaDescription",
+    "uz": "Yangi hisob yarating",
+    "ru": "Создайте новый аккаунт"
+  },
+  {
+    "p": "auth.register.title",
+    "uz": "Roʻyxatdan oʻtish",
+    "ru": "Регистрация"
+  },
+  {
+    "p": "auth.register.firstName",
+    "uz": "Ism",
+    "ru": "Имя"
+  },
+  {
+    "p": "auth.register.lastName",
+    "uz": "Familiya",
+    "ru": "Фамилия"
+  },
+  {
+    "p": "auth.register.email",
+    "uz": "Email",
+    "ru": "Email"
+  },
+  {
+    "p": "auth.register.passwordPlaceholder",
+    "uz": "Parol (kamida 8 belgi)",
+    "ru": "Пароль (не менее 8 символов)"
+  },
+  {
+    "p": "auth.register.passwordConfirm",
+    "uz": "Parolni takrorlang",
+    "ru": "Повторите пароль"
+  },
+  {
+    "p": "auth.register.submit",
+    "uz": "Roʻyxatdan oʻtish",
+    "ru": "Зарегистрироваться"
+  },
+  {
+    "p": "auth.register.submitLoading",
+    "uz": "Yuborilmoqda...",
+    "ru": "Отправка…"
+  },
+  {
+    "p": "auth.register.hasAccount",
+    "uz": "Hisobingiz bormi?",
+    "ru": "Уже есть аккаунт?"
+  },
+  {
+    "p": "auth.register.loginLink",
+    "uz": "Kirish",
+    "ru": "Войти"
+  },
+  {
+    "p": "catalog.metaTitle",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "catalog.metaDescription",
+    "uz": "Barcha mahsulotlar",
+    "ru": "Все товары"
+  },
+  {
+    "p": "catalog.filterCategory",
+    "uz": "Kategoriya",
+    "ru": "Категория"
+  },
+  {
+    "p": "catalog.filterAll",
+    "uz": "Barchasi",
+    "ru": "Все"
+  },
+  {
+    "p": "catalog.filterPrice",
+    "uz": "Narx (soʻm)",
+    "ru": "Цена (сум)"
+  },
+  {
+    "p": "catalog.placeholderMin",
+    "uz": "Min",
+    "ru": "Мин"
+  },
+  {
+    "p": "catalog.placeholderMax",
+    "uz": "Max",
+    "ru": "Макс"
+  },
+  {
+    "p": "catalog.sortLabel",
+    "uz": "Saralash",
+    "ru": "Сортировка"
+  },
+  {
+    "p": "catalog.sortRelevance",
+    "uz": "Relevansiya",
+    "ru": "По релевантности"
+  },
+  {
+    "p": "catalog.sortNew",
+    "uz": "Yangi",
+    "ru": "Сначала новые"
+  },
+  {
+    "p": "catalog.sortPrice",
+    "uz": "Narx",
+    "ru": "Цена"
+  },
+  {
+    "p": "catalog.breadcrumbCatalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "catalog.shopNoDescription",
+    "uz": "Maʼlumot kiritilmagan.",
+    "ru": "Описание не указано."
+  },
+  {
+    "p": "catalog.shopLegalTitle",
+    "uz": "Yuridik maʼlumotlar",
+    "ru": "Юридические данные"
+  },
+  {
+    "p": "catalog.shopLegalForm",
+    "uz": "Shakl:",
+    "ru": "Форма:"
+  },
+  {
+    "p": "catalog.shopLegalFormIp",
+    "uz": "ИП (Yakka tadbirkor)",
+    "ru": "ИП"
+  },
+  {
+    "p": "catalog.shopLegalFormOoo",
+    "uz": "ООО (MChJ)",
+    "ru": "ООО"
+  },
+  {
+    "p": "catalog.shopLegalName",
+    "uz": "Toʻliq nomi:",
+    "ru": "Полное наименование:"
+  },
+  {
+    "p": "catalog.shopLegalOgrn",
+    "uz": "OGRN:",
+    "ru": "ОГРН:"
+  },
+  {
+    "p": "catalog.shopLegalInn",
+    "uz": "INN:",
+    "ru": "ИНН:"
+  },
+  {
+    "p": "catalog.shopHint",
+    "uz": "Siz ushbu doʻkon tovarlarini koʻrib chiqyapsiz. Barcha tovarlar uchun katalogda filterni tozalang.",
+    "ru": "Вы просматриваете товары этого магазина. Чтобы увидеть все товары, сбросьте фильтры в каталоге."
+  },
+  {
+    "p": "catalog.emptyNoProducts",
+    "uz": "Hozircha mahsulotlar yoʻq",
+    "ru": "Пока нет товаров"
+  },
+  {
+    "p": "catalog.emptySearch",
+    "uz": "Qidiruv boʻyicha hech narsa topilmadi. Boshqa soʻzlar bilan urinib koʻring.",
+    "ru": "По запросу ничего не найдено. Попробуйте другие слова."
+  },
+  {
+    "p": "catalog.goToCatalog",
+    "uz": "Katalogga",
+    "ru": "В каталог"
+  },
+  {
+    "p": "catalog.loadError",
+    "uz": "Katalogni yuklab boʻlmadi. Qayta urinib koʻring.",
+    "ru": "Не удалось загрузить каталог. Попробуйте снова."
+  },
+  {
+    "p": "cart.metaTitle",
+    "uz": "Savatcha",
+    "ru": "Корзина"
+  },
+  {
+    "p": "cart.backToCatalog",
+    "uz": "← Katalog",
+    "ru": "← Каталог"
+  },
+  {
+    "p": "cart.title",
+    "uz": "Savatcha",
+    "ru": "Корзина"
+  },
+  {
+    "p": "cart.empty",
+    "uz": "Savatcha boʻsh",
+    "ru": "Корзина пуста"
+  },
+  {
+    "p": "cart.goToCatalog",
+    "uz": "Katalogga oʻtish",
+    "ru": "Перейти в каталог"
+  },
+  {
+    "p": "cart.stockBanner",
+    "uz": "Baʼzi mahsulotlar tugagan yoki soʻralgan miqdorda mavjud emas. Savatni yangilang yoki buyurtma berishdan oldin miqdorni kamaytiring.",
+    "ru": "Некоторых товаров нет в наличии или недостаточно выбранного количества. Обновите корзину или уменьшите количество перед заказом."
+  },
+  {
+    "p": "cart.outOfStock",
+    "uz": "Mahsulot tugadi",
+    "ru": "Нет в наличии"
+  },
+  {
+    "p": "cart.onlyAvailable",
+    "uz": "Faqat {{count}} ta mavjud",
+    "ru": "Доступно только {{count}} шт."
+  },
+  {
+    "p": "cart.removeTitle",
+    "uz": "Savatchadan olib tashlash",
+    "ru": "Удалить из корзины"
+  },
+  {
+    "p": "cart.remove",
+    "uz": "Olib tashlash",
+    "ru": "Удалить"
+  },
+  {
+    "p": "cart.total",
+    "uz": "Jami:",
+    "ru": "Итого:"
+  },
+  {
+    "p": "cart.checkoutDisabled",
+    "uz": "Savatchani yangilang (mahsulot tugadi)",
+    "ru": "Обновите корзину (нет в наличии)"
+  },
+  {
+    "p": "cart.checkout",
+    "uz": "Buyurtma berish",
+    "ru": "Оформить заказ"
+  },
+  {
+    "p": "checkout.metaTitle",
+    "uz": "Buyurtma",
+    "ru": "Заказ"
+  },
+  {
+    "p": "checkout.backToCart",
+    "uz": "← Savatcha",
+    "ru": "← Корзина"
+  },
+  {
+    "p": "checkout.title",
+    "uz": "Buyurtma berish",
+    "ru": "Оформление заказа"
+  },
+  {
+    "p": "checkout.errorGeneric",
+    "uz": "Xatolik",
+    "ru": "Ошибка"
+  },
+  {
+    "p": "checkout.error502",
+    "uz": "Serverni tekshiring. Qayta urinib koʻring.",
+    "ru": "Проверьте сервер и попробуйте снова."
+  },
+  {
+    "p": "checkout.phonePlaceholder",
+    "uz": "+998 90 123 45 67",
+    "ru": "+998 90 123 45 67"
+  },
+  {
+    "p": "checkout.emailPlaceholder",
+    "uz": "email@example.com",
+    "ru": "email@example.com"
+  },
+  {
+    "p": "checkout.singleShopPaymentHint",
+    "uz": "Click va Payme faqat bitta doʻkondan buyurtma uchun. Naqd yoki karta bilan toʻlang yoki savatni bitta doʻkonga qisqartiring.",
+    "ru": "Click и Payme только для заказа из одного магазина. Выберите оплату при получении или сократите корзину до одного магазина."
+  },
+  {
+    "p": "checkout.errorEmptyCart",
+    "uz": "Savat boʻsh boʻlishi yoki maʼlumotlar xato. Savatni tekshiring va qayta urinib koʻring.",
+    "ru": "Корзина пуста или данные неверны. Проверьте корзину и попробуйте снова."
+  },
+  {
+    "p": "checkout.stockWarning",
+    "uz": "Baʼzi mahsulotlar tugagan yoki yetarli miqdorda mavjud emas. Savat sahifasiga oʻtib miqdorni yangilang yoki mahsulotni olib tashlang.",
+    "ru": "Некоторых товаров нет в наличии или недостаточно количества. Перейдите в корзину, обновите количество или удалите товар."
+  },
+  {
+    "p": "checkout.deliveryMethodTitle",
+    "uz": "Yetkazib berish usuli",
+    "ru": "Способ получения"
+  },
+  {
+    "p": "checkout.deliveryDelivery",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "checkout.deliveryPickup",
+    "uz": "Oʻzim olib ketaman",
+    "ru": "Самовывоз"
+  },
+  {
+    "p": "checkout.addressTitleDelivery",
+    "uz": "Yetkazib berish manzili",
+    "ru": "Адрес доставки"
+  },
+  {
+    "p": "checkout.addressTitlePickup",
+    "uz": "Aloqa maʼlumotlari",
+    "ru": "Контактные данные"
+  },
+  {
+    "p": "checkout.hintDeliveryFields",
+    "uz": "Shahar, koʻcha va uy raqami majburiy. Telefon ham kiritilishi shart.",
+    "ru": "Город, улица и дом обязательны. Телефон тоже обязателен."
+  },
+  {
+    "p": "checkout.hintPickupPhone",
+    "uz": "Aloqa uchun telefon raqamini kiriting.",
+    "ru": "Введите номер телефона для связи."
+  },
+  {
+    "p": "checkout.city",
+    "uz": "Shahar *",
+    "ru": "Город *"
+  },
+  {
+    "p": "checkout.cityPlaceholder",
+    "uz": "Shahar",
+    "ru": "Город"
+  },
+  {
+    "p": "checkout.district",
+    "uz": "Tuman va mahalla",
+    "ru": "Район и квартал"
+  },
+  {
+    "p": "checkout.districtPlaceholder",
+    "uz": "Tuman va mahalla",
+    "ru": "Район и квартал"
+  },
+  {
+    "p": "checkout.street",
+    "uz": "Koʻcha *",
+    "ru": "Улица *"
+  },
+  {
+    "p": "checkout.streetPlaceholder",
+    "uz": "Koʻcha",
+    "ru": "Улица"
+  },
+  {
+    "p": "checkout.house",
+    "uz": "Uy *",
+    "ru": "Дом *"
+  },
+  {
+    "p": "checkout.housePlaceholder",
+    "uz": "Uy raqami",
+    "ru": "Номер дома"
+  },
+  {
+    "p": "checkout.pickupSummaryTitle",
+    "uz": "Qaysi doʻkondan nimalarni olib ketishingiz:",
+    "ru": "Что забираете и в каком магазине:"
+  },
+  {
+    "p": "checkout.pickupShop",
+    "uz": "Doʻkon:",
+    "ru": "Магазин:"
+  },
+  {
+    "p": "checkout.pickupAddress",
+    "uz": "Manzil:",
+    "ru": "Адрес:"
+  },
+  {
+    "p": "checkout.pickupContactSeller",
+    "uz": "Sotuvchi siz bilan bogʻlanadi",
+    "ru": "Продавец свяжется с вами"
+  },
+  {
+    "p": "checkout.firstNamePickup",
+    "uz": "Ism *",
+    "ru": "Имя *"
+  },
+  {
+    "p": "checkout.firstNameOptional",
+    "uz": "Ism (ixtiyoriy)",
+    "ru": "Имя (необязательно)"
+  },
+  {
+    "p": "checkout.lastNamePickup",
+    "uz": "Familiya *",
+    "ru": "Фамилия *"
+  },
+  {
+    "p": "checkout.lastNameOptional",
+    "uz": "Familiya (ixtiyoriy)",
+    "ru": "Фамилия (необязательно)"
+  },
+  {
+    "p": "checkout.firstNamePlaceholder",
+    "uz": "Ism",
+    "ru": "Имя"
+  },
+  {
+    "p": "checkout.lastNamePlaceholder",
+    "uz": "Familiya",
+    "ru": "Фамилия"
+  },
+  {
+    "p": "checkout.phone",
+    "uz": "Telefon *",
+    "ru": "Телефон *"
+  },
+  {
+    "p": "checkout.email",
+    "uz": "Email (ixtiyoriy)",
+    "ru": "Email (необязательно)"
+  },
+  {
+    "p": "checkout.notes",
+    "uz": "Izoh (ixtiyoriy)",
+    "ru": "Комментарий (необязательно)"
+  },
+  {
+    "p": "checkout.notesPlaceholder",
+    "uz": "Buyurtma haqida qoʻshimcha",
+    "ru": "Дополнительно о заказе"
+  },
+  {
+    "p": "checkout.paymentTitle",
+    "uz": "Toʻlov usuli",
+    "ru": "Способ оплаты"
+  },
+  {
+    "p": "checkout.payCash",
+    "uz": "Naqd",
+    "ru": "Наличные"
+  },
+  {
+    "p": "checkout.payCardOnDelivery",
+    "uz": "Karta (qabul qilishda)",
+    "ru": "Картой при получении"
+  },
+  {
+    "p": "checkout.payClick",
+    "uz": "Click",
+    "ru": "Click"
+  },
+  {
+    "p": "checkout.payPayme",
+    "uz": "Payme",
+    "ru": "Payme"
+  },
+  {
+    "p": "checkout.submitLoading",
+    "uz": "Yuborilmoqda...",
+    "ru": "Отправка..."
+  },
+  {
+    "p": "checkout.submitOutOfStock",
+    "uz": "Savatchani yangilang (mahsulot tugadi)",
+    "ru": "Обновите корзину (нет в наличии)"
+  },
+  {
+    "p": "checkout.submit",
+    "uz": "Buyurtma berish",
+    "ru": "Оформить заказ"
+  },
+  {
+    "p": "checkout.currency",
+    "uz": "soʻm",
+    "ru": "сум"
+  },
+  {
+    "p": "checkoutSuccess.metaTitle",
+    "uz": "Buyurtma qabul qilindi",
+    "ru": "Заказ принят"
+  },
+  {
+    "p": "checkoutSuccess.title",
+    "uz": "Buyurtma qabul qilindi",
+    "ru": "Заказ принят"
+  },
+  {
+    "p": "checkoutSuccess.hintOrders",
+    "uz": "Buyurtmalarim sahifasida koʻrishingiz mumkin.",
+    "ru": "Вы можете посмотреть заказы на странице «Мои заказы»."
+  },
+  {
+    "p": "checkoutSuccess.hintMultiple",
+    "uz": "{{count}} ta buyurtma yaratildi (har bir sotuvchi uchun alohida).",
+    "ru": "Создано заказов: {{count}} (отдельно по каждому продавцу)."
+  },
+  {
+    "p": "checkoutSuccess.shopDefault",
+    "uz": "Doʻkon",
+    "ru": "Магазин"
+  },
+  {
+    "p": "checkoutSuccess.productDefault",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "checkoutSuccess.pickupAddressLabel",
+    "uz": "Olib ketish manzili:",
+    "ru": "Адрес самовывоза:"
+  },
+  {
+    "p": "checkoutSuccess.addressNotShown",
+    "uz": "Manzil koʻrsatilmagan",
+    "ru": "Адрес не указан"
+  },
+  {
+    "p": "checkoutSuccess.pickupSellerWillContact",
+    "uz": "Sotuvchi siz bilan manzil boʻyicha bogʻlanadi.",
+    "ru": "Продавец свяжется с вами по адресу."
+  },
+  {
+    "p": "checkoutSuccess.orderTotal",
+    "uz": "Jami:",
+    "ru": "Итого:"
+  },
+  {
+    "p": "checkoutSuccess.grandTotal",
+    "uz": "Umumiy summa:",
+    "ru": "Общая сумма:"
+  },
+  {
+    "p": "checkoutSuccess.linkSaveOrder",
+    "uz": "Buyurtmani keyinroq koʻrish (havola)",
+    "ru": "Посмотреть заказ позже (ссылка)"
+  },
+  {
+    "p": "checkoutSuccess.linkLookup",
+    "uz": "Keyinroq raqam va telefon orqali koʻrish",
+    "ru": "Позже по номеру и телефону"
+  },
+  {
+    "p": "checkoutSuccess.orders",
+    "uz": "Buyurtmalarim",
+    "ru": "Мои заказы"
+  },
+  {
+    "p": "checkoutSuccess.catalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "checkoutSuccess.footerHintBefore",
+    "uz": "Havolani yoʻqotsangiz, ",
+    "ru": "Если вы потеряли ссылку, на странице "
+  },
+  {
+    "p": "checkoutSuccess.footerHintAfter",
+    "uz": " sahifasida buyurtma raqami va telefon raqamingizni kiritib koʻring.",
+    "ru": " введите номер заказа и телефон."
+  },
+  {
+    "p": "checkoutSuccess.footerLookup",
+    "uz": "Buyurtmani tekshirish",
+    "ru": "Проверка заказа"
+  },
+  {
+    "p": "checkoutSuccess.sessionPending",
+    "uz": "Toʻlov qayta ishlanmoqda, biroz kuting…",
+    "ru": "Платёж обрабатывается, подождите…"
+  },
+  {
+    "p": "checkoutSuccess.loadFailed",
+    "uz": "Buyurtma hali yuklanmadi. «Buyurtmani tekshirish» sahifasida raqam va telefon kiriting.",
+    "ru": "Заказ ещё не загрузился. Проверьте заказ по номеру и телефону."
+  },
+  {
+    "p": "errors.title",
+    "uz": "Xatolik yuz berdi",
+    "ru": "Что-то пошло не так"
+  },
+  {
+    "p": "errors.tryAgain",
+    "uz": "Qayta urinish",
+    "ru": "Повторить"
+  },
+  {
+    "p": "errors.checkoutTitle",
+    "uz": "Buyurtma sahifasida xatolik",
+    "ru": "Ошибка на странице оформления"
+  },
+  {
+    "p": "errors.catalogTitle",
+    "uz": "Katalogni yuklab boʻlmadi",
+    "ru": "Не удалось загрузить каталог"
+  },
+  {
+    "p": "errors.productTitle",
+    "uz": "Mahsulotni yuklab boʻlmadi",
+    "ru": "Не удалось загрузить товар"
+  },
+  {
+    "p": "errors.accountTitle",
+    "uz": "Kabinet sahifasida xatolik",
+    "ru": "Ошибка в личном кабинете"
+  },
+  {
+    "p": "errors.adminTitle",
+    "uz": "Admin panelda xatolik",
+    "ru": "Ошибка в панели администратора"
+  },
+  {
+    "p": "errors.sellerTitle",
+    "uz": "Sotuvchi kabinetida xatolik",
+    "ru": "Ошибка в кабинете продавца"
+  },
+  {
+    "p": "favorites.metaTitle",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "favorites.metaDescription",
+    "uz": "Saqlangan tovarlar",
+    "ru": "Сохранённые товары"
+  },
+  {
+    "p": "favorites.title",
+    "uz": "Sevimlilar",
+    "ru": "Избранное"
+  },
+  {
+    "p": "favorites.emptyPrefix",
+    "uz": "Sevimlilar boʻsh.",
+    "ru": "Избранное пусто."
+  },
+  {
+    "p": "favorites.catalogLink",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "favorites.emptyGuestNote",
+    "uz": " — mehmon sifatida saqlangan sevimlilar shu yerda koʻrinadi.",
+    "ru": " — избранное гостя отображается здесь."
+  },
+  {
+    "p": "favorites.guestBanner",
+    "uz": "Mehmon rejimida. Kirish orqali sevimlilar hisobingizga saqlanadi.",
+    "ru": "Режим гостя. После входа избранное сохранится в аккаунте."
+  },
+  {
+    "p": "favorites.toastAdded",
+    "uz": "Sevimlilarga qoʻshildi",
+    "ru": "Добавлено в избранное"
+  },
+  {
+    "p": "favorites.toastRemoved",
+    "uz": "Sevimlilardan oʻchirildi",
+    "ru": "Удалено из избранного"
+  }
+]

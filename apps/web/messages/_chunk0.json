@@ -1,0 +1,1002 @@
+[
+  {
+    "p": "site.metaTitle",
+    "uz": "{{siteName}} – Doʻkon",
+    "ru": "{{siteName}} – Магазин"
+  },
+  {
+    "p": "site.metaDescription",
+    "uz": "Oʻzbekiston boʻylab xaridlar – {{siteName}} markazida.",
+    "ru": "Покупки по Узбекистану на площадке {{siteName}}."
+  },
+  {
+    "p": "site.ogLocaleUz",
+    "uz": "uz_Latn",
+    "ru": "uz_Latn"
+  },
+  {
+    "p": "site.ogLocaleRu",
+    "uz": "ru_RU",
+    "ru": "ru_RU"
+  },
+  {
+    "p": "site.ogLocaleEn",
+    "uz": "en_US",
+    "ru": "en_US"
+  },
+  {
+    "p": "telegramApp.metaTitle",
+    "uz": "{{siteName}} — Telegram",
+    "ru": "{{siteName}} — Telegram"
+  },
+  {
+    "p": "telegramApp.metaDescription",
+    "uz": "Doʻkon Telegram orqali",
+    "ru": "Магазин через Telegram"
+  },
+  {
+    "p": "telegramApp.title",
+    "uz": "Oline Bozor",
+    "ru": "Oline Bozor"
+  },
+  {
+    "p": "telegramApp.titleWithTelegram",
+    "uz": "Oline Bozor — Telegram",
+    "ru": "Oline Bozor — Telegram"
+  },
+  {
+    "p": "telegramApp.greeting",
+    "uz": "Salom, {{name}}!",
+    "ru": "Привет, {{name}}!"
+  },
+  {
+    "p": "telegramApp.outsideHint",
+    "uz": "Bu sahifa Telegram Mini App sifatida ishlaydi. Bot orqali oching yoki toʻliq saytga oʻting.",
+    "ru": "Эта страница работает как Telegram Mini App. Откройте через бота или перейдите на полный сайт."
+  },
+  {
+    "p": "telegramApp.description",
+    "uz": "Telegram ichida doʻkon. Katalog, savatcha va buyurtmalar — quyidagi tugma orqali toʻliq saytda.",
+    "ru": "Магазин внутри Telegram. Каталог, корзина и заказы — на полном сайте по кнопке ниже."
+  },
+  {
+    "p": "telegramApp.fullSite",
+    "uz": "Toʻliq sayt",
+    "ru": "Полный сайт"
+  },
+  {
+    "p": "telegramApp.openFullSite",
+    "uz": "Toʻliq saytni ochish",
+    "ru": "Открыть полный сайт"
+  },
+  {
+    "p": "telegramApp.catalog",
+    "uz": "Katalog",
+    "ru": "Каталог"
+  },
+  {
+    "p": "telegramApp.lookup",
+    "uz": "Buyurtma",
+    "ru": "Заказ"
+  },
+  {
+    "p": "telegramApp.ordersTitle",
+    "uz": "Buyurtmalarim",
+    "ru": "Мои заказы"
+  },
+  {
+    "p": "telegramApp.ordersLookupCard",
+    "uz": "Buyurtmani topish",
+    "ru": "Найти заказ"
+  },
+  {
+    "p": "telegramApp.ordersLookupHint",
+    "uz": "Buyurtma raqami va telefon orqali holatni tekshiring.",
+    "ru": "Проверьте статус по номеру заказа и телефону."
+  },
+  {
+    "p": "telegramApp.ordersFullSite",
+    "uz": "Barcha buyurtmalar (toʻliq sayt)",
+    "ru": "Все заказы (полный сайт)"
+  },
+  {
+    "p": "telegramApp.profile",
+    "uz": "Profil",
+    "ru": "Профиль"
+  },
+  {
+    "p": "telegramApp.mainButton",
+    "uz": "Toʻliq saytni ochish",
+    "ru": "Открыть полный сайт"
+  },
+  {
+    "p": "pwa.name",
+    "uz": "BozorUZ",
+    "ru": "BozorUZ"
+  },
+  {
+    "p": "pwa.shortName",
+    "uz": "BozorUZ",
+    "ru": "BozorUZ"
+  },
+  {
+    "p": "pwa.description",
+    "uz": "Xaridlar markazi",
+    "ru": "Торговый центр"
+  },
+  {
+    "p": "dashboard.authGate.message",
+    "uz": "Davom etish uchun hisobingizga kiring.",
+    "ru": "Войдите в аккаунт, чтобы продолжить."
+  },
+  {
+    "p": "dashboard.authGate.login",
+    "uz": "Kirish",
+    "ru": "Войти"
+  },
+  {
+    "p": "dashboard.footer.themeLight",
+    "uz": "Yorugʻ rejim",
+    "ru": "Светлая тема"
+  },
+  {
+    "p": "dashboard.footer.themeDark",
+    "uz": "Qorongʻu rejim",
+    "ru": "Тёмная тема"
+  },
+  {
+    "p": "dashboard.footer.themeLoading",
+    "uz": "Mavzu",
+    "ru": "Тема"
+  },
+  {
+    "p": "dashboard.footer.logout",
+    "uz": "Chiqish",
+    "ru": "Выйти"
+  },
+  {
+    "p": "dashboard.notifications.bellAria",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "dashboard.notifications.bellAriaUnread",
+    "uz": "{{count}} ta yangi bildirishnoma",
+    "ru": "{{count}} новых уведомлений"
+  },
+  {
+    "p": "dashboard.notifications.title",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "dashboard.notifications.markAllRead",
+    "uz": "Hammasini oʻqilgan",
+    "ru": "Отметить все прочитанными"
+  },
+  {
+    "p": "dashboard.notifications.empty",
+    "uz": "Bildirishnomalar yoʻq",
+    "ru": "Нет уведомлений"
+  },
+  {
+    "p": "dashboard.notifications.seeAll",
+    "uz": "Barchasi",
+    "ru": "Все"
+  },
+  {
+    "p": "dashboard.notificationsPage.markAllReadLong",
+    "uz": "Hammasini oʻqilgan qilish",
+    "ru": "Отметить все прочитанными"
+  },
+  {
+    "p": "dashboard.notificationsPage.prev",
+    "uz": "Oldingi",
+    "ru": "Назад"
+  },
+  {
+    "p": "dashboard.notificationsPage.next",
+    "uz": "Keyingi",
+    "ru": "Вперёд"
+  },
+  {
+    "p": "dashboard.notificationsPage.pageOf",
+    "uz": "Sahifa {{page}} / {{totalPages}}",
+    "ru": "Страница {{page}} из {{totalPages}}"
+  },
+  {
+    "p": "dashboard.notificationsPage.emptyTitle",
+    "uz": "Bildirishnomalar yoʻq",
+    "ru": "Нет уведомлений"
+  },
+  {
+    "p": "dashboard.notificationsPage.emptyDescription",
+    "uz": "Yangi hodisalar paydo boʻlganda ular shu yerda chiqadi.",
+    "ru": "Когда появятся события, они отобразятся здесь."
+  },
+  {
+    "p": "dashboard.notificationsPage.totalSuffix",
+    "uz": "Jami: {{total}}.",
+    "ru": "Всего: {{total}}."
+  },
+  {
+    "p": "dashboard.notificationsPage.defaultEyebrow",
+    "uz": "Boshqaruv paneli",
+    "ru": "Панель"
+  },
+  {
+    "p": "dashboard.notificationsPage.defaultTitle",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "dashboard.notificationsPage.defaultDescription",
+    "uz": "Tizim va buyurtmalar boʻyicha xabarnomalar.",
+    "ru": "Уведомления о системе и заказах."
+  },
+  {
+    "p": "seller.metaTitle",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.metaDescription",
+    "uz": "Tovarlar va buyurtmalar",
+    "ru": "Товары и заказы"
+  },
+  {
+    "p": "seller.nav.backToSite",
+    "uz": "Saytga qaytish",
+    "ru": "На сайт"
+  },
+  {
+    "p": "seller.nav.viewShop",
+    "uz": "Doʻkonimni koʻrish",
+    "ru": "Мой магазин"
+  },
+  {
+    "p": "seller.nav.management",
+    "uz": "Boshqaruv",
+    "ru": "Управление"
+  },
+  {
+    "p": "seller.nav.settingsSection",
+    "uz": "Sozlamalar",
+    "ru": "Настройки"
+  },
+  {
+    "p": "seller.nav.messages",
+    "uz": "Xabarlar",
+    "ru": "Сообщения"
+  },
+  {
+    "p": "seller.nav.home",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "seller.nav.notifications",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "seller.nav.products",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "seller.nav.orders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "seller.nav.reviews",
+    "uz": "Sharhlar",
+    "ru": "Отзывы"
+  },
+  {
+    "p": "seller.nav.stats",
+    "uz": "Statistika",
+    "ru": "Статистика"
+  },
+  {
+    "p": "seller.nav.shopSettings",
+    "uz": "Doʻkon sozlamalari",
+    "ru": "Настройки магазина"
+  },
+  {
+    "p": "seller.nav.panelTitle",
+    "uz": "Sotuvchi panel",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.nav.openMenu",
+    "uz": "Menyuni ochish",
+    "ru": "Открыть меню"
+  },
+  {
+    "p": "seller.nav.closeMenu",
+    "uz": "Menyuni yopish",
+    "ru": "Закрыть меню"
+  },
+  {
+    "p": "seller.nav.navAria",
+    "uz": "Sotuvchi panel navigatsiyasi",
+    "ru": "Навигация кабинета продавца"
+  },
+  {
+    "p": "seller.nav.homeAria",
+    "uz": "Sotuvchi bosh sahifasi",
+    "ru": "Главная продавца"
+  },
+  {
+    "p": "seller.nav.addProduct",
+    "uz": "Yangi tovar qoʻshish",
+    "ru": "Добавить товар"
+  },
+  {
+    "p": "seller.nav.addProductShort",
+    "uz": "Yangi tovar",
+    "ru": "Новый товар"
+  },
+  {
+    "p": "seller.nav.mainMenuAria",
+    "uz": "Asosiy menyu",
+    "ru": "Основное меню"
+  },
+  {
+    "p": "seller.home.eyebrow",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.home.title",
+    "uz": "Bosh sahifa",
+    "ru": "Главная"
+  },
+  {
+    "p": "seller.home.description",
+    "uz": "Doʻkoningiz, buyurtmalar va statistikani shu yerdan boshqaring.",
+    "ru": "Управляйте магазином, заказами и статистикой отсюда."
+  },
+  {
+    "p": "seller.home.viewShop",
+    "uz": "Doʻkonimni koʻrish",
+    "ru": "Мой магазин"
+  },
+  {
+    "p": "seller.home.cardProducts",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "seller.home.cardOrders",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "seller.home.pendingConfirm",
+    "uz": "Tasdiqlash kutilmoqda: {{count}}",
+    "ru": "Ожидают подтверждения: {{count}}"
+  },
+  {
+    "p": "seller.home.cardRevenueHint",
+    "uz": "Savdolar / Statistika",
+    "ru": "Продажи / статистика"
+  },
+  {
+    "p": "seller.home.balanceHint",
+    "uz": "Komissiya qoldigʻi: {{amount}} {{currency}}",
+    "ru": "Остаток комиссии: {{amount}} {{currency}}"
+  },
+  {
+    "p": "seller.home.cardSettings",
+    "uz": "Sozlamalar",
+    "ru": "Настройки"
+  },
+  {
+    "p": "seller.home.cardSettingsHint",
+    "uz": "Doʻkon, chat, manzil",
+    "ru": "Магазин, чат, адрес"
+  },
+  {
+    "p": "seller.home.recentOrders",
+    "uz": "Soʻnggi buyurtmalar",
+    "ru": "Последние заказы"
+  },
+  {
+    "p": "seller.home.seeAll",
+    "uz": "Barchasi",
+    "ru": "Все"
+  },
+  {
+    "p": "seller.home.noOrdersLine",
+    "uz": "Hali buyurtmalar yoʻq.",
+    "ru": "Пока нет заказов."
+  },
+  {
+    "p": "seller.home.noOrdersLink",
+    "uz": "Tovarlarni",
+    "ru": "Товары"
+  },
+  {
+    "p": "seller.home.noOrdersPromote",
+    "uz": "reklama qiling.",
+    "ru": "рекламируйте."
+  },
+  {
+    "p": "seller.home.guest",
+    "uz": "Mehmon",
+    "ru": "Гость"
+  },
+  {
+    "p": "seller.home.guestWithPhone",
+    "uz": "Mehmon ({{phone}})",
+    "ru": "Гость ({{phone}})"
+  },
+  {
+    "p": "seller.orders.eyebrow",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.orders.title",
+    "uz": "Buyurtmalar",
+    "ru": "Заказы"
+  },
+  {
+    "p": "seller.orders.description",
+    "uz": "Doʻkoningizga kelgan buyurtmalar — holatni yangilang va toʻlovni belgilang.",
+    "ru": "Заказы вашего магазина — обновляйте статус и отмечайте оплату."
+  },
+  {
+    "p": "seller.orders.emptyTitle",
+    "uz": "Hali buyurtmalar yoʻq",
+    "ru": "Пока нет заказов"
+  },
+  {
+    "p": "seller.orders.emptyDescription",
+    "uz": "Birinchi buyurtma kelganda u shu yerda koʻrinadi. Tovarlarni katalogda yangilab turishingiz mumkin.",
+    "ru": "Первый заказ появится здесь. Обновляйте товары в каталоге."
+  },
+  {
+    "p": "seller.orders.pickup",
+    "uz": "Olib ketish",
+    "ru": "Самовывоз"
+  },
+  {
+    "p": "seller.orders.delivery",
+    "uz": "Yetkazib berish",
+    "ru": "Доставка"
+  },
+  {
+    "p": "seller.orders.buyer",
+    "uz": "Buyurtmachi:",
+    "ru": "Покупатель:"
+  },
+  {
+    "p": "seller.orders.phone",
+    "uz": "Telefon:",
+    "ru": "Телефон:"
+  },
+  {
+    "p": "seller.orders.address",
+    "uz": "Manzil:",
+    "ru": "Адрес:"
+  },
+  {
+    "p": "seller.orders.total",
+    "uz": "Jami:",
+    "ru": "Итого:"
+  },
+  {
+    "p": "seller.orders.markPaid",
+    "uz": "💳 Toʻlov qabul qilindi",
+    "ru": "💳 Оплата получена"
+  },
+  {
+    "p": "seller.orders.confirm",
+    "uz": "Tasdiqlash",
+    "ru": "Подтвердить"
+  },
+  {
+    "p": "seller.orders.cancel",
+    "uz": "Bekor qilish",
+    "ru": "Отменить"
+  },
+  {
+    "p": "seller.orders.processing",
+    "uz": "Qayta ishlash",
+    "ru": "В обработку"
+  },
+  {
+    "p": "seller.orders.readyPickup",
+    "uz": "Tayyor (olib ketish)",
+    "ru": "Готов (самовывоз)"
+  },
+  {
+    "p": "seller.orders.shipped",
+    "uz": "Yuborildi",
+    "ru": "Отправлен"
+  },
+  {
+    "p": "seller.orders.deliveredPickup",
+    "uz": "Olib ketildi",
+    "ru": "Забран"
+  },
+  {
+    "p": "seller.orders.delivered",
+    "uz": "Yetkazildi",
+    "ru": "Доставлен"
+  },
+  {
+    "p": "seller.orders.disabledAwaitPayment",
+    "uz": "Click/Payme toʻlovi qilinmaguncha belgilab boʻlmaydi",
+    "ru": "Нельзя отметить до оплаты Click/Payme"
+  },
+  {
+    "p": "seller.orders.suffixAwaitPayment",
+    "uz": "— toʻlov kutilmoqda",
+    "ru": "— ожидается оплата"
+  },
+  {
+    "p": "seller.orders.tableSku",
+    "uz": "SKU",
+    "ru": "SKU"
+  },
+  {
+    "p": "seller.orders.tableProduct",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "seller.orders.tableVariant",
+    "uz": "Variant",
+    "ru": "Вариант"
+  },
+  {
+    "p": "seller.orders.tableUnit",
+    "uz": "Birlik",
+    "ru": "Ед."
+  },
+  {
+    "p": "seller.orders.tableQty",
+    "uz": "Miqdor",
+    "ru": "Кол-во"
+  },
+  {
+    "p": "seller.orders.tableStock",
+    "uz": "Ombordagi",
+    "ru": "На складе"
+  },
+  {
+    "p": "seller.orders.tablePrice",
+    "uz": "Narx",
+    "ru": "Цена"
+  },
+  {
+    "p": "seller.orders.tableSum",
+    "uz": "Summa",
+    "ru": "Сумма"
+  },
+  {
+    "p": "seller.orders.unitPiece",
+    "uz": "dona",
+    "ru": "шт."
+  },
+  {
+    "p": "seller.orders.productFallback",
+    "uz": "Mahsulot",
+    "ru": "Товар"
+  },
+  {
+    "p": "seller.orders.toastStatusPrefix",
+    "uz": "Buyurtma:",
+    "ru": "Заказ:"
+  },
+  {
+    "p": "seller.orders.toastStatusError",
+    "uz": "Holat oʻzgartirilmadi",
+    "ru": "Не удалось изменить статус"
+  },
+  {
+    "p": "seller.orders.toastPaid",
+    "uz": "Toʻlov belgilandi",
+    "ru": "Оплата отмечена"
+  },
+  {
+    "p": "seller.orders.toastPaidError",
+    "uz": "Toʻlov belgilanmadi",
+    "ru": "Не удалось отметить оплату"
+  },
+  {
+    "p": "seller.orders.exportExcel",
+    "uz": "Excel yuklab olish",
+    "ru": "Скачать Excel"
+  },
+  {
+    "p": "seller.orders.exportExcelLoading",
+    "uz": "Yuklanmoqda…",
+    "ru": "Загрузка…"
+  },
+  {
+    "p": "seller.orders.exportExcelOk",
+    "uz": "Buyurtmalar yuklab olindi",
+    "ru": "Заказы скачаны"
+  },
+  {
+    "p": "seller.orders.exportExcelError",
+    "uz": "Eksport amalga oshmadi",
+    "ru": "Не удалось экспортировать"
+  },
+  {
+    "p": "seller.orders.paymentStatus.PENDING",
+    "uz": "Kutilmoqda",
+    "ru": "Ожидает"
+  },
+  {
+    "p": "seller.orders.paymentStatus.PAID",
+    "uz": "Toʻlangan",
+    "ru": "Оплачен"
+  },
+  {
+    "p": "seller.orders.paymentStatus.FAILED",
+    "uz": "Muvaffaqiyatsiz",
+    "ru": "Неуспешно"
+  },
+  {
+    "p": "seller.orders.paymentStatus.REFUNDED",
+    "uz": "Qaytarilgan",
+    "ru": "Возврат"
+  },
+  {
+    "p": "seller.orders.paymentMethod.CLICK",
+    "uz": "Click",
+    "ru": "Click"
+  },
+  {
+    "p": "seller.orders.paymentMethod.PAYME",
+    "uz": "Payme",
+    "ru": "Payme"
+  },
+  {
+    "p": "seller.orders.paymentMethod.CASH",
+    "uz": "Naqd",
+    "ru": "Наличные"
+  },
+  {
+    "p": "seller.orders.paymentMethod.CARD_ON_DELIVERY",
+    "uz": "Karta (yetkazishda)",
+    "ru": "Карта при доставке"
+  },
+  {
+    "p": "seller.notifications.eyebrow",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.notifications.title",
+    "uz": "Bildirishnomalar",
+    "ru": "Уведомления"
+  },
+  {
+    "p": "seller.notifications.description",
+    "uz": "Buyurtmalar va doʻkon boʻyicha xabarnomalar.",
+    "ru": "Уведомления о заказах и магазине."
+  },
+  {
+    "p": "seller.reviews.eyebrow",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.reviews.title",
+    "uz": "Sharhlar",
+    "ru": "Отзывы"
+  },
+  {
+    "p": "seller.reviews.description",
+    "uz": "Xaridorlar fikrlariga javob bering.",
+    "ru": "Отвечайте на отзывы покупателей."
+  },
+  {
+    "p": "seller.reviews.cardTitle",
+    "uz": "Mahsulotlar boʻyicha sharhlar ({{count}})",
+    "ru": "Отзывы по товарам ({{count}})"
+  },
+  {
+    "p": "seller.reviews.emptyTitle",
+    "uz": "Hali sharhlar yoʻq",
+    "ru": "Пока нет отзывов"
+  },
+  {
+    "p": "seller.reviews.emptyDescription",
+    "uz": "Birinchi sharh kelganda u shu yerda koʻrinadi.",
+    "ru": "Первый отзыв появится здесь."
+  },
+  {
+    "p": "seller.reviews.productLabel",
+    "uz": "Tovar:",
+    "ru": "Товар:"
+  },
+  {
+    "p": "seller.reviews.yourReply",
+    "uz": "Sizning javobingiz:",
+    "ru": "Ваш ответ:"
+  },
+  {
+    "p": "seller.reviews.placeholderReply",
+    "uz": "Javob yozing...",
+    "ru": "Напишите ответ..."
+  },
+  {
+    "p": "seller.reviews.submitReply",
+    "uz": "Javob yuborish",
+    "ru": "Отправить ответ"
+  },
+  {
+    "p": "seller.reviews.submitting",
+    "uz": "Yuborilmoqda...",
+    "ru": "Отправка..."
+  },
+  {
+    "p": "seller.reviews.toastReplySent",
+    "uz": "Javob yuborildi",
+    "ru": "Ответ отправлен"
+  },
+  {
+    "p": "seller.reviews.toastReplyError",
+    "uz": "Yuborib boʻlmadi",
+    "ru": "Не удалось отправить"
+  },
+  {
+    "p": "seller.products.list.eyebrow",
+    "uz": "Sotuvchi kabineti",
+    "ru": "Кабинет продавца"
+  },
+  {
+    "p": "seller.products.list.title",
+    "uz": "Tovarlar",
+    "ru": "Товары"
+  },
+  {
+    "p": "seller.products.list.description",
+    "uz": "Mahsulotlar roʻyxati, Excel import va tahrirlash.",
+    "ru": "Список товаров, импорт из Excel и редактирование."
+  },
+  {
+    "p": "seller.products.list.newProduct",
+    "uz": "Yangi tovar",
+    "ru": "Новый товар"
+  },
+  {
+    "p": "seller.products.list.excelTitle",
+    "uz": "Excel orqali tovarlar yuklash",
+    "ru": "Загрузка товаров через Excel"
+  },
+  {
+    "p": "seller.products.list.excelHint",
+    "uz": "Shablonni yuklab oling, toʻldiring va faylni yuklang. «Kategoriyalar» varaqida kategoriya sluglari koʻrsatilgan.",
+    "ru": "Скачайте шаблон, заполните и загрузите файл. Slug категорий указаны на листе «Категории»."
+  },
+  {
+    "p": "seller.products.list.downloading",
+    "uz": "Yuklanmoqda...",
+    "ru": "Загрузка..."
+  },
+  {
+    "p": "seller.products.list.downloadTemplate",
+    "uz": "Shablonni yuklab olish",
+    "ru": "Скачать шаблон"
+  },
+  {
+    "p": "seller.products.list.uploadExcel",
+    "uz": "Excel faylni yuklash",
+    "ru": "Загрузить Excel"
+  },
+  {
+    "p": "seller.products.list.importDialogTitle",
+    "uz": "Import natijasi",
+    "ru": "Результат импорта"
+  },
+  {
+    "p": "seller.products.list.importAdded",
+    "uz": "{{count}} ta qoʻshildi",
+    "ru": "Добавлено: {{count}}"
+  },
+  {
+    "p": "seller.products.list.importFailed",
+    "uz": "{{count}} ta xato",
+    "ru": "Ошибок: {{count}}"
+  },
+  {
+    "p": "seller.products.list.addedTitles",
+    "uz": "Qoʻshilgan tovarlar:",
+    "ru": "Добавленные товары:"
+  },
+  {
+    "p": "seller.products.list.moreTitles",
+    "uz": "... va yana {{count}} ta",
+    "ru": "... и ещё {{count}}"
+  },
+  {
+    "p": "seller.products.list.errorsTitle",
+    "uz": "Xatolar:",
+    "ru": "Ошибки:"
+  },
+  {
+    "p": "seller.products.list.copy",
+    "uz": " Nusxalash",
+    "ru": " Копировать"
+  },
+  {
+    "p": "seller.products.list.copied",
+    "uz": " Nusxalandi",
+    "ru": " Скопировано"
+  },
+  {
+    "p": "seller.products.list.rowPrefix",
+    "uz": "Qator",
+    "ru": "Строка"
+  },
+  {
+    "p": "seller.products.list.emptyTitle",
+    "uz": "Tovarlar yoʻq",
+    "ru": "Нет товаров"
+  },
+  {
+    "p": "seller.products.list.emptyDescription",
+    "uz": "Birinchi tovarni qoʻshing yoki Excel orqali import qiling.",
+    "ru": "Добавьте первый товар или импортируйте из Excel."
+  },
+  {
+    "p": "seller.products.list.stock",
+    "uz": "Qoldiq:",
+    "ru": "Остаток:"
+  },
+  {
+    "p": "seller.products.list.edit",
+    "uz": "Tahrirlash",
+    "ru": "Редактировать"
+  },
+  {
+    "p": "seller.products.list.moderationOk",
+    "uz": "Tasdiqlangan — katalogda koʻrinadi",
+    "ru": "Одобрено — видно в каталоге"
+  },
+  {
+    "p": "seller.products.list.moderationPending",
+    "uz": "Moderatsiya kutilmoqda — admin tasdiqlagach katalogda chiqadi",
+    "ru": "На модерации — после одобрения админом появится в каталоге"
+  },
+  {
+    "p": "seller.products.list.downloadError",
+    "uz": "Yuklab olish amalga oshmadi",
+    "ru": "Не удалось скачать"
+  },
+  {
+    "p": "seller.products.list.toastTemplateOk",
+    "uz": "Shablon yuklab olindi",
+    "ru": "Шаблон скачан"
+  },
+  {
+    "p": "seller.products.list.toastTemplateErr",
+    "uz": "Shablon yuklab olishda xatolik",
+    "ru": "Ошибка скачивания шаблона"
+  },
+  {
+    "p": "seller.products.list.toastErrorsCopied",
+    "uz": "Xatolar nusxalandi",
+    "ru": "Ошибки скопированы"
+  },
+  {
+    "p": "seller.products.list.toastImportExt",
+    "uz": "Faqat .xlsx yoki .xls fayllar qabul qilinadi",
+    "ru": "Допустимы только файлы .xlsx или .xls"
+  },
+  {
+    "p": "seller.products.list.toastImportOk",
+    "uz": "{{count}} ta tovar muvaffaqiyatli qoʻshildi",
+    "ru": "Успешно добавлено товаров: {{count}}"
+  },
+  {
+    "p": "seller.products.list.importFailedGeneric",
+    "uz": "Import amalga oshmadi",
+    "ru": "Импорт не выполнен"
+  },
+  {
+    "p": "seller.products.list.toastFileErr",
+    "uz": "Fayl yuklashda xatolik",
+    "ru": "Ошибка загрузки файла"
+  },
+  {
+    "p": "seller.products.list.errorLine",
+    "uz": "Qator {{row}}{{titlePart}}: {{message}}",
+    "ru": "Строка {{row}}{{titlePart}}: {{message}}"
+  },
+  {
+    "p": "seller.products.list.titlePart",
+    "uz": " ({{title}})",
+    "ru": " ({{title}})"
+  },
+  {
+    "p": "seller.products.form.toastVariantValues",
+    "uz": "Barcha variantlarda kamida bitta qiymat kiriting",
+    "ru": "В каждом варианте укажите хотя бы одно значение"
+  },
+  {
+    "p": "seller.products.form.toastVariantsCreated",
+    "uz": "{{count}} ta variant yaratildi. Har biriga qoldiq kiriting.",
+    "ru": "Создано вариантов: {{count}}. Укажите остаток для каждого."
+  },
+  {
+    "p": "seller.products.form.toastVariantImageOk",
+    "uz": "Variant rasmi yuklandi",
+    "ru": "Изображение варианта загружено"
+  },
+  {
+    "p": "seller.products.form.toastVariantImageFail",
+    "uz": "Rasm yuklanmadi",
+    "ru": "Изображение не загружено"
+  },
+  {
+    "p": "seller.products.form.toastVariantImageErr",
+    "uz": "Rasm yuklashda xatolik",
+    "ru": "Ошибка загрузки изображения"
+  },
+  {
+    "p": "seller.products.form.toastMainImageOk",
+    "uz": "Birinchi rasm yangilandi",
+    "ru": "Главное изображение обновлено"
+  },
+  {
+    "p": "seller.products.form.toastImagesUploaded",
+    "uz": "{{count}} ta rasm yuklandi",
+    "ru": "Загружено изображений: {{count}}"
+  },
+  {
+    "p": "seller.products.form.toastImagesPartial",
+    "uz": "Baʼzilari yuklanmadi: {{count}} ta",
+    "ru": "Не загружено: {{count}}"
+  },
+  {
+    "p": "seller.products.form.toastPriceInvalid",
+    "uz": "Narxni toʻgʻri kiriting (musbat son)",
+    "ru": "Введите корректную цену (положительное число)"
+  },
+  {
+    "p": "seller.products.form.toastCompareInvalid",
+    "uz": "Solishtirish narxi asosiy narxdan kam boʻlmasligi kerak",
+    "ru": "Цена сравнения не может быть ниже основной"
+  },
+  {
+    "p": "seller.products.form.toastTitleRequired",
+    "uz": "Mahsulot nomini kiriting",
+    "ru": "Введите название товара"
+  },
+  {
+    "p": "seller.products.form.toastDescRequired",
+    "uz": "Tavsifni kiriting",
+    "ru": "Введите описание"
+  },
+  {
+    "p": "seller.products.form.toastCategoryRequired",
+    "uz": "Kategoriyani tanlang (ostkategoriyani tanlang)",
+    "ru": "Выберите категорию (подкатегорию)"
+  },
+  {
+    "p": "seller.products.form.toastCategoryRequiredEdit",
+    "uz": "Kategoriyani tanlang",
+    "ru": "Выберите категорию"
+  },
+  {
+    "p": "seller.products.form.imageAlt",
+    "uz": "Mahsulot rasmi",
+    "ru": "Изображение товара"
+  },
+  {
+    "p": "seller.products.form.toastImageRequired",
+    "uz": "Kamida bitta rasm yuklang",
+    "ru": "Загрузите хотя бы одно изображение"
+  }
+]

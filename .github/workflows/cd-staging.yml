@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.GHCR_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Build and push API (staging)
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: apps/api/Dockerfile
@@ -40,7 +40,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push Web (staging)
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: apps/web/Dockerfile

@@ -42,7 +42,7 @@ jobs:
           echo "version=$TAG" >> $GITHUB_OUTPUT
           echo "tags=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${TAG},${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
 
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@v7
         with:
           context: .
           file: apps/web/Dockerfile

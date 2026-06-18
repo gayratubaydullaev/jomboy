@@ -71,7 +71,7 @@ jobs:
       DEPLOY_WEB_IMAGE: ghcr.io/${{ github.repository_owner }}/${{ env.WEB_IMAGE }}:staging
       DEPLOY_PATH: ${{ vars.STAGING_DEPLOY_PATH || vars.DEPLOY_PATH || '/opt/myshopuz-staging' }}
     steps:
-      - uses: appleboy/ssh-action@v1.0.3
+      - uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.STAGING_SERVER_HOST || secrets.SERVER_HOST }}
           username: ${{ secrets.STAGING_SERVER_USERNAME || secrets.SERVER_USERNAME }}
